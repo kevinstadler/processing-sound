@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<project name="Processing Sound Library" default="build">
+
+  <property file="./build.properties" />
+
+	<path id="classpath">
+	  <fileset dir="lib">
+	    <include name="**/*.jar" />
+	  </fileset>
+	</path>
+
+  <target name="clean" description="Clean the build directories">
+    <delete dir="bin" />
+    <delete file="library/sound.jar" />
+  </target>
+
+  <target name="compile" description="Compile sources">
+  	<!-- TODO what happens if there's already a custom core.jar put in lib/ by the user? -->
+  	<get src="http://central.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar"
+		dest="lib/core.jar" usetimestamp="true" />
+  	<get src="http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar"
+  		dest="lib/" usetimestamp="true" />
+
+    <mkdir dir="bin" />
+    <javac source="1.6"
+	   target="1.6"
+	   srcdir="src" destdir="bin" 
+	   encoding="UTF-8"
+	   includeAntRuntime="false"
+	   nowarn="true">
+	    <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="javadoc">
+    <javadoc bottom="Processing Sound"
+        destdir="reference"
+        verbose="false"
+        doctitle="Javadocs: Processing Sound"
+        public="true"
+        windowtitle="Javadocs: Processing Sound">
+      <fileset dir="src" defaultexcludes="yes">
+        <include name="**/*"/>
+      </fileset>
+    <classpath refid="classpath" />
+    </javadoc>
+  </target>
+
+  <target name="build" depends="clean,compile" description="Build Sound library">
+    <jar basedir="bin" destfile="library/sound.jar" />
+  </target>
+
+  <target name="dist" depends="build,javadoc">
+    <zip destfile="../processing-sound.zip">
+      <zipfileset dir="." prefix="sound">
+        <exclude name="bin/**" />
+        <exclude name="examples/**/application.*/**" />
+        <exclude name="lib/core.jar" />
+      </zipfileset>
+    </zip>
+    <copy file="library.properties"
+          toFile="../processing-sound.txt" />
+  </target>
+</project>
