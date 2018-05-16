@@ -14,13 +14,12 @@
     <delete file="library/sound.jar" />
   </target>
 
-  <target name="compile" description="Compile sources">
-  	<!-- TODO what happens if there's already a custom core.jar put in lib/ by the user? -->
-  	<get src="http://central.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar"
-		dest="lib/core.jar" usetimestamp="true" />
+  <target name="deps" description="Get library dependencies">
   	<get src="http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar"
   		dest="lib/" usetimestamp="true" />
+  </target>
 
+  <target name="compile" depends="deps" description="Compile sources">
     <mkdir dir="bin" />
     <javac source="1.6"
 	   target="1.6"
@@ -34,7 +33,7 @@
 
   <target name="javadoc">
     <javadoc bottom="Processing Sound"
-        destdir="reference"
+        destdir="docs"
         verbose="false"
         doctitle="Javadocs: Processing Sound"
         public="true"
