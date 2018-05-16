@@ -4,8 +4,12 @@ import com.jsyn.unitgen.SineOscillator;
 
 import processing.core.PApplet;
 
-public class SinOsc extends Oscillator {
-	public SinOsc(PApplet parent) {
-		super(parent, new SineOscillator());
+public class SinOsc extends Oscillator<SineOscillator> {
+	public SinOsc(PApplet theParent) {
+		super(theParent);
+	}
+
+	protected SineOscillator newOscillatorInstance() {
+		return new SineOscillator();
 	}
 }

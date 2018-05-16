@@ -5,14 +5,16 @@ import com.jsyn.unitgen.UnitOscillator;
 
 import processing.core.PApplet;
 
-public class Oscillator extends SoundObject {
+public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 	
-	private UnitOscillator oscillator;
+	protected JSynOscillator oscillator;
 	private Pan pan = new Pan();
+
+	protected abstract JSynOscillator newOscillatorInstance();
 	
-	protected Oscillator(PApplet parent, UnitOscillator oscillator) {
-		super(parent);
-		this.oscillator = oscillator;
+	protected Oscillator(PApplet theParent) {
+		super(theParent);
+		this.oscillator = this.newOscillatorInstance();
 		this.oscillator.output.connect(this.pan.input);
 	}
 	
