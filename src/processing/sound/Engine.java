@@ -12,7 +12,7 @@ public class Engine {
 
 	private static Engine singleton;
 
-	private Synthesizer synth;
+	protected Synthesizer synth;
 	private LineOut lineOut;
 	
 	private Engine() {
@@ -39,13 +39,20 @@ public class Engine {
 		this.synth.add(generator);
 	}
 
+	protected void remove(UnitGenerator generator) {
+		System.out.println("Removeing");
+		this.synth.remove(generator);
+	}
+
 	protected void add(Pan generator) {
 		this.synth.add(generator);
 		generator.output.connect(0, lineOut.input, 0);
 		generator.output.connect(1, lineOut.input, 1);
 	}
-	
-	protected void remove(UnitGenerator generator) {
+
+	protected void remove(Pan generator) {
 		this.synth.remove(generator);
+		generator.output.disconnect(0, lineOut.input, 0);
+		generator.output.disconnect(1, lineOut.input, 1);
 	}
 }
