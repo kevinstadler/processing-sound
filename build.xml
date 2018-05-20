@@ -16,13 +16,15 @@
 
   <target name="deps" description="Get library dependencies">
   	<get src="http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar"
-  		dest="lib/" usetimestamp="true" />
+		dest="lib/" usetimestamp="true" />
+	<get src="http://central.maven.org/maven2/fr/delthas/javamp3/1.0.1/javamp3-1.0.1.jar"
+		dest="lib/" usetimestamp="true" />
   </target>
 
   <target name="compile" depends="deps" description="Compile sources">
     <mkdir dir="bin" />
-    <javac source="1.6"
-	   target="1.6"
+    <javac source="1.8"
+	   target="1.8"
 	   srcdir="src" destdir="bin" 
 	   encoding="UTF-8"
 	   includeAntRuntime="false"
