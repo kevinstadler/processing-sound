@@ -40,7 +40,7 @@ public class Engine {
 	}
 
 	protected void remove(UnitGenerator generator) {
-		System.out.println("Removeing");
+		System.out.println("Removing");
 		this.synth.remove(generator);
 	}
 
