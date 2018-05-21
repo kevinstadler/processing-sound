@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import com.jsyn.data.FloatSample;
+import com.jsyn.unitgen.Add;
 import com.jsyn.unitgen.Pan;
 import com.jsyn.unitgen.VariableRateStereoReader;
 import com.jsyn.util.SampleLoader;
@@ -18,9 +19,11 @@ public class SoundFile extends SoundObject {
 	private FloatSample sample;
 	private VariableRateStereoReader player = new VariableRateStereoReader();
 	private Pan pan = new Pan();
-	
+	private Add add = new Add();
+
 	private int startFrame = 0;
 
+	// TODO determine original behaviour when file not found - exception or println?
 	public SoundFile(PApplet parent, String path) throws IOException {
 		super(parent);
 		File f = new File(path);
@@ -49,46 +52,60 @@ public class SoundFile extends SoundObject {
 		// always stay connected to the JSyn synths, since they make no noise
 		// as long as their dataQueue is empty
 		this.player.rate.set(this.sampleRate());
-		this.player.output.connect(this.pan.input);
+
+		this.player.output.connect(this.add.inputA);
+//		this.add.inputB.set(0);
+		this.add.output.connect(this.pan.input);
 		Engine.getEngine().add(this.player);
 		Engine.getEngine().add(this.pan);
 	}
 
 	public void add(float add) {
-		// TODO
+		this.add.inputB.set(add);
 	}
 
 	public void amp(float amp) {
+		// TODO check in [0, 1]
 		this.player.amplitude.set(amp);
 	}
-	
-	public int frames() {
-		return this.sample.getNumFrames();
-	}
-	
-	public int sampleRate() {
-		return (int) Math.round(this.sample.getFrameRate());
-	}
-	
+
 	public int channels() {
 		return this.sample.getChannelsPerFrame();
 	}
 
 	// methCla-based library only supported int here!
 	public void cue(float time) {
-		// TODO check that it's not > this.frames()
-		this.startFrame = Math.round(this.sampleRate() * time);
+		this.setStartFrame(time);
 	}
-	
+
 	public float duration() {
 		// in seconds
 		return (float) (this.frames() / this.sample.getFrameRate());
 	}
+
+	public int frames() {
+		return this.sample.getNumFrames();
+	}
 	
+	private boolean setStartFrame(float time) {
+		if (time < 0) {
+			PApplet.println("Gotta be positive");
+			return false;
+		}
+		int startFrame = Math.round(this.sampleRate() * time);
+		if (startFrame >= this.frames()) {
+			PApplet.println("Can't cue past of end of sample (total duration is " + this.duration() + "s)");
+			return false;
+		}
+		this.startFrame = startFrame;
+		return true;
+	}
+
 	public void jump(float time) {
-		this.cue(time);
-		this.stop();
-		this.play(); // TODO what if the file wasn't playing when jump() was called?
+		if (this.setStartFrame(time)) {
+			this.stop();
+			this.play(); // TODO what if the file wasn't playing when jump() was called?
+		}
 	}
 	
 	public void loop() {
@@ -109,7 +126,7 @@ public class SoundFile extends SoundObject {
 	}
 
 	public void loop(float rate, float pos, float amp) {
-		// TODO what is the pos argument? how is it different from cue?
+		this.pan(pos);
 		this.loop(rate, amp);
 	}
 
@@ -123,9 +140,15 @@ public class SoundFile extends SoundObject {
 		this.loop(rate, pos, amp, add);
 	}
 
+	public void pan(float pos) {
+		this.pan.pan.set(pos);
+	}
+
 	public void play() {
 		// TODO behaviour when it is already playing? (see this.player.dataQueue.hasMore())
-		this.player.dataQueue.queue(this.sample, this.startFrame, this.frames() - this.startFrame);
+		this.player.dataQueue.queue(this.sample,
+				this.startFrame,
+				this.frames() - this.startFrame);
 	}
 
 	public void rate(float rate) {
@@ -134,9 +157,13 @@ public class SoundFile extends SoundObject {
 		this.player.rate.set(this.sampleRate() * rate);
 	}
 
+	public int sampleRate() {
+		return (int) Math.round(this.sample.getFrameRate());
+	}
+
 	public void set(float rate, float pos, float amp, float add) {
 		this.rate(rate);
-		// TODO pos?
+		this.pan(pos);
 		this.amp(amp);
 		this.add(add);
 	}
