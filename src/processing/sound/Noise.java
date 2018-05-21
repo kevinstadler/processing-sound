@@ -1,14 +1,12 @@
 package processing.sound;
 
-import com.jsyn.unitgen.Pan;
 import com.jsyn.unitgen.UnitGenerator;
 
 import processing.core.PApplet;
 
-public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
+abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 
 	protected JSynNoise noise;
-	protected Pan pan = new Pan();
 
 	protected abstract JSynNoise newNoiseInstance();
 
@@ -16,10 +14,6 @@ public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject
 		super(theParent);
 		this.noise = this.newNoiseInstance();
 		// subclasses are responsible for connecting the noise unit to the pan!
-	}
-
-	public void add(float add) {
-		// TODO
 	}
 
 	public void amp(float amp) {
@@ -30,14 +24,9 @@ public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject
 	// no uniform interface for JSyn's noise classes, implementation needs to be in subclasses
 	protected abstract void setNoiseAmp(float amp);
 
-	public void pan(float pan) {
-		// TODO check argument in [-1,1]?
-		this.pan.pan.set(pan);
-	}
-
 	public void play() {
 		Engine.getEngine().add(this.noise);
-		Engine.getEngine().add(this.pan);
+		super.play();
 	}
 
 	public void set(float amp, float add, float pos) {
@@ -47,7 +36,7 @@ public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject
 	}
 
 	public void stop() {
-		Engine.getEngine().remove(this.pan);
+		super.stop();
 		Engine.getEngine().remove(this.noise);
 	}
 }

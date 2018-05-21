@@ -1,6 +1,5 @@
 package processing.sound;
 
-import com.jsyn.unitgen.Pan;
 import com.jsyn.unitgen.UnitOscillator;
 
 import processing.core.PApplet;
@@ -8,18 +7,13 @@ import processing.core.PApplet;
 public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 	
 	protected JSynOscillator oscillator;
-	private Pan pan = new Pan();
 
 	protected abstract JSynOscillator newOscillatorInstance();
 	
 	protected Oscillator(PApplet theParent) {
 		super(theParent);
 		this.oscillator = this.newOscillatorInstance();
-		this.oscillator.output.connect(this.pan.input);
-	}
-	
-	public void add(float add) {
-		// TODO
+		this.oscillator.output.connect(this.add.inputA);
 	}
 	
 	public void amp(float amp) {
@@ -31,14 +25,9 @@ public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends 
 		this.oscillator.frequency.set(freq);
 	}
 	
-	public void pan(float pan) {
-		// TODO check argument in [-1,1]?
-		this.pan.pan.set(pan);
-	}
-	
 	public void play() {
 		Engine.getEngine().add(this.oscillator);
-		Engine.getEngine().add(this.pan);
+		super.play();
 	}
 
 	public void play(float freq, float amp) {
@@ -60,7 +49,7 @@ public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends 
 	}
 	
 	public void stop() {
-		Engine.getEngine().remove(this.pan);
+		super.stop();
 		Engine.getEngine().remove(this.oscillator);
 	}
 }

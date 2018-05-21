@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import com.jsyn.data.FloatSample;
-import com.jsyn.unitgen.Add;
-import com.jsyn.unitgen.Pan;
 import com.jsyn.unitgen.VariableRateStereoReader;
 import com.jsyn.util.SampleLoader;
 
@@ -18,8 +16,6 @@ public class SoundFile extends SoundObject {
 
 	private FloatSample sample;
 	private VariableRateStereoReader player = new VariableRateStereoReader();
-	private Pan pan = new Pan();
-	private Add add = new Add();
 
 	private int startFrame = 0;
 
@@ -54,14 +50,8 @@ public class SoundFile extends SoundObject {
 		this.player.rate.set(this.sampleRate());
 
 		this.player.output.connect(this.add.inputA);
-//		this.add.inputB.set(0);
-		this.add.output.connect(this.pan.input);
 		Engine.getEngine().add(this.player);
-		Engine.getEngine().add(this.pan);
-	}
-
-	public void add(float add) {
-		this.add.inputB.set(add);
+		super.play(); // doesn't actually start playback, just adds the (silent) units
 	}
 
 	public void amp(float amp) {
@@ -138,10 +128,6 @@ public class SoundFile extends SoundObject {
 	public void loop(float rate, float pos, float amp, float add, float cue) {
 		this.cue(cue);
 		this.loop(rate, pos, amp, add);
-	}
-
-	public void pan(float pos) {
-		this.pan.pan.set(pos);
 	}
 
 	public void play() {

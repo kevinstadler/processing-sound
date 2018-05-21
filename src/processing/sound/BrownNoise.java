@@ -6,7 +6,7 @@ public class BrownNoise extends Noise<com.jsyn.unitgen.BrownNoise> {
 
 	protected BrownNoise(PApplet theParent) {
 		super(theParent);
-		this.noise.output.connect(this.pan.input);
+		this.noise.output.connect(this.add.inputA);
 	}
 
 	protected com.jsyn.unitgen.BrownNoise newNoiseInstance() {

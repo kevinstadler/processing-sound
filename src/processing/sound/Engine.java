@@ -25,12 +25,8 @@ public class Engine {
 	}
 	
 	protected static Engine getEngine() {
-		return Engine.getEngine(null);
-	}
-
-	protected static Engine getEngine(PApplet parent) {
 		if (Engine.singleton == null) {
-			Engine.singleton = new Engine(); // TODO actually store parent?
+			Engine.singleton = new Engine();
 		}
 		return Engine.singleton;
 	}
@@ -53,5 +49,21 @@ public class Engine {
 		this.synth.remove(generator);
 		generator.output.disconnect(0, lineOut.input, 0);
 		generator.output.disconnect(1, lineOut.input, 1);
+	}
+
+	protected static boolean checkAmp(float amp) {
+		if (amp < 0) {
+			PApplet.println("Error: amplitude can't be negative");
+			return false;
+		}
+		return true;
+	}
+
+	protected static boolean checkPan(float pan) {
+		if (pan < -1 || pan > 1) {
+			PApplet.println("Error: pan has to be in [-1,1]");
+			return false;
+		}
+		return true;
 	}
 }

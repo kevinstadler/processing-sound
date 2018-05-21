@@ -6,7 +6,7 @@ public class WhiteNoise extends Noise<com.jsyn.unitgen.WhiteNoise> {
 
 	public WhiteNoise(PApplet theParent) {
 		super(theParent);
-		this.noise.output.connect(this.pan.input);
+		this.noise.output.connect(this.add.inputA);
 	}
 
 	protected com.jsyn.unitgen.WhiteNoise newNoiseInstance() {
