@@ -48,8 +48,8 @@ public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends 
 	}
 
 	public void play(float freq, float amp, float add) {
-		this.play(freq, amp);
 		this.add(add);
+		this.play(freq, amp);
 	}
 
 	public void set(float freq, float amp, float add, float pos) {
