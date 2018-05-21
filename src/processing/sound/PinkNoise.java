@@ -13,4 +13,8 @@ public class PinkNoise extends Noise<com.jsyn.unitgen.PinkNoise> {
 		return new com.jsyn.unitgen.PinkNoise();
 	}
 
+	protected void setNoiseAmp(float amp) {
+		this.noise.amplitude.set(amp);
+	}
+
 }

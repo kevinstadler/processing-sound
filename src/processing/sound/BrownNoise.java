@@ -13,4 +13,7 @@ public class BrownNoise extends Noise<com.jsyn.unitgen.BrownNoise> {
 		return new com.jsyn.unitgen.BrownNoise();
 	}
 
+	protected void setNoiseAmp(float amp) {
+		this.noise.amplitude.set(amp);
+	}
 }

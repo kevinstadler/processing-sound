@@ -12,4 +12,8 @@ public class WhiteNoise extends Noise<com.jsyn.unitgen.WhiteNoise> {
 	protected com.jsyn.unitgen.WhiteNoise newNoiseInstance() {
 		return new com.jsyn.unitgen.WhiteNoise();
 	}
+
+	protected void setNoiseAmp(float amp) {
+		this.noise.amplitude.set(amp);
+	}
 }

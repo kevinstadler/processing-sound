@@ -18,6 +18,18 @@ public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject
 		// subclasses are responsible for connecting the noise unit to the pan!
 	}
 
+	public void add(float add) {
+		// TODO
+	}
+
+	public void amp(float amp) {
+		// TODO check argument in [0,1]?
+		this.setNoiseAmp(amp);
+	}
+
+	// no uniform interface for JSyn's noise classes, implementation needs to be in subclasses
+	protected abstract void setNoiseAmp(float amp);
+
 	public void pan(float pan) {
 		// TODO check argument in [-1,1]?
 		this.pan.pan.set(pan);
@@ -26,6 +38,12 @@ public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject
 	public void play() {
 		Engine.getEngine().add(this.noise);
 		Engine.getEngine().add(this.pan);
+	}
+
+	public void set(float amp, float add, float pos) {
+		this.amp(amp);
+		this.add(add);
+		this.pan(pos);
 	}
 
 	public void stop() {
