@@ -8,7 +8,7 @@ import com.jsyn.unitgen.UnitGenerator;
 
 import processing.core.PApplet;
 
-public class Engine {
+class Engine {
 
 	private static Engine singleton;
 
