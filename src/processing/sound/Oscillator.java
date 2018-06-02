@@ -7,13 +7,12 @@ import processing.core.PApplet;
 abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 	
 	protected JSynOscillator oscillator;
-
-	protected abstract JSynOscillator newOscillatorInstance();
 	
-	protected Oscillator(PApplet theParent) {
+	protected Oscillator(PApplet theParent, JSynOscillator oscillator) {
 		super(theParent);
-		this.oscillator = this.newOscillatorInstance();
-		this.oscillator.output.connect(this.add.inputA);
+		this.oscillator = oscillator;
+		this.circuit.add(this.oscillator);
+		this.oscillator.output.connect(this.input);
 	}
 	
 	/**
@@ -68,14 +67,5 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 		this.amp(amp);
 		this.add(add);
 		this.pan(pos);
-	}
-	
-	/**
-	* Stop the oscillator.
-	* @webref sound
-	**/
-	public void stop() {
-		super.stop();
-		Engine.getEngine().remove(this.oscillator);
 	}
 }

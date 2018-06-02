@@ -11,7 +11,7 @@ public class PinkNoise extends Noise<com.jsyn.unitgen.PinkNoise> {
 
 	protected PinkNoise(PApplet theParent) {
 		super(theParent);
-		this.noise.output.connect(this.add.inputA);
+		this.noise.output.connect(this.input);
 	}
 
 	protected com.jsyn.unitgen.PinkNoise newNoiseInstance() {

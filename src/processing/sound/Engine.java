@@ -15,18 +15,42 @@ class Engine {
 	protected Synthesizer synth;
 	private LineOut lineOut;
 	
-	private Engine() {
+	private Engine(PApplet parent) {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
 		this.lineOut.start();
+
+		if (parent != null) {
+			System.out.println("Registering callbacks");
+			parent.registerMethod("dispose", this);
+			// Android only?
+			parent.registerMethod("pause", this);
+			parent.registerMethod("resume", this);
+		}
+	}
+
+	public void dispose() {
+		PApplet.println("Dispose");
+	}
+
+	public void pause() {
+		PApplet.println("Pause");
+	}
+
+	public void resume() {
+		PApplet.println("Resume");
+	}
+
+	protected static Engine getEngine() {
+		return Engine.getEngine(null);
 	}
 	
-	protected static Engine getEngine() {
+	protected static Engine getEngine(PApplet parent) {
 		if (Engine.singleton == null) {
-			Engine.singleton = new Engine();
+			Engine.singleton = new Engine(parent);
 		}
 		return Engine.singleton;
 	}
@@ -39,14 +63,12 @@ class Engine {
 		this.synth.remove(generator);
 	}
 
-	protected void add(Pan generator) {
-		this.synth.add(generator);
+	protected void play(Pan generator) {
 		generator.output.connect(0, lineOut.input, 0);
 		generator.output.connect(1, lineOut.input, 1);
 	}
 
-	protected void remove(Pan generator) {
-		this.synth.remove(generator);
+	protected void stop(Pan generator) {
 		generator.output.disconnect(0, lineOut.input, 0);
 		generator.output.disconnect(1, lineOut.input, 1);
 	}

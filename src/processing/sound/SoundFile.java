@@ -2,8 +2,8 @@ package processing.sound;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,18 +35,31 @@ public class SoundFile extends SoundObject {
 	private int startFrame = 0;
 
 	// the original library only printed an error if the file wasn't found,
-	// but then later threw a NullPointerException when trying to play() the file
+	// but then later threw a NullPointerException when trying to play() the file.
+	// this implementation will already through an Exception upon failing to load.
 	public SoundFile(PApplet parent, String path) throws IOException {
 		super(parent);
+		
+		// TODO what if it's a URL?
 		File f = new File(path);
 		this.sample = SAMPLECACHE.get(f.getCanonicalPath());
 
 		if (this.sample == null) {
+			InputStream fin = PApplet.createInput(f);
+
+			// if PApplet.createInput() can't find the file or URL, it prints
+			// an error message and fin returns null. In this case we can just
+			// return this dysfunctional SoundFile object without initialising further
+			if (fin == null) {
+				return;
+			}
+
 			try {
-				this.sample = SampleLoader.loadFloatSample(f);
+				// load WAV or AIF using JSyn
+				this.sample = SampleLoader.loadFloatSample(fin);
 			} catch (IOException e) {
 				// try parsing as mp3
-				Sound mp3 = new Sound(new FileInputStream(f));
+				Sound mp3 = new Sound(fin);
 				try {
 					ByteArrayOutputStream os = new ByteArrayOutputStream();
 					mp3.decodeFullyInto(os); // this call is expensive
@@ -65,8 +78,8 @@ public class SoundFile extends SoundObject {
 		// as long as their dataQueue is empty
 		this.player.rate.set(this.sampleRate());
 
-		this.player.output.connect(this.add.inputA);
-		Engine.getEngine().add(this.player);
+		this.player.output.connect(this.input); // TODO check if this works for stereo
+		this.circuit.add(this.player);
 		super.play(); // doesn't actually start playback, just adds the (silent) units
 	}
 

@@ -11,11 +11,7 @@ import processing.core.PApplet;
 **/
 public class Pulse extends Oscillator<PulseOscillator> {
 	public Pulse(PApplet theParent) {
-		super(theParent);
-	}
-
-	protected PulseOscillator newOscillatorInstance() {
-		return new PulseOscillator();
+		super(theParent, new PulseOscillator());
 	}
 	
 	public void width(float width) {

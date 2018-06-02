@@ -1,6 +1,9 @@
 package processing.sound;
 
+import com.jsyn.ports.UnitInputPort;
+import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Add;
+import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.Pan;
 
 import processing.core.PApplet;
@@ -10,16 +13,23 @@ import processing.core.PApplet;
  */
 abstract class SoundObject {
 
-	protected Pan pan = new Pan();
-	protected Add add = new Add();
+	protected Circuit circuit = new Circuit();
+	private Pan pan = new Pan();
+	private Add add = new Add();
 
+	protected UnitInputPort input;
+//	protected UnitOutputPort output; // TODO connect pan or effect
+
+	// subclasses should call this constructor, then connect their generator
+	// units to this.input
 	protected SoundObject(PApplet parent) {
 		Engine.getEngine();
+		this.circuit.add(pan);
+		this.circuit.add(add);
 
 		this.add.output.connect(this.pan.input);
 		this.add.inputB.set(0.0);
-		// subclasses should call this constructor, then connect their
-		// generator units to this.add.inputA
+		this.input = this.add.inputA;
 	}
 
 	/**
@@ -49,13 +59,17 @@ abstract class SoundObject {
 		}
 	}
 
+	UnitOutputPort getOutput() {
+		return this.pan.output;
+	}
+	
 	/**
 	* Start the generator
 	* @webref sound
 	**/
 	public void play() {
-		Engine.getEngine().add(this.add);
-		Engine.getEngine().add(this.pan);
+		Engine.getEngine().add(this.circuit);
+		Engine.getEngine().play(this.pan);
 	}
 
 	/**
@@ -63,7 +77,7 @@ abstract class SoundObject {
 	* @webref sound
 	**/
 	public void stop() {
-		Engine.getEngine().remove(this.pan);
-		Engine.getEngine().remove(this.add);
+		Engine.getEngine().stop(this.pan);
+		Engine.getEngine().remove(this.circuit);
 	}
 }
