@@ -4,8 +4,8 @@
   <property file="./build.properties" />
 
 	<path id="classpath">
-	  <fileset dir="lib">
-	    <include name="**/*.jar" />
+	  <fileset dir="library">
+	    <include name="*.jar" />
 	  </fileset>
 	</path>
 
@@ -16,9 +16,9 @@
 
   <target name="deps" description="Get library dependencies">
   	<get src="http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar"
-		dest="lib/" usetimestamp="true" />
+		dest="library/" usetimestamp="true" />
 	<get src="http://central.maven.org/maven2/fr/delthas/javamp3/1.0.1/javamp3-1.0.1.jar"
-		dest="lib/" usetimestamp="true" />
+		dest="library/" usetimestamp="true" />
   </target>
 
   <target name="compile" depends="deps" description="Compile sources">
@@ -48,18 +48,22 @@
   </target>
 
   <target name="build" depends="clean,compile" description="Build Sound library">
-    <jar basedir="bin" destfile="library/sound.jar" />
+    <jar destfile="library/sound.jar">
+        <fileset dir="bin" />
+	</jar>
   </target>
 
   <target name="dist" depends="build,javadoc">
     <zip destfile="../processing-sound.zip">
       <zipfileset dir="." prefix="sound">
+        <exclude name=".*" />
+        <exclude name="build.xml" />
         <exclude name="bin/**" />
         <exclude name="examples/**/application.*/**" />
-        <exclude name="lib/core.jar" />
+        <exclude name="library/core.jar" />
       </zipfileset>
     </zip>
-    <copy file="library.properties"
-          toFile="../processing-sound.txt" />
+    <!--copy file="library.properties"
+          toFile="../processing-sound.txt" /-->
   </target>
 </project>
