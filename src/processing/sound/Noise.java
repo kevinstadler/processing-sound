@@ -8,13 +8,10 @@ abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 
 	protected JSynNoise noise;
 
-	protected abstract JSynNoise newNoiseInstance();
-
-	protected Noise(PApplet theParent) {
+	protected Noise(PApplet theParent, JSynNoise noise) {
 		super(theParent);
-		this.noise = this.newNoiseInstance();
-		this.circuit.add(this.noise);
-		// subclasses are responsible for connecting the noise unit to the pan!
+		this.noise = noise;
+		this.circuit.setSource(this.noise);
 	}
 
 	public void amp(float amp) {

@@ -10,12 +10,7 @@ import processing.core.PApplet;
 public class BrownNoise extends Noise<com.jsyn.unitgen.BrownNoise> {
 
 	protected BrownNoise(PApplet theParent) {
-		super(theParent);
-		this.noise.output.connect(this.input);
-	}
-
-	protected com.jsyn.unitgen.BrownNoise newNoiseInstance() {
-		return new com.jsyn.unitgen.BrownNoise();
+		super(theParent, new com.jsyn.unitgen.BrownNoise());
 	}
 
 	protected void setNoiseAmp(float amp) {

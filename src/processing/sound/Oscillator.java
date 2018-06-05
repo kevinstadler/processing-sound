@@ -7,12 +7,11 @@ import processing.core.PApplet;
 abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 	
 	protected JSynOscillator oscillator;
-	
+
 	protected Oscillator(PApplet theParent, JSynOscillator oscillator) {
 		super(theParent);
 		this.oscillator = oscillator;
-		this.circuit.add(this.oscillator);
-		this.oscillator.output.connect(this.input);
+		this.circuit.setSource(this.oscillator);
 	}
 	
 	/**
@@ -33,13 +32,12 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 	public void freq(float freq) {
 		this.oscillator.frequency.set(freq);
 	}
-	
+
 	/**
 	* Starts the oscillator
 	* @webref sound
 	**/
 	public void play() {
-		Engine.getEngine().add(this.oscillator);
 		super.play();
 	}
 

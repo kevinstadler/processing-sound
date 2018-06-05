@@ -10,12 +10,7 @@ import processing.core.PApplet;
 public class WhiteNoise extends Noise<com.jsyn.unitgen.WhiteNoise> {
 
 	public WhiteNoise(PApplet theParent) {
-		super(theParent);
-		this.noise.output.connect(this.input);
-	}
-
-	protected com.jsyn.unitgen.WhiteNoise newNoiseInstance() {
-		return new com.jsyn.unitgen.WhiteNoise();
+		super(theParent, new com.jsyn.unitgen.WhiteNoise());
 	}
 
 	protected void setNoiseAmp(float amp) {

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jsyn.data.FloatSample;
+import com.jsyn.unitgen.VariableRateDataReader;
+import com.jsyn.unitgen.VariableRateMonoReader;
 import com.jsyn.unitgen.VariableRateStereoReader;
 import com.jsyn.util.SampleLoader;
 
@@ -30,7 +32,7 @@ public class SoundFile extends SoundObject {
 
 	private FloatSample sample;
 	// the soundfile class always has to maintain a pointer to its last player object for panning etc?
-	private VariableRateStereoReader player = new VariableRateStereoReader();
+	private VariableRateDataReader player;
 
 	private int startFrame = 0;
 
@@ -72,14 +74,20 @@ public class SoundFile extends SoundObject {
 			}
 			SAMPLECACHE.put(f.getCanonicalPath(), this.sample);
 		}
+		
+		if (this.channels() == 2) {
+			this.player = new VariableRateStereoReader();
+		} else {
+			this.player = new VariableRateMonoReader();
+		}
+
+		// needs to be set explicitly
+		this.player.rate.set(this.sampleRate());
+		this.circuit.setSource(this.player);
 
 		// unlike the Oscillator and Noise classes, the sample player units can
 		// always stay connected to the JSyn synths, since they make no noise
 		// as long as their dataQueue is empty
-		this.player.rate.set(this.sampleRate());
-
-		this.player.output.connect(this.input); // TODO check if this works for stereo
-		this.circuit.add(this.player);
 		super.play(); // doesn't actually start playback, just adds the (silent) units
 	}
 
@@ -267,6 +275,7 @@ public class SoundFile extends SoundObject {
 	 * @return `true` if the soundfile is currently playing, `false` if it is not.
 	 */
 	public boolean isPlaying() {
+		// overrides the SoundObject's default implementation
 		return this.player.dataQueue.hasMore();
 	}
 }
