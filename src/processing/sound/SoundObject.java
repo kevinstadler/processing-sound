@@ -63,7 +63,7 @@ abstract class SoundObject {
 	**/
 	public void play() {
 		Engine.getEngine().add(this.circuit);
-		Engine.getEngine().play(this.circuit.processor.output);
+		Engine.getEngine().play(this.circuit.getOutput());
 		this.isPlaying = true;
 	}
 
@@ -73,27 +73,47 @@ abstract class SoundObject {
 	**/
 	public void stop() {
 		this.isPlaying = false;
-		Engine.getEngine().stop(this.circuit.processor.output);
+		Engine.getEngine().stop(this.circuit.getOutput());
 		Engine.getEngine().remove(this.circuit);
 	}
 
-	protected void setEffect(UnitFilter effect) {
+	protected void setEffect(Effect<? extends UnitFilter> effect) {
+		// TODO check if same effect is set a second time
 		if (this.circuit.effect != null) {
 			this.removeEffect(this.circuit.effect);
 		}
-		this.circuit.effect = effect;
-		this.circuit.processor.output.connect(this.circuit.effect.input);
+		this.circuit.getOutput().connect(0, effect.left.input, 0);
+		this.circuit.getOutput().connect(1, effect.right.input, 0);
+
 		if (this.isPlaying()) {
-			Engine.getEngine().stop(this.circuit.processor.output);
-			Engine.getEngine().play(this.circuit.effect.output);
+			Engine.getEngine().add(effect.left);
+			Engine.getEngine().add(effect.right);
+
+			Engine.getEngine().stop(this.circuit.getOutput());
+
+			this.circuit.effect = effect;
+			// this is now the same as this.circuit.effect.output
+			Engine.getEngine().play(this.circuit.getOutput());
 		}
 	}
 
-	protected void removeEffect (UnitFilter effect) {
-		if (effect != this.circuit.effect) {
+	protected void removeEffect (Effect<? extends UnitFilter> effect) {
+		if (this.circuit.effect != effect) {
 			 // possibly a previous effect that's being stopped here, ignore call
+			PApplet.println("Error: this effect is not currently processing any signals.");
 			return;
 		}
-		// TODO
+
+		if (this.isPlaying()) {
+			Engine.getEngine().stop(this.circuit.getOutput());
+			this.circuit.effect = null;
+			// this is now the same as this.circuit.processor.output
+			Engine.getEngine().play(this.circuit.getOutput());
+		}
+
+		this.circuit.getOutput().disconnect(0, effect.left.input, 0);
+		this.circuit.getOutput().disconnect(1, effect.right.input, 0);
+		Engine.getEngine().remove(effect.left);
+		Engine.getEngine().remove(effect.right);
 	}
 }

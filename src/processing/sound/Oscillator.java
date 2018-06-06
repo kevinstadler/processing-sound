@@ -11,7 +11,7 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 	protected Oscillator(PApplet theParent, JSynOscillator oscillator) {
 		super(theParent);
 		this.oscillator = oscillator;
-		this.circuit.setSource(this.oscillator);
+		this.circuit.setSource(this.oscillator.getOutput());
 	}
 	
 	/**

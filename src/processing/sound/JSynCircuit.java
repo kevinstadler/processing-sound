@@ -1,10 +1,9 @@
 package processing.sound;
 
+import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.UnitFilter;
 import com.jsyn.unitgen.UnitGenerator;
-import com.jsyn.unitgen.UnitSource;
-import com.jsyn.unitgen.VariableRateStereoReader;
 
 /**
  * Helper class wrapping a source unit generator, add/pan processor and effect into one circuit.
@@ -13,19 +12,26 @@ class JSynCircuit extends Circuit {
 
 	private UnitGenerator source;
 	protected JSynProcessor processor = new JSynProcessor();
-	protected UnitFilter effect;
+	protected Effect<? extends UnitFilter> effect;
 
-	public void setSource(UnitGenerator source) {
-		this.source = source;
-		this.add(source);
+	protected void setSource(UnitOutputPort input) {
+		this.source = input.getUnitGenerator();
+		this.add(this.source);
 
-		if (source instanceof VariableRateStereoReader) {
-			// bypass processor
-			this.processor.output = ((VariableRateStereoReader) this.source).output;
+		if (input.getNumParts() == 2) {
+			// stereo source - no need for pan, so bypass processor
+			this.processor.output = input;
 		} else {
 			this.add(this.processor);
-			this.processor.input.connect(((UnitSource) this.source).getOutput());
+			this.processor.input.connect(input);
 		}
 	}
 
+	protected UnitOutputPort getOutput() {
+		if (this.effect == null) {
+			return this.processor.output;
+		} else {
+			return this.effect.output;
+		}
+	}
 }

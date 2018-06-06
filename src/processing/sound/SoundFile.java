@@ -83,7 +83,7 @@ public class SoundFile extends SoundObject {
 
 		// needs to be set explicitly
 		this.player.rate.set(this.sampleRate());
-		this.circuit.setSource(this.player);
+		this.circuit.setSource(this.player.output);
 
 		// unlike the Oscillator and Noise classes, the sample player units can
 		// always stay connected to the JSyn synths, since they make no noise

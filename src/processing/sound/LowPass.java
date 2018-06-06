@@ -7,7 +7,12 @@ import processing.core.PApplet;
 public class LowPass extends Effect<FilterLowPass> {
 
 	public LowPass(PApplet parent) {
-		super(parent, new com.jsyn.unitgen.FilterLowPass());
+		super(parent);
+	}
+
+	@Override
+	protected FilterLowPass newInstance() {
+		return new com.jsyn.unitgen.FilterLowPass();
 	}
 
 	/**
@@ -15,6 +20,7 @@ public class LowPass extends Effect<FilterLowPass> {
 	 * @param freq
 	 */
 	public void freq(float freq) {
-		this.effect.frequency.set(freq);
+		this.left.frequency.set(freq);
+		this.right.frequency.set(freq);
 	}
 }

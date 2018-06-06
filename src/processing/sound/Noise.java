@@ -1,6 +1,7 @@
 package processing.sound;
 
 import com.jsyn.unitgen.UnitGenerator;
+import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
@@ -11,7 +12,7 @@ abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 	protected Noise(PApplet theParent, JSynNoise noise) {
 		super(theParent);
 		this.noise = noise;
-		this.circuit.setSource(this.noise);
+		this.circuit.setSource(((UnitSource) this.noise).getOutput());
 	}
 
 	public void amp(float amp) {

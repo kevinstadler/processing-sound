@@ -63,14 +63,14 @@ class Engine {
 		this.synth.remove(generator);
 	}
 
-	protected void play(UnitOutputPort generator) {
-		generator.connect(0, lineOut.input, 0);
-		generator.connect(1, lineOut.input, 1);
+	protected void play(UnitOutputPort source) {
+		source.connect(0, this.lineOut.input, 0);
+		source.connect(1, this.lineOut.input, 1);
 	}
 
-	protected void stop(UnitOutputPort generator) {
-		generator.disconnect(0, lineOut.input, 0);
-		generator.disconnect(1, lineOut.input, 1);
+	protected void stop(UnitOutputPort source) {
+		source.disconnect(0, this.lineOut.input, 0);
+		source.disconnect(1, this.lineOut.input, 1);
 	}
 
 	protected static boolean checkAmp(float amp) {
