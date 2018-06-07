@@ -74,7 +74,10 @@ public class SoundFile extends SoundObject {
 			}
 			SAMPLECACHE.put(f.getCanonicalPath(), this.sample);
 		}
+		this.initiatePlayer();
+	}
 
+	private void initiatePlayer() {
 		if (this.channels() == 2) {
 			this.player = new VariableRateStereoReader();
 		} else {
@@ -93,6 +96,11 @@ public class SoundFile extends SoundObject {
 
 	private SoundFile(SoundFile original) {
 		super(null);
+		this.sample = original.sample;
+		this.initiatePlayer();
+		this.player.amplitude.set(original.player.amplitude.get());
+		this.player.rate.set(original.player.rate.get());
+		this.startFrame = original.startFrame;
 	}
 
 	public void amp(float amp) {
@@ -207,14 +215,20 @@ public class SoundFile extends SoundObject {
 	 **/
 	public void play() {
 		SoundFile source = this;
+		// when called on a soundfile already running, the original library
+		// triggered a second (concurrent) playback. with JSyn, every data
+		// reader can only do one playback at a time, so if the present player
+		// is busy we need to create a new one with the exact same settings and
+		// trigger it instead
 		if (this.isPlaying()) {
 			source = new SoundFile(this);
-			// TODO copy all settings over
 		}
-		// when called on a soundfile already running, the original library triggered a second (concurrent) playback
 		source.player.dataQueue.queue(source.sample,
 				source.startFrame,
 				source.frames() - source.startFrame);
+		// for improved handling by the user, return a reference to whichever
+		// sound file is the source of the newly triggered playback
+		// return source;
 	}
 
 	/**
