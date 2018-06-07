@@ -5,15 +5,15 @@ import com.jsyn.unitgen.PulseOscillator;
 import processing.core.PApplet;
 
 /**
-* This is a simple Pulse oscillator.
-* @webref sound 
-* @param parent PApplet: typically use "this"
-**/
+ * This is a simple Pulse oscillator.
+ * @webref sound 
+ * @param parent PApplet: typically use "this"
+ **/
 public class Pulse extends Oscillator<PulseOscillator> {
 	public Pulse(PApplet theParent) {
 		super(theParent, new PulseOscillator());
 	}
-	
+
 	public void width(float width) {
 		this.oscillator.width.set(width);
 	}

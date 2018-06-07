@@ -22,35 +22,35 @@ abstract class SoundObject {
 	}
 
 	/**
-	* Offset the output of this generator by given value
-	* @webref sound
-	* @param add A value for offsetting the audio signal.
-	**/
+	 * Offset the output of this generator by given value
+	 * @webref sound
+	 * @param add A value for offsetting the audio signal.
+	 **/
 	public final void add(float add) {
 		this.circuit.processor.add(add);
 	}
 
 	/**
-	* Changes the amplitude/volume of the player.
-	* @webref sound
-	* @param amp A float value between 0.0 and 1.0 controlling the amplitude/volume of the player.
-	**/
+	 * Changes the amplitude/volume of the player.
+	 * @webref sound
+	 * @param amp A float value between 0.0 and 1.0 controlling the amplitude/volume of the player.
+	 **/
 	public abstract void amp(float amp);
 
 	/**
 	 * TODO
- 	 * @webref sound
+	 * @webref sound
 	 * @return
 	 */
 	public boolean isPlaying() {
 		return this.isPlaying;
 	}
-	
+
 	/**
-	* Move the sound in a stereo panorama.
-	* @webref sound
-	* @param pos The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).
-	**/
+	 * Move the sound in a stereo panorama.
+	 * @webref sound
+	 * @param pos The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).
+	 **/
 	public final void pan(float pos) {
 		if (Engine.checkPan(pos)) {
 			this.circuit.processor.pan(pos);
@@ -58,9 +58,9 @@ abstract class SoundObject {
 	}
 
 	/**
-	* Start the generator
-	* @webref sound
-	**/
+	 * Start the generator
+	 * @webref sound
+	 **/
 	public void play() {
 		Engine.getEngine().add(this.circuit);
 		Engine.getEngine().play(this.circuit.getOutput());
@@ -68,9 +68,9 @@ abstract class SoundObject {
 	}
 
 	/**
-	* Stop the generator
-	* @webref sound
-	**/
+	 * Stop the generator
+	 * @webref sound
+	 **/
 	public void stop() {
 		this.isPlaying = false;
 		Engine.getEngine().stop(this.circuit.getOutput());
@@ -99,17 +99,16 @@ abstract class SoundObject {
 
 	protected void removeEffect (Effect<? extends UnitFilter> effect) {
 		if (this.circuit.effect != effect) {
-			 // possibly a previous effect that's being stopped here, ignore call
+			// possibly a previous effect that's being stopped here, ignore call
 			PApplet.println("Error: this effect is not currently processing any signals.");
 			return;
 		}
 
 		if (this.isPlaying()) {
 			Engine.getEngine().stop(this.circuit.getOutput());
-			this.circuit.effect = null;
-			// this is now the same as this.circuit.processor.output
-			Engine.getEngine().play(this.circuit.getOutput());
+			Engine.getEngine().play(this.circuit.processor.output);
 		}
+		this.circuit.effect = null;
 
 		this.circuit.getOutput().disconnect(0, effect.left.input, 0);
 		this.circuit.getOutput().disconnect(1, effect.right.input, 0);

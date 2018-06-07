@@ -1,23 +1,23 @@
 package processing.sound;
 
-import com.jsyn.unitgen.FilterLowPass;
+import com.jsyn.unitgen.FilterHighPass;
 
 import processing.core.PApplet;
 
 /**
- * This is a low pass filter
+ * This is a high pass filter
  * @sound webref
  * @param parent PApplet: typically use "this"
  **/
-public class LowPass extends Effect<FilterLowPass> {
+public class HighPass extends Effect<FilterHighPass> {
 
-	public LowPass(PApplet parent) {
+	public HighPass(PApplet parent) {
 		super(parent);
 	}
 
 	@Override
-	protected FilterLowPass newInstance() {
-		return new com.jsyn.unitgen.FilterLowPass();
+	protected FilterHighPass newInstance() {
+		return new com.jsyn.unitgen.FilterHighPass();
 	}
 
 	/**

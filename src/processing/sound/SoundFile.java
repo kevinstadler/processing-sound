@@ -18,15 +18,15 @@ import processing.core.PApplet;
 
 // calls to amp(), pan() etc affect both the LAST initiated and still running sample, AND all subsequently started ones
 /**
-* This is a Soundfile Player which allows to play back and manipulate soundfiles. Supported formats are: WAV, AIF/AIFF, MP3.
-* @webref sound
-* @param parent PApplet: typically use "this"
-* @param path Full path to the file or filename for the data path
-**/
+ * This is a Soundfile Player which allows to play back and manipulate soundfiles. Supported formats are: WAV, AIF/AIFF, MP3.
+ * @webref sound
+ * @param parent PApplet: typically use "this"
+ * @param path Full path to the file or filename for the data path
+ **/
 public class SoundFile extends SoundObject {
 
 	// array of UnitVoices each with a VariableRateStereoReader in
-//	private static VoiceAllocator PLAYERS = new VoiceAllocator(null);
+	//	private static VoiceAllocator PLAYERS = new VoiceAllocator(null);
 
 	private static Map<String,FloatSample> SAMPLECACHE = new HashMap<String,FloatSample>();
 
@@ -41,7 +41,7 @@ public class SoundFile extends SoundObject {
 	// this implementation will already through an Exception upon failing to load.
 	public SoundFile(PApplet parent, String path) throws IOException {
 		super(parent);
-		
+
 		// TODO what if it's a URL?
 		File f = new File(path);
 		this.sample = SAMPLECACHE.get(f.getCanonicalPath());
@@ -74,7 +74,7 @@ public class SoundFile extends SoundObject {
 			}
 			SAMPLECACHE.put(f.getCanonicalPath(), this.sample);
 		}
-		
+
 		if (this.channels() == 2) {
 			this.player = new VariableRateStereoReader();
 		} else {
@@ -97,42 +97,42 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	* Returns the number of channels in the soundfile.
-	* @webref sound
-	* @return Returns the number of channels in the soundfile as an int.
-	**/
+	 * Returns the number of channels in the soundfile.
+	 * @webref sound
+	 * @return Returns the number of channels in the soundfile as an int.
+	 **/
 	public int channels() {
 		return this.sample.getChannelsPerFrame();
 	}
 
 	/**
-	* Cues the playhead to a fixed position in the soundfile. Note that the time parameter supports only integer values. 
-	* @webref sound
-	* @param time Position to start from as integer seconds.
-	**/
+	 * Cues the playhead to a fixed position in the soundfile. Note that the time parameter supports only integer values. 
+	 * @webref sound
+	 * @param time Position to start from as integer seconds.
+	 **/
 	// methCla-based library only supported int here!
 	public void cue(float time) {
 		this.setStartFrame(time);
 	}
 
 	/**
-	* Returns the duration of the the soundfile.
-	* @webref sound
-	* @return Returns the duration of the file in seconds.
-	**/
+	 * Returns the duration of the the soundfile.
+	 * @webref sound
+	 * @return Returns the duration of the file in seconds.
+	 **/
 	public float duration() {
 		return (float) (this.frames() / this.sample.getFrameRate());
 	}
 
 	/**
-	* Returns the number of frames/samples of the sound file.
-	* @webref sound
-	* @return Returns the number of samples of the soundfile as an int.
-	**/
+	 * Returns the number of frames/samples of the sound file.
+	 * @webref sound
+	 * @return Returns the number of samples of the soundfile as an int.
+	 **/
 	public int frames() {
 		return this.sample.getNumFrames();
 	}
-	
+
 	private boolean setStartFrame(float time) {
 		if (time < 0) {
 			PApplet.println("Gotta be positive");
@@ -148,21 +148,21 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	* Jump to a specific position in the file while continuing to play.
-	* @webref sound
-	* @param time Position to jump to as a float in seconds.
-	**/
+	 * Jump to a specific position in the file while continuing to play.
+	 * @webref sound
+	 * @param time Position to jump to as a float in seconds.
+	 **/
 	public void jump(float time) {
 		if (this.setStartFrame(time)) {
 			this.stop();
 			this.play(); // TODO what if the file wasn't playing when jump() was called?
 		}
 	}
-	
+
 	/**
-	* Starts the playback of a soundfile to loop.
-	* @webref sound
-	**/	
+	 * Starts the playback of a soundfile to loop.
+	 * @webref sound
+	 **/	
 	public void loop() {
 		this.player.dataQueue.queueLoop(this.sample,
 				this.startFrame,
@@ -198,9 +198,9 @@ public class SoundFile extends SoundObject {
 	// panning wasn't originally supported for stereo files, but it is now
 
 	/**
-	* Starts the playback of a soundfile. Only plays the soundfile once.
-	* @webref sound
-	**/
+	 * Starts the playback of a soundfile. Only plays the soundfile once.
+	 * @webref sound
+	 **/
 	public void play() {
 		// when called on a soundfile already running, the original library triggered a second (concurrent) playback
 		this.player.dataQueue.queue(this.sample,
@@ -209,10 +209,10 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	* Change the playback rate of the soundfile.
-	* @webref sound
-	* @param rate This method changes the playback rate of the soundfile. 1 is the original speed. 0.5 is half speed and one octave down. 2 is double the speed and one octave up. 
-	**/
+	 * Change the playback rate of the soundfile.
+	 * @webref sound
+	 * @param rate This method changes the playback rate of the soundfile. 1 is the original speed. 0.5 is half speed and one octave down. 2 is double the speed and one octave up. 
+	 **/
 	public void rate(float rate) {
 		// TODO check rate > 0
 		// 1.0 = original
@@ -220,22 +220,22 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	* Returns the sample rate of the soundfile.
-	* @webref sound
-	* @return Returns the sample rate of the soundfile as an int.
-	**/
+	 * Returns the sample rate of the soundfile.
+	 * @webref sound
+	 * @return Returns the sample rate of the soundfile as an int.
+	 **/
 	public int sampleRate() {
 		return (int) Math.round(this.sample.getFrameRate());
 	}
 
 	/**
-	* Set multiple parameters at once
-	* @webref sound
-	* @param rate The playback rate of the original file. 
-	* @param pos The panoramic position of the player as a float from -1.0 to 1.0.
-	* @param amp The amplitude of the player as a value between 0.0 and 1.0.
-	* @param add A value for modulating other audio signals.
-	**/
+	 * Set multiple parameters at once
+	 * @webref sound
+	 * @param rate The playback rate of the original file. 
+	 * @param pos The panoramic position of the player as a float from -1.0 to 1.0.
+	 * @param amp The amplitude of the player as a value between 0.0 and 1.0.
+	 * @param add A value for modulating other audio signals.
+	 **/
 	public void set(float rate, float pos, float amp, float add) {
 		this.rate(rate);
 		this.pan(pos);
@@ -244,9 +244,9 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	* Stops the player
-	* @webref sound
-	**/
+	 * Stops the player
+	 * @webref sound
+	 **/
 	public void stop() {
 		this.player.dataQueue.clear();
 	}
