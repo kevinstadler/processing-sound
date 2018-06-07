@@ -12,7 +12,7 @@ abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 	protected Noise(PApplet theParent, JSynNoise noise) {
 		super(theParent);
 		this.noise = noise;
-		this.circuit.setSource(((UnitSource) this.noise).getOutput());
+		this.circuit = new JSynCircuit(((UnitSource) this.noise).getOutput());
 	}
 
 	public void amp(float amp) {

@@ -48,7 +48,7 @@ public class BandPass extends Effect<FilterBandPass> {
 	 **/
 	public void bw(float bw) {
 		// TODO check filter quality
-		this.left.Q.set(1 / bw);
-		this.right.Q.set(1 / bw);
+		this.left.Q.set(this.left.frequency.get() / bw);
+		this.right.Q.set(this.right.frequency.get() / bw);
 	}
 }

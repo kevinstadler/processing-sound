@@ -1,6 +1,5 @@
 package processing.sound;
 
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitFilter;
 
 import processing.core.PApplet;
@@ -10,15 +9,13 @@ import processing.core.PApplet;
  */
 abstract class SoundObject {
 
-	protected JSynCircuit circuit = new JSynCircuit();
-
-	// pointer to this object's stereo out -- can point to a processor or its plugged-in effect
-	protected UnitOutputPort output;
+	// subclasses need to initialise this circuit
+	protected JSynCircuit circuit;
 
 	private boolean isPlaying = false;
 
 	protected SoundObject(PApplet parent) {
-		Engine.getEngine();
+		Engine.getEngine(parent);
 	}
 
 	/**
@@ -27,13 +24,14 @@ abstract class SoundObject {
 	 * @param add A value for offsetting the audio signal.
 	 **/
 	public final void add(float add) {
+		// TODO check if circuit supports add
 		this.circuit.processor.add(add);
 	}
 
 	/**
-	 * Changes the amplitude/volume of the player.
+	 * Changes the amplitude/volume of this sound.
 	 * @webref sound
-	 * @param amp A float value between 0.0 and 1.0 controlling the amplitude/volume of the player.
+	 * @param amp A float value between 0.0 and 1.0 controlling the amplitude/volume of this sound.
 	 **/
 	public abstract void amp(float amp);
 
@@ -52,6 +50,7 @@ abstract class SoundObject {
 	 * @param pos The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).
 	 **/
 	public final void pan(float pos) {
+		// TODO check if circuit supports pan
 		if (Engine.checkPan(pos)) {
 			this.circuit.processor.pan(pos);
 		}
@@ -63,7 +62,7 @@ abstract class SoundObject {
 	 **/
 	public void play() {
 		Engine.getEngine().add(this.circuit);
-		Engine.getEngine().play(this.circuit.getOutput());
+		Engine.getEngine().play(this.circuit);
 		this.isPlaying = true;
 	}
 
@@ -73,7 +72,7 @@ abstract class SoundObject {
 	 **/
 	public void stop() {
 		this.isPlaying = false;
-		Engine.getEngine().stop(this.circuit.getOutput());
+		Engine.getEngine().stop(this.circuit);
 		Engine.getEngine().remove(this.circuit);
 	}
 
@@ -82,19 +81,10 @@ abstract class SoundObject {
 		if (this.circuit.effect != null) {
 			this.removeEffect(this.circuit.effect);
 		}
-		this.circuit.getOutput().connect(0, effect.left.input, 0);
-		this.circuit.getOutput().connect(1, effect.right.input, 0);
 
-		if (this.isPlaying()) {
-			Engine.getEngine().add(effect.left);
-			Engine.getEngine().add(effect.right);
-
-			Engine.getEngine().stop(this.circuit.getOutput());
-
-			this.circuit.effect = effect;
-			// this is now the same as this.circuit.effect.output
-			Engine.getEngine().play(this.circuit.getOutput());
-		}
+		Engine.getEngine().add(effect.left);
+		Engine.getEngine().add(effect.right);
+		this.circuit.setEffect(effect);
 	}
 
 	protected void removeEffect (Effect<? extends UnitFilter> effect) {
@@ -104,14 +94,7 @@ abstract class SoundObject {
 			return;
 		}
 
-		if (this.isPlaying()) {
-			Engine.getEngine().stop(this.circuit.getOutput());
-			Engine.getEngine().play(this.circuit.processor.output);
-		}
-		this.circuit.effect = null;
-
-		this.circuit.getOutput().disconnect(0, effect.left.input, 0);
-		this.circuit.getOutput().disconnect(1, effect.right.input, 0);
+		this.circuit.removeEffect();
 		Engine.getEngine().remove(effect.left);
 		Engine.getEngine().remove(effect.right);
 	}

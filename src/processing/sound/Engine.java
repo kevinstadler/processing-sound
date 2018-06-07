@@ -2,9 +2,9 @@ package processing.sound;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.UnitGenerator;
+import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
@@ -63,14 +63,14 @@ class Engine {
 		this.synth.remove(generator);
 	}
 
-	protected void play(UnitOutputPort source) {
-		source.connect(0, this.lineOut.input, 0);
-		source.connect(1, this.lineOut.input, 1);
+	protected void play(UnitSource source) {
+		source.getOutput().connect(0, this.lineOut.input, 0);
+		source.getOutput().connect(1, this.lineOut.input, 1);
 	}
 
-	protected void stop(UnitOutputPort source) {
-		source.disconnect(0, this.lineOut.input, 0);
-		source.disconnect(1, this.lineOut.input, 1);
+	protected void stop(UnitSource source) {
+		source.getOutput().disconnect(0, this.lineOut.input, 0);
+		source.getOutput().disconnect(1, this.lineOut.input, 1);
 	}
 
 	protected static boolean checkAmp(float amp) {

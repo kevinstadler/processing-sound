@@ -83,12 +83,16 @@ public class SoundFile extends SoundObject {
 
 		// needs to be set explicitly
 		this.player.rate.set(this.sampleRate());
-		this.circuit.setSource(this.player.output);
+		this.circuit = new JSynCircuit(this.player.output);
 
 		// unlike the Oscillator and Noise classes, the sample player units can
 		// always stay connected to the JSyn synths, since they make no noise
 		// as long as their dataQueue is empty
 		super.play(); // doesn't actually start playback, just adds the (silent) units
+	}
+
+	private SoundFile(SoundFile original) {
+		super(null);
 	}
 
 	public void amp(float amp) {
@@ -202,10 +206,15 @@ public class SoundFile extends SoundObject {
 	 * @webref sound
 	 **/
 	public void play() {
+		SoundFile source = this;
+		if (this.isPlaying()) {
+			source = new SoundFile(this);
+			// TODO copy all settings over
+		}
 		// when called on a soundfile already running, the original library triggered a second (concurrent) playback
-		this.player.dataQueue.queue(this.sample,
-				this.startFrame,
-				this.frames() - this.startFrame);
+		source.player.dataQueue.queue(source.sample,
+				source.startFrame,
+				source.frames() - source.startFrame);
 	}
 
 	/**
