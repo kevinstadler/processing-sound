@@ -1,5 +1,8 @@
 package processing.sound;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.TwoInDualOut;
 import com.jsyn.unitgen.UnitFilter;
@@ -12,7 +15,7 @@ import processing.core.PApplet;
  */
 abstract class Effect<EffectType extends UnitFilter> {
 
-	protected SoundObject input;
+	protected Set<SoundObject> inputs = new HashSet<SoundObject>();
 
 	// FIXME what do we do if the same effect is applied to several different
 	// input sources -- do we consider them all to feed into the same effect
@@ -33,21 +36,31 @@ abstract class Effect<EffectType extends UnitFilter> {
 
 	protected abstract EffectType newInstance();
 
-	protected void process(SoundObject input) {
-		this.input = input;
-		// attach effect to circuit until removed with effect.stop()
-		this.input.setEffect(this);
+	/**
+	* Start the Filter
+	* @webref sound
+	* @param input Input sound source
+	**/
+	public void process(SoundObject input) {
+		if (this.inputs.add(input)) {
+			// attach effect to circuit until removed with effect.stop()
+			input.setEffect(this);
+		} else {
+			Engine.printWarning("the effect is already processing this sound source");
+		}
 	}
 
 	/**
 	 * 	Stops the Filter.
 	 */
 	public void stop() {
-		if (this.input == null) {
-			PApplet.println("Error: this effect is not currently processing any signals.");
+		if (this.inputs.isEmpty()) {
+			Engine.printWarning("this effect is not currently processing any signals.");
 		} else {
-			this.input.removeEffect(this);
-			this.input = null;
+			for (SoundObject o : this.inputs) {
+				o.removeEffect(this);
+			}
+			this.inputs.clear();
 		}
 	}
 }

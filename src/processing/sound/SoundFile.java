@@ -104,8 +104,9 @@ public class SoundFile extends SoundObject {
 	}
 
 	public void amp(float amp) {
-		// TODO check in [0, 1]
-		this.player.amplitude.set(amp);
+		if (Engine.checkAmp(amp)) {
+			this.player.amplitude.set(amp);
+		}
 	}
 
 	/**
@@ -147,12 +148,12 @@ public class SoundFile extends SoundObject {
 
 	private boolean setStartFrame(float time) {
 		if (time < 0) {
-			PApplet.println("Gotta be positive");
+			Engine.printError("absolute position can't be < 0");
 			return false;
 		}
 		int startFrame = Math.round(this.sampleRate() * time);
 		if (startFrame >= this.frames()) {
-			PApplet.println("Can't cue past of end of sample (total duration is " + this.duration() + "s)");
+			Engine.printError("can't cue past of end of sample (total duration of soundfile is " + this.duration() + "s)");
 			return false;
 		}
 		this.startFrame = startFrame;
@@ -237,9 +238,12 @@ public class SoundFile extends SoundObject {
 	 * @param rate This method changes the playback rate of the soundfile. 1 is the original speed. 0.5 is half speed and one octave down. 2 is double the speed and one octave up. 
 	 **/
 	public void rate(float rate) {
-		// TODO check rate > 0
-		// 1.0 = original
-		this.player.rate.set(this.sampleRate() * rate);
+		if (rate <= 0) {
+			Engine.printError("rate needs to be positive");
+		} else {
+			// 1.0 = original
+			this.player.rate.set(this.sampleRate() * rate);
+		}
 	}
 
 	/**

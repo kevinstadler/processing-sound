@@ -24,8 +24,11 @@ abstract class SoundObject {
 	 * @param add A value for offsetting the audio signal.
 	 **/
 	public final void add(float add) {
-		// TODO check if circuit supports add
-		this.circuit.processor.add(add);
+		if (this.circuit.processor == null) {
+			Engine.printError("stereo sound sources do not support adding");
+		} else {
+			this.circuit.processor.add(add);
+		}
 	}
 
 	/**
@@ -36,9 +39,9 @@ abstract class SoundObject {
 	public abstract void amp(float amp);
 
 	/**
-	 * TODO
+	 * Check if this sound object is currently playing.
 	 * @webref sound
-	 * @return
+	 * @return `true` if this sound object is currently playing, `false` if it is not.
 	 */
 	public boolean isPlaying() {
 		return this.isPlaying;
@@ -50,8 +53,9 @@ abstract class SoundObject {
 	 * @param pos The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).
 	 **/
 	public final void pan(float pos) {
-		// TODO check if circuit supports pan
-		if (Engine.checkPan(pos)) {
+		if (this.circuit.processor == null) {
+			Engine.printError("stereo sound sources do not support panning");
+		} else if (Engine.checkPan(pos)) {
 			this.circuit.processor.pan(pos);
 		}
 	}
@@ -64,6 +68,7 @@ abstract class SoundObject {
 		Engine.getEngine().add(this.circuit);
 		Engine.getEngine().play(this.circuit);
 		this.isPlaying = true;
+		// TODO rewire effect if one was set previously (before stopping)?
 	}
 
 	/**
@@ -74,6 +79,7 @@ abstract class SoundObject {
 		this.isPlaying = false;
 		Engine.getEngine().stop(this.circuit);
 		Engine.getEngine().remove(this.circuit);
+		this.removeEffect(this.circuit.effect);
 	}
 
 	protected void setEffect(Effect<? extends UnitFilter> effect) {
@@ -90,7 +96,7 @@ abstract class SoundObject {
 	protected void removeEffect (Effect<? extends UnitFilter> effect) {
 		if (this.circuit.effect != effect) {
 			// possibly a previous effect that's being stopped here, ignore call
-			PApplet.println("Error: this effect is not currently processing any signals.");
+			Engine.printError("this effect is not currently processing any signals.");
 			return;
 		}
 

@@ -75,7 +75,7 @@ class Engine {
 
 	protected static boolean checkAmp(float amp) {
 		if (amp < 0) {
-			PApplet.println("Error: amplitude can't be negative");
+			Engine.printError("amplitude can't be negative");
 			return false;
 		}
 		return true;
@@ -83,9 +83,17 @@ class Engine {
 
 	protected static boolean checkPan(float pan) {
 		if (pan < -1 || pan > 1) {
-			PApplet.println("Error: pan has to be in [-1,1]");
+			Engine.printError("pan has to be in [-1,1]");
 			return false;
 		}
 		return true;
+	}
+
+	protected static void printWarning(String message) {
+		PApplet.println("Sound library warning: " + message);
+	}
+
+	protected static void printError(String message) {
+		PApplet.println("Sound library error: " + message);
 	}
 }
