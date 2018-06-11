@@ -18,7 +18,7 @@ public class Engine {
 	private AudioDeviceManager audioManager;
 	protected Synthesizer synth;
 	private LineOut lineOut;
-	
+
 	private Engine(PApplet parent) {
 		try {
 			Class.forName("javax.sound.sampled.AudioSystem");
@@ -28,21 +28,23 @@ public class Engine {
 			this.audioManager = new JSynAndroidAudioDeviceManager();
 			this.synth = JSyn.createSynthesizer(new JSynAndroidAudioDeviceManager());
 		}
-      int numDevices = audioManager.getDeviceCount();
-      for (int i = 0; i < numDevices; i++) {
-          String deviceName = audioManager.getDeviceName(i);
-          int maxInputs = audioManager.getMaxInputChannels(i);
-          int maxOutputs = audioManager.getMaxOutputChannels(i);
-          boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
-          boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
-          System.out.println("#" + i + " : " + deviceName);
-          System.out.println("  max inputs : " + maxInputs
-                  + (isDefaultInput ? "   (default)" : ""));
-          System.out.println("  max outputs: " + maxOutputs
-                  + (isDefaultOutput ? "   (default)" : ""));
-      }
 
-		this.synth.start();
+		int numDevices = audioManager.getDeviceCount();
+		for (int i = 0; i < numDevices; i++) {
+			String deviceName = audioManager.getDeviceName(i);
+			int maxInputs = audioManager.getMaxInputChannels(i);
+			int maxOutputs = audioManager.getMaxOutputChannels(i);
+			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
+			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
+			System.out.println("#" + i + " : " + deviceName);
+			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
+			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
+		}
+
+		this.synth.start(44100,AudioDeviceManager.USE_DEFAULT_DEVICE,
+				this.audioManager.getMaxInputChannels(this.audioManager.getDefaultInputDeviceID()),
+				// could try to grab more output channels if we wanted to?
+				AudioDeviceManager.USE_DEFAULT_DEVICE, 2);
 
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
@@ -72,7 +74,7 @@ public class Engine {
 	protected static Engine getEngine() {
 		return Engine.getEngine(null);
 	}
-	
+
 	protected static Engine getEngine(PApplet parent) {
 		if (Engine.singleton == null) {
 			Engine.singleton = new Engine(parent);
@@ -99,8 +101,8 @@ public class Engine {
 	}
 
 	protected static boolean checkAmp(float amp) {
-		if (amp < 0) {
-			Engine.printError("amplitude can't be negative");
+		if (amp < -1 || amp > 1) {
+			Engine.printError("amplitude has to be in [-1,1]");
 			return false;
 		}
 		return true;
