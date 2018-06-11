@@ -11,9 +11,6 @@ public class BrownNoise extends Noise<com.jsyn.unitgen.BrownNoise> {
 
 	protected BrownNoise(PApplet theParent) {
 		super(theParent, new com.jsyn.unitgen.BrownNoise());
-	}
-
-	protected void setNoiseAmp(float amp) {
-		this.noise.amplitude.set(amp);
+		this.amplitude = this.noise.amplitude;
 	}
 }

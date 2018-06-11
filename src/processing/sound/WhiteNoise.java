@@ -11,9 +11,6 @@ public class WhiteNoise extends Noise<com.jsyn.unitgen.WhiteNoise> {
 
 	public WhiteNoise(PApplet theParent) {
 		super(theParent, new com.jsyn.unitgen.WhiteNoise());
-	}
-
-	protected void setNoiseAmp(float amp) {
-		this.noise.amplitude.set(amp);
+		this.amplitude = this.noise.amplitude;
 	}
 }

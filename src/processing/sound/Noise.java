@@ -15,14 +15,6 @@ abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 		this.circuit = new JSynCircuit(((UnitSource) this.noise).getOutput());
 	}
 
-	public void amp(float amp) {
-		// TODO check argument in [0,1]?
-		this.setNoiseAmp(amp);
-	}
-
-	// no uniform interface for JSyn's noise classes, implementation needs to be in subclasses
-	protected abstract void setNoiseAmp(float amp);
-
 	/**
 	 * Set multiple parameters at once.
 	 * @webref sound

@@ -1,5 +1,6 @@
 package processing.sound;
 
+import com.jsyn.ports.UnitInputPort;
 import com.jsyn.unitgen.UnitFilter;
 
 import processing.core.PApplet;
@@ -9,9 +10,11 @@ import processing.core.PApplet;
  */
 abstract class SoundObject {
 
-	// subclasses need to initialise this circuit
+	// subclasses need to initialise this circuit and set the corresponding amplitude port
 	protected JSynCircuit circuit;
+	protected UnitInputPort amplitude;
 
+	protected float amp = 1;
 	private boolean isPlaying = false;
 
 	protected SoundObject(PApplet parent) {
@@ -34,9 +37,17 @@ abstract class SoundObject {
 	/**
 	 * Changes the amplitude/volume of this sound.
 	 * @webref sound
-	 * @param amp A float value between 0.0 and 1.0 controlling the amplitude/volume of this sound.
+	 * @param amp A float value between 0.0 (complete silence) and 1.0 (full volume)
+	 * controlling the amplitude/volume of this sound.
 	 **/
-	public abstract void amp(float amp);
+	public void amp(float amp) {
+		if (Engine.checkAmp(amp)) {
+			this.amp = amp;
+			if (this.isPlaying()) {
+				this.amplitude.set(this.amp);
+			}
+		}
+	}
 
 	/**
 	 * Check if this sound object is currently playing.
@@ -67,6 +78,7 @@ abstract class SoundObject {
 	public void play() {
 		Engine.getEngine().add(this.circuit);
 		Engine.getEngine().play(this.circuit);
+		this.amplitude.set(this.amp);
 		this.isPlaying = true;
 		// TODO rewire effect if one was set previously (before stopping)?
 	}
@@ -77,6 +89,7 @@ abstract class SoundObject {
 	 **/
 	public void stop() {
 		this.isPlaying = false;
+		this.amplitude.set(0);
 		Engine.getEngine().stop(this.circuit);
 		Engine.getEngine().remove(this.circuit);
 		this.removeEffect(this.circuit.effect);
