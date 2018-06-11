@@ -2,21 +2,46 @@ package processing.sound;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import com.jsyn.devices.AudioDeviceFactory;
+import com.jsyn.devices.AudioDeviceManager;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
-class Engine {
+// class needs to be public for registered callback methods to be callable
+public class Engine {
 
 	private static Engine singleton;
 
+	private AudioDeviceManager audioManager;
 	protected Synthesizer synth;
 	private LineOut lineOut;
 	
 	private Engine(PApplet parent) {
-		this.synth = JSyn.createSynthesizer();
+		try {
+			Class.forName("javax.sound.sampled.AudioSystem");
+			this.audioManager = AudioDeviceFactory.createAudioDeviceManager();
+			this.synth = JSyn.createSynthesizer();
+		} catch (ClassNotFoundException e) {
+			this.audioManager = new JSynAndroidAudioDeviceManager();
+			this.synth = JSyn.createSynthesizer(new JSynAndroidAudioDeviceManager());
+		}
+      int numDevices = audioManager.getDeviceCount();
+      for (int i = 0; i < numDevices; i++) {
+          String deviceName = audioManager.getDeviceName(i);
+          int maxInputs = audioManager.getMaxInputChannels(i);
+          int maxOutputs = audioManager.getMaxOutputChannels(i);
+          boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
+          boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
+          System.out.println("#" + i + " : " + deviceName);
+          System.out.println("  max inputs : " + maxInputs
+                  + (isDefaultInput ? "   (default)" : ""));
+          System.out.println("  max outputs: " + maxOutputs
+                  + (isDefaultOutput ? "   (default)" : ""));
+      }
+
 		this.synth.start();
 
 		this.lineOut = new LineOut(); // stereo lineout by default
@@ -24,24 +49,24 @@ class Engine {
 		this.lineOut.start();
 
 		if (parent != null) {
-			System.out.println("Registering callbacks");
 			parent.registerMethod("dispose", this);
-			// Android only?
+			// Android only
 			parent.registerMethod("pause", this);
 			parent.registerMethod("resume", this);
 		}
 	}
 
 	public void dispose() {
-		PApplet.println("Dispose");
+		this.lineOut.stop();
+		this.synth.stop();
 	}
 
 	public void pause() {
-		PApplet.println("Pause");
+		// TODO android only
 	}
 
 	public void resume() {
-		PApplet.println("Resume");
+		// TODO android only
 	}
 
 	protected static Engine getEngine() {
