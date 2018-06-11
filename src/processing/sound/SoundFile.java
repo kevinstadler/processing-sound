@@ -1,7 +1,6 @@
 package processing.sound;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -42,12 +41,10 @@ public class SoundFile extends SoundObject {
 	public SoundFile(PApplet parent, String path) throws IOException {
 		super(parent);
 
-		// TODO what if it's a URL?
-		File f = new File(path);
-		this.sample = SAMPLECACHE.get(f.getCanonicalPath());
+		this.sample = SoundFile.SAMPLECACHE.get(path);
 
 		if (this.sample == null) {
-			InputStream fin = PApplet.createInput(f);
+			InputStream fin = parent.createInput(path);
 
 			// if PApplet.createInput() can't find the file or URL, it prints
 			// an error message and fin returns null. In this case we can just
@@ -72,7 +69,7 @@ public class SoundFile extends SoundObject {
 					mp3.close();
 				}
 			}
-			SAMPLECACHE.put(f.getCanonicalPath(), this.sample);
+			SoundFile.SAMPLECACHE.put(path, this.sample);
 		}
 		this.initiatePlayer();
 	}
@@ -172,14 +169,31 @@ public class SoundFile extends SoundObject {
 		}
 	}
 
+	// helper function: when called on a soundfile already running, the original
+	// library triggered a second (concurrent) playback. with JSyn, every data
+	// reader can only do one playback at a time, so if the present player
+	// is busy we need to create a new one with the exact same settings and
+	// trigger it instead
+	private SoundFile getUnusedPlayer() {
+		if (this.isPlaying()) {
+			return new SoundFile(this);
+		} else {
+			return this;
+		}
+	}
+
 	/**
 	 * Starts the playback of a soundfile to loop.
 	 * @webref sound
 	 **/	
 	public void loop() {
-		this.player.dataQueue.queueLoop(this.sample,
-				this.startFrame,
-				this.frames() - this.startFrame);
+		SoundFile source = this.getUnusedPlayer();
+		source.player.dataQueue.queueLoop(source.sample,
+				source.startFrame,
+				source.frames() - source.startFrame);
+		// for improved handling by the user, return a reference to whichever
+		// sound file is the source of the newly triggered playback
+		// return source;
 	}
 
 	public void loop(float rate) {
@@ -208,22 +222,12 @@ public class SoundFile extends SoundObject {
 		this.loop(rate, pos, amp, add);
 	}
 
-	// panning wasn't originally supported for stereo files, but it is now
-
 	/**
 	 * Starts the playback of a soundfile. Only plays the soundfile once.
 	 * @webref sound
 	 **/
 	public void play() {
-		SoundFile source = this;
-		// when called on a soundfile already running, the original library
-		// triggered a second (concurrent) playback. with JSyn, every data
-		// reader can only do one playback at a time, so if the present player
-		// is busy we need to create a new one with the exact same settings and
-		// trigger it instead
-		if (this.isPlaying()) {
-			source = new SoundFile(this);
-		}
+		SoundFile source = this.getUnusedPlayer();
 		source.player.dataQueue.queue(source.sample,
 				source.startFrame,
 				source.frames() - source.startFrame);
