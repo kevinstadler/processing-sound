@@ -24,6 +24,11 @@ public class AudioIn extends SoundObject {
 		this.circuit = new JSynCircuit(this.input.output);
 	}
 
+	/**
+	 * Not implemented yet.
+	 * 
+	 * @webref sound
+	 **/
 	public void amp(float amp) {
 		// TODO
 	}
