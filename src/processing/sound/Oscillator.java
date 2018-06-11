@@ -20,8 +20,9 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 	 * @param amp The amplitude value of the oscillator as a float fom 0.0 to 1.0
 	 **/
 	public void amp(float amp) {
-		// TODO check argument in [0,1]?
-		this.oscillator.amplitude.set(amp);
+		if (Engine.checkAmp(amp)) {
+			this.oscillator.amplitude.set(amp);
+		}
 	}
 
 	/**
@@ -30,6 +31,7 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 	 * @param freq A floating point value of the oscillator in Hz.
 	 **/
 	public void freq(float freq) {
+		// TODO check positive?
 		this.oscillator.frequency.set(freq);
 	}
 
