@@ -21,6 +21,11 @@ abstract class SoundObject {
 		Engine.getEngine(parent);
 	}
 
+	private void setAmplitude() {
+//		this.amplitude.disconnectAll();
+		this.amplitude.set(this.amp);
+	}
+
 	/**
 	 * Offset the output of this generator by given value
 	 * @webref sound
@@ -44,7 +49,7 @@ abstract class SoundObject {
 		if (Engine.checkAmp(amp)) {
 			this.amp = amp;
 			if (this.isPlaying()) {
-				this.amplitude.set(this.amp);
+				this.setAmplitude();
 			}
 		}
 	}
@@ -78,7 +83,7 @@ abstract class SoundObject {
 	public void play() {
 		Engine.getEngine().add(this.circuit);
 		Engine.getEngine().play(this.circuit);
-		this.amplitude.set(this.amp);
+		this.setAmplitude();
 		this.isPlaying = true;
 		// TODO rewire effect if one was set previously (before stopping)?
 	}

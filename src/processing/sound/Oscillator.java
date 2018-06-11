@@ -12,17 +12,7 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 		super(theParent);
 		this.oscillator = oscillator;
 		this.circuit = new JSynCircuit(this.oscillator.getOutput());
-	}
-
-	/**
-	 * Set the amplitude/volume of the oscillator
-	 * @webref sound
-	 * @param amp The amplitude value of the oscillator as a float fom 0.0 to 1.0
-	 **/
-	public void amp(float amp) {
-		if (Engine.checkAmp(amp)) {
-			this.oscillator.amplitude.set(amp);
-		}
+		this.amplitude = this.oscillator.amplitude;
 	}
 
 	/**
