@@ -38,7 +38,7 @@ public class SoundFile extends SoundObject {
 	// the original library only printed an error if the file wasn't found,
 	// but then later threw a NullPointerException when trying to play() the file.
 	// this implementation will already through an Exception upon failing to load.
-	public SoundFile(PApplet parent, String path) throws IOException {
+	public SoundFile(PApplet parent, String path) {
 		super(parent);
 
 		this.sample = SoundFile.SAMPLECACHE.get(path);
@@ -58,15 +58,23 @@ public class SoundFile extends SoundObject {
 				this.sample = SampleLoader.loadFloatSample(fin);
 			} catch (IOException e) {
 				// try parsing as mp3
-				Sound mp3 = new Sound(fin);
 				try {
-					ByteArrayOutputStream os = new ByteArrayOutputStream();
-					mp3.decodeFullyInto(os); // this call is expensive
-					float data[] = new float[os.size() / 2];
-					SampleLoader.decodeLittleI16ToF32(os.toByteArray(), 0, os.size(), data, 0);
-					this.sample = new FloatSample(data, mp3.isStereo() ? 2 : 1);
-				} finally {
-					mp3.close();
+					Sound mp3 = new Sound(fin);
+					try {
+						ByteArrayOutputStream os = new ByteArrayOutputStream();
+						// TODO make decoding asynchronous with a FutureTask<FloatSample>
+						// this call is expensive
+						mp3.decodeFullyInto(os);
+						float data[] = new float[os.size() / 2];
+						SampleLoader.decodeLittleI16ToF32(os.toByteArray(), 0, os.size(), data, 0);
+						this.sample = new FloatSample(data, mp3.isStereo() ? 2 : 1);
+					} catch (IOException ee) {
+						throw ee;
+					} finally {
+						mp3.close();
+					}
+				} catch (IOException ee) {
+					Engine.printError("unable to decode sound file " + path);
 				}
 			}
 			SoundFile.SAMPLECACHE.put(path, this.sample);
@@ -84,6 +92,7 @@ public class SoundFile extends SoundObject {
 		// needs to be set explicitly
 		this.player.rate.set(this.sampleRate());
 		this.circuit = new JSynCircuit(this.player.output);
+		this.amplitude = this.player.amplitude;
 
 		// unlike the Oscillator and Noise classes, the sample player units can
 		// always stay connected to the JSyn synths, since they make no noise
@@ -91,6 +100,7 @@ public class SoundFile extends SoundObject {
 		super.play(); // doesn't actually start playback, just adds the (silent) units
 	}
 
+	// private constructor for cloning
 	private SoundFile(SoundFile original) {
 		super(null);
 		this.sample = original.sample;
@@ -287,6 +297,7 @@ public class SoundFile extends SoundObject {
 	/**
 	 * Get current sound file playback position in seconds.
 	 * @return The current position of the sound file playback in seconds (TODO seconds at which sample rate?)
+	 * @webref sound
 	 */
 	public float position() {
 		// progress in sample seconds or current-rate-playback seconds??
@@ -296,6 +307,7 @@ public class SoundFile extends SoundObject {
 	/**
 	 * Get current sound file playback position in percent.
 	 * @return The current position of the sound file playback in percent (a value between 0 and 100).
+	 * @webref sound
 	 */
 	public float percent() {
 		return 100f * this.player.dataQueue.getFrameCount() / (float) this.frames();
@@ -304,9 +316,24 @@ public class SoundFile extends SoundObject {
 	/**
 	 * Check whether this soundfile is currently playing.
 	 * @return `true` if the soundfile is currently playing, `false` if it is not.
+	 * @webref sound
 	 */
 	public boolean isPlaying() {
 		// overrides the SoundObject's default implementation
 		return this.player.dataQueue.hasMore();
+	}
+
+	/**
+	 * Stop the playback of the file, but cue it to the current position so that
+	 * the next call to play() will continue playing where it left off.
+	 * @webref sound
+	 */
+	public void pause() {
+		if (this.isPlaying()) {
+			this.startFrame = (int) this.player.dataQueue.getFrameCount();
+			this.stop();
+		} else {
+			Engine.printWarning("sound file is not currently playing");
+		}
 	}
 }
