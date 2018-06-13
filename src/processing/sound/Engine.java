@@ -30,21 +30,28 @@ public class Engine {
 		}
 
 		int numDevices = audioManager.getDeviceCount();
+		int numInputs = 0;
+		int numOutputs = 0;
 		for (int i = 0; i < numDevices; i++) {
 			String deviceName = audioManager.getDeviceName(i);
 			int maxInputs = audioManager.getMaxInputChannels(i);
 			int maxOutputs = audioManager.getMaxOutputChannels(i);
 			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
 			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
+			if (isDefaultInput) {
+				numInputs = maxInputs;
+			}
+			if (isDefaultOutput) {
+				// could try to grab more output channels if we wanted to?
+				numOutputs = Math.min(maxOutputs, 2);
+			}
 			System.out.println("#" + i + " : " + deviceName);
 			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
 			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
 		}
 
-		this.synth.start(44100,AudioDeviceManager.USE_DEFAULT_DEVICE,
-				this.audioManager.getMaxInputChannels(this.audioManager.getDefaultInputDeviceID()),
-				// could try to grab more output channels if we wanted to?
-				AudioDeviceManager.USE_DEFAULT_DEVICE, 2);
+		this.synth.start(44100,AudioDeviceManager.USE_DEFAULT_DEVICE, numInputs,
+				AudioDeviceManager.USE_DEFAULT_DEVICE, numOutputs);
 
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
