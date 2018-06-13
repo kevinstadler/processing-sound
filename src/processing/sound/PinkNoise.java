@@ -9,7 +9,7 @@ import processing.core.PApplet;
 **/
 public class PinkNoise extends Noise<com.jsyn.unitgen.PinkNoise> {
 
-	protected PinkNoise(PApplet theParent) {
+	public PinkNoise(PApplet theParent) {
 		super(theParent, new com.jsyn.unitgen.PinkNoise());
 		this.amplitude = this.noise.amplitude;
 	}

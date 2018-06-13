@@ -9,7 +9,7 @@ import processing.core.PApplet;
  **/
 public class BrownNoise extends Noise<com.jsyn.unitgen.BrownNoise> {
 
-	protected BrownNoise(PApplet theParent) {
+	public BrownNoise(PApplet theParent) {
 		super(theParent, new com.jsyn.unitgen.BrownNoise());
 		this.amplitude = this.noise.amplitude;
 	}
