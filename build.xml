@@ -3,12 +3,17 @@
 
 	<property file="./build.properties" />
 
-	<!-- Ant build classpath: all the .jar files in the library/ folder.
-		The sound synthesis dependencies are automatically downloaded by this
-		build script, but the Processing core.jar (and android.jar, required for
-		the JSynAndroidAudioDeviceManager) need to be manually added (or linked)
+	<!-- The sound synthesis dependencies are automatically downloaded by this
+		build script, android.jar, required for
+		the JSynAndroidAudioDeviceManager, needs to be manually added (or linked)
 		into the library/ folder. -->
 	<path id="classpath">
+		<fileset dir="..">
+			<!-- look for Processing's core.jar in ../processing -->
+			<!-- alternatively, this file can also be placed in -->
+			<!-- the local library folder -->
+			<include name="processing/core/library/core.jar" />
+		</fileset>
 		<fileset dir="library">
 			<include name="*.jar" />
 		</fileset>
