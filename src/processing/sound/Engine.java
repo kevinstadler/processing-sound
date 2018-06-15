@@ -18,20 +18,19 @@ public class Engine {
 	private AudioDeviceManager audioManager;
 	protected Synthesizer synth;
 	private LineOut lineOut;
+	private int numInputs;
+	private int numOutputs;
 
 	private Engine(PApplet parent) {
 		try {
 			Class.forName("javax.sound.sampled.AudioSystem");
 			this.audioManager = AudioDeviceFactory.createAudioDeviceManager();
-			this.synth = JSyn.createSynthesizer();
 		} catch (ClassNotFoundException e) {
 			this.audioManager = new JSynAndroidAudioDeviceManager();
-			this.synth = JSyn.createSynthesizer(new JSynAndroidAudioDeviceManager());
 		}
+		this.synth = JSyn.createSynthesizer(this.audioManager);
 
 		int numDevices = audioManager.getDeviceCount();
-		int numInputs = 0;
-		int numOutputs = 0;
 		for (int i = 0; i < numDevices; i++) {
 			String deviceName = audioManager.getDeviceName(i);
 			int maxInputs = audioManager.getMaxInputChannels(i);
@@ -39,19 +38,18 @@ public class Engine {
 			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
 			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
 			if (isDefaultInput) {
-				numInputs = maxInputs;
+				this.numInputs = maxInputs;
 			}
 			if (isDefaultOutput) {
 				// could try to grab more output channels if we wanted to?
-				numOutputs = Math.min(maxOutputs, 2);
+				this.numOutputs = Math.min(maxOutputs, 2);
 			}
 			System.out.println("#" + i + " : " + deviceName);
 			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
 			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
 		}
 
-		this.synth.start(44100,AudioDeviceManager.USE_DEFAULT_DEVICE, numInputs,
-				AudioDeviceManager.USE_DEFAULT_DEVICE, numOutputs);
+		this.startSynth(44100);
 
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
@@ -63,6 +61,14 @@ public class Engine {
 			parent.registerMethod("pause", this);
 			parent.registerMethod("resume", this);
 		}
+	}
+
+	protected void startSynth(int sampleRate) {
+		if (this.synth.isRunning()) {
+			this.synth.stop();
+		}
+		this.synth.start(sampleRate, AudioDeviceManager.USE_DEFAULT_DEVICE, this.numInputs,
+				AudioDeviceManager.USE_DEFAULT_DEVICE, this.numOutputs);
 	}
 
 	public void dispose() {
@@ -90,7 +96,9 @@ public class Engine {
 	}
 
 	protected void add(UnitGenerator generator) {
-		this.synth.add(generator);
+		if (generator.getSynthesisEngine() == null) {
+			this.synth.add(generator);
+		}
 	}
 
 	protected void remove(UnitGenerator generator) {
@@ -98,6 +106,7 @@ public class Engine {
 	}
 
 	protected void play(UnitSource source) {
+		// TODO check if unit is already connected
 		source.getOutput().connect(0, this.lineOut.input, 0);
 		source.getOutput().connect(1, this.lineOut.input, 1);
 	}
