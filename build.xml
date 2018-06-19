@@ -20,13 +20,21 @@
 		<delete file="library/sound.jar" />
 	</target>
 
-	<target name="deps" description="Get library dependencies">
+	<target name="checkandroid">
+		<available file="library/android.jar" property="hasandroid" />
+	</target>
+
+	<target name="android-deps" unless="hasandroid" description="Download an android.jar">
+		<!-- this part of the Android SDK is required to build JSynAndroidAudioDeviceManager -->
+		<!-- preferrably you should soft-link or copy the android.jar of your locally
+			installed SDK into this project's library/ directory -->
+		<get src="https://github.com/marianadangelo/android-platforms/raw/master/android-26/android.jar" dest="library/" usetimestamp="true" />
+	</target>
+
+	<target name="deps" depends="checkandroid,android-deps" description="Get library dependencies">
 		<mkdir dir="library" />
 		<get src="http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar" dest="library/" usetimestamp="true" />
 		<get src="https://github.com/kevinstadler/JavaMP3/raw/master/javamp3-1.0.2.jar" dest="library/" usetimestamp="true" />
-		<!-- this part of the Android SDK is required to build JSynAndroidAudioDeviceManager -->
-		<!-- preferably, a locally installed version of the SDK should be used instead -->
-		<get src="https://github.com/marianadangelo/android-platforms/raw/master/android-27/android.jar" dest="library/" usetimestamp="true" />
 	</target>
 
 	<target name="compile" depends="deps" description="Compile sources">
