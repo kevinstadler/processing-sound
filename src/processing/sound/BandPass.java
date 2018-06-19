@@ -21,14 +21,14 @@ public class BandPass extends Effect<FilterBandPass> {
 	}
 
 	/**
-	 * Sets frequency and bandwidth of the filter with one method. 
+	 * Set the bandwidth for the filter.
 	 * @webref sound
-	 * @param freq Set the frequency
-	 * @param bw Set the bandwidth
+	 * @param freq Bandwidth in Hz
 	 **/
-	public void set(float freq, float bw) {
-		this.freq(freq);
-		this.bw(bw);
+	public void bw(float bw) {
+		// TODO check filter quality
+		this.left.Q.set(this.left.frequency.get() / bw);
+		this.right.Q.set(this.right.frequency.get() / bw);
 	}
 
 	/**
@@ -41,14 +41,25 @@ public class BandPass extends Effect<FilterBandPass> {
 		this.right.frequency.set(freq);
 	}
 
+	public void process(SoundObject input, float freq) {
+		this.freq(freq);
+		this.process(input);
+	}
+
+	public void process(SoundObject input, float freq, float bw) {
+		this.freq(freq);
+		this.bw(bw);
+		this.process(input);
+	}
+
 	/**
-	 * Set the bandwidth for the filter.
+	 * Sets frequency and bandwidth of the filter with one method. 
 	 * @webref sound
-	 * @param freq Bandwidth in Hz
+	 * @param freq Set the frequency
+	 * @param bw Set the bandwidth
 	 **/
-	public void bw(float bw) {
-		// TODO check filter quality
-		this.left.Q.set(this.left.frequency.get() / bw);
-		this.right.Q.set(this.right.frequency.get() / bw);
+	public void set(float freq, float bw) {
+		this.freq(freq);
+		this.bw(bw);
 	}
 }

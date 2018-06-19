@@ -29,4 +29,9 @@ public class LowPass extends Effect<FilterLowPass> {
 		this.left.frequency.set(freq);
 		this.right.frequency.set(freq);
 	}
+
+	public void process(SoundObject input, float freq) {
+		this.freq(freq);
+		this.process(input);
+	}
 }
