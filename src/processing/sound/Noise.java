@@ -15,6 +15,21 @@ abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 		this.circuit = new JSynCircuit(((UnitSource) this.noise).getOutput());
 	}
 
+	public void play(float amp) {
+		this.amp(amp);
+		this.play();
+	}
+
+	public void play(float amp, float pos) {
+		this.pan(pos);
+		this.play(amp);
+	}
+
+	public void play(float amp, float add, float pos) {
+		this.set(amp, add, pos);
+		this.play();
+	}
+
 	/**
 	 * Set multiple parameters at once.
 	 * @webref sound

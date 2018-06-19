@@ -44,6 +44,11 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 		this.play(freq, amp);
 	}
 
+	public void play(float freq, float amp, float add, float pos) {
+		this.set(freq, amp, add, pos);
+		this.play();
+	}
+
 	/**
 	 * Set multiple parameters at once
 	 * @webref sound
