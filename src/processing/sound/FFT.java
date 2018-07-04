@@ -42,8 +42,11 @@ public class FFT extends Analyzer {
 	}
 
 	protected void setInput(UnitOutputPort input) {
-		this.fft.input.disconnectAll();
-		input.connect(this.fft.input);
+		Engine.getEngine().add(this.fft);
+		this.fft.start();
+		this.fft.input.connect(input);
+
+		// TODO make sure unit is playing, add it to Engine if not?
 	}
 
 	public void analyze() {
@@ -57,11 +60,6 @@ public class FFT extends Analyzer {
 	 * @webref sound
 	 **/
 	public void analyze(float[] value) {
-		Engine.getEngine().add(this.fft);
-		this.fft.start();
-		// TODO find cleaner way to make sure unit has started
-		this.input.circuit.start();
-
 		Spectrum s = this.fft.output.getSpectrum();
 		int bins = value.length;
 		if (s.size() != 2 * bins) {
