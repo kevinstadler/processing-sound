@@ -246,6 +246,31 @@ public class SoundFile extends SoundObject {
 		// return source;
 	}
 
+	public void play(float rate) {
+		this.rate(rate);
+		this.play();
+	}
+
+	public void play(float rate, float amp) {
+		this.amp(amp);
+		this.play(rate);
+	}
+
+	public void play(float rate, float pos, float amp) {
+		this.pan(pos);
+		this.play(rate, amp);
+	}
+
+	public void play(float rate, float pos, float amp, float add) {
+		this.add(add);
+		this.play(rate, pos, amp);
+	}
+
+	public void play(float rate, float pos, float amp, float add, float cue) {
+		this.cue(cue);
+		this.play(rate, pos, amp, add);
+	}
+
 	/**
 	 * Change the playback rate of the soundfile.
 	 * @webref sound
