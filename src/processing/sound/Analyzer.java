@@ -20,17 +20,25 @@ abstract class Analyzer {
 	 **/
 	public void input(SoundObject input) {
 		if (this.input == input) {
-			// TODO print warning?
+			Engine.printWarning("This input was already connected to the analyzer");
 		} else {
 			if (this.input != null) {
-				// TODO disconnect unit (and remove from synth?)
+				// TODO disconnect unit from analyzer
+
+				if (!this.input.isPlaying()) {
+					// unit was only analyzed but not playing out loud - remove from synth
+					Engine.getEngine().remove(this.input.circuit);
+				}
 			}
 			this.input = input;
-			Engine.getEngine().add(input.circuit);
-	
+			if (!this.input.isPlaying()) {
+				Engine.getEngine().add(input.circuit);
+			}
+
 			this.setInput(input.circuit.output.output);
 		}
 	}
 
+	// connect sound source in subclass AND add analyser unit to Engine
 	protected abstract void setInput(UnitOutputPort input);
 }
