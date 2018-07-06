@@ -8,7 +8,6 @@ import processing.sound.*;
 // Declare the processing sound variables 
 SoundFile sample;
 FFT fft;
-AudioDevice device;
 
 // Declare a scaling factor
 int scale=5;
@@ -28,10 +27,6 @@ float smooth_factor = 0.2;
 public void setup() {
   size(640, 360);
   background(255);
-  
-  // If the Buffersize is larger than the FFT Size, the FFT will fail
-  // so we set Buffersize equal to bands
-  device = new AudioDevice(this, 44000, bands);
   
   // Calculate the width of the rects depending on how many bands we have
   r_width = width/float(bands);
@@ -63,4 +58,3 @@ public void draw() {
     rect( i*r_width, height, r_width, -sum[i]*height*scale );
   }
 }
-

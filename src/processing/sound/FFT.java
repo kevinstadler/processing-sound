@@ -31,22 +31,23 @@ public class FFT extends Analyzer {
 	public FFT(PApplet parent, int fftSize) {
 		super(parent);
 		if (fftSize < 0 || Integer.bitCount(fftSize) != 1) {
+			// TODO throw RuntimeException
 			Engine.printError("number of FFT bands needs to be a power of 2");
 		} else {
-			// add one to increase fftSize by one power to get desired number of bins
+			// add one to increase fftSize by one power to get desired number
+			// of bins (see github issue #7)
 			int log2 = 1 + Integer.numberOfTrailingZeros(fftSize);
 			this.fft = new SpectralFFT(log2);
-//			this.fft.setWindow(SpectralWindowFactory.getHannWindow(log2));
+			// this.fft.setWindow(SpectralWindowFactory.getHannWindow(log2));
 			this.spectrum = new float[fftSize];
 		}
 	}
 
 	protected void setInput(UnitOutputPort input) {
+		// superclass makes sure that input unit is actually playing, just connect it
 		Engine.getEngine().add(this.fft);
-		this.fft.start();
 		this.fft.input.connect(input);
-
-		// TODO make sure unit is playing, add it to Engine if not?
+		this.fft.start();
 	}
 
 	public void analyze() {
@@ -64,12 +65,12 @@ public class FFT extends Analyzer {
 		int bins = value.length;
 		if (s.size() != 2 * bins) {
 			Engine.printWarning("target array is not the same size as the number of frequency bins of the FFT");
-			bins = Math.min(s.size(), value.length);
+			bins = Math.min(s.size() / 2, value.length);
 		}
 		for (int i = 0; i < bins; i++) {
-			// index+1 to skip over DC offset
-			value[i] = (float) Math.sqrt(Math.pow(s.getReal()[i+1], 2)
-										+ Math.pow(s.getImaginary()[i+1], 2));
+			// index+1 to skip over DC bin
+			// multiply by 2 to achieve same amplitude scale as original library
+			value[i] = (float) (2 * Math.sqrt(Math.pow(s.getReal()[i + 1], 2) + Math.pow(s.getImaginary()[i + 1], 2)));
 		}
 	}
 }
