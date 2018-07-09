@@ -1,6 +1,7 @@
 package processing.sound;
 
 import com.jsyn.unitgen.ChannelIn;
+import com.jsyn.unitgen.Multiply;
 
 import processing.core.PApplet;
 
@@ -16,25 +17,26 @@ import processing.core.PApplet;
 public class AudioIn extends SoundObject {
 
 	private ChannelIn input;
+	private Multiply multiplier;
+
+	public AudioIn(PApplet parent) {
+		this(parent, 0);
+	}
 
 	public AudioIn(PApplet parent, int in) {
 		super(parent);
 		// ChannelIn for mono, LineIn for stereo
 		this.input = new ChannelIn(in);
-		this.circuit = new JSynCircuit(this.input.output);
+		this.multiplier = new Multiply();
+		this.multiplier.inputA.connect(this.input.output);
+		this.amplitude = this.multiplier.inputB;
+
+		this.circuit = new JSynCircuit(this.multiplier.output);
+		this.circuit.add(this.input);
 	}
 
 	/**
-	 * Not implemented yet.
-	 * 
-	 * @webref sound
-	 **/
-	public void amp(float amp) {
-		// TODO
-	}
-
-	/**
-	 * Start the Input Stream and route it to the Audio Hardware Output
+	 * Start the input stream and route it to the audio output
 	 * 
 	 * @webref sound
 	 **/
@@ -43,13 +45,13 @@ public class AudioIn extends SoundObject {
 	}
 
 	/**
-	 * Start the input stream without routing it to the audio hardware output.
+	 * Start the input stream without routing it to the audio output. This is useful
+	 * if you only want to perform audio analysis based on the microphone input.
 	 * 
 	 * @webref sound
 	 */
 	public void start() {
-		// TODO don't route to lineout
-		super.play();
+		Engine.getEngine().add(this.circuit);
 	}
 
 	public void start(float amp) {
