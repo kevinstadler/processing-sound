@@ -1,7 +1,5 @@
 package processing.sound;
 
-import com.jsyn.unitgen.InterpolatingDelay;
-
 import processing.core.PApplet;
 
 /**
@@ -11,15 +9,15 @@ import processing.core.PApplet;
  * @param parent
  *            PApplet: typically use "this"
  **/
-public class Delay extends Effect<InterpolatingDelay> {
+public class Delay extends Effect<JSynDelay> {
 
 	public Delay(PApplet parent) {
 		super(parent);
 	}
 
 	@Override
-	protected InterpolatingDelay newInstance() {
-		return new InterpolatingDelay();
+	protected JSynDelay newInstance() {
+		return new JSynDelay();
 	}
 
 	/**
@@ -32,9 +30,8 @@ public class Delay extends Effect<InterpolatingDelay> {
 	 * @param delayTime Delay time to use when starting to process, in seconds.
 	 **/
 	public void process(SoundObject input, float maxDelayTime, float delayTime) {
-		int maxSamples = (int) (Engine.getEngine().getSampleRate() * maxDelayTime);
-		this.left.allocate(maxSamples);
-		this.right.allocate(maxSamples);
+		this.left.setMaxDelayTime(maxDelayTime);
+		this.right.setMaxDelayTime(maxDelayTime);
 		this.time(delayTime);
 		// connect input in superclass method
 		super.process(input);
@@ -68,8 +65,8 @@ public class Delay extends Effect<InterpolatingDelay> {
 	 **/
 	public void time(float delayTime) {
 		// TODO check that delayTime is not greater than effect buffer
-		this.left.delay.set(delayTime);
-		this.right.delay.set(delayTime);
+		this.left.setDelayTime(delayTime);
+		this.right.setDelayTime(delayTime);
 	}
 
 	/**
@@ -80,7 +77,7 @@ public class Delay extends Effect<InterpolatingDelay> {
 	 *            Feedback amount as a float.
 	 **/
 	public void feedback(float feedback) {
-		// TODO
-		Engine.printWarning("Delay feedback not implemented yet");
+		this.left.setFeedback(feedback);
+		this.right.setFeedback(feedback);
 	}
 }
