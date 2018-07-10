@@ -6,17 +6,21 @@ import com.jsyn.unitgen.Multiply;
 import processing.core.PApplet;
 
 /**
- * AudioIn lets you grab the audio input from your soundcard.
+ * AudioIn lets you grab the audio input from your sound card.
  * 
  * @webref sound
  * @param parent
  *            PApplet: typically use "this"
  * @param in
- *            Input Channel number
+ *            input channel number (optional, default 0)
  **/
 public class AudioIn extends SoundObject {
 
+	// ChannelIn for mono, LineIn for stereo
 	private ChannelIn input;
+
+	// unlike the oscillator classes, ChannelIn does not have an amplitude
+	// port, so we need to control the amplitude via an extra multiplier unit
 	private Multiply multiplier;
 
 	public AudioIn(PApplet parent) {
@@ -25,7 +29,6 @@ public class AudioIn extends SoundObject {
 
 	public AudioIn(PApplet parent, int in) {
 		super(parent);
-		// ChannelIn for mono, LineIn for stereo
 		this.input = new ChannelIn(in);
 		this.multiplier = new Multiply();
 		this.multiplier.inputA.connect(this.input.output);
@@ -36,7 +39,7 @@ public class AudioIn extends SoundObject {
 	}
 
 	/**
-	 * Start the input stream and route it to the audio output
+	 * Start capturing the input stream and route it to the audio output
 	 * 
 	 * @webref sound
 	 **/
