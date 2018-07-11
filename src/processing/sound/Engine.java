@@ -71,6 +71,10 @@ public class Engine {
 				AudioDeviceManager.USE_DEFAULT_DEVICE, this.numOutputs);
 	}
 
+	protected int getSampleRate() {
+		return this.synth.getFrameRate();
+	}
+
 	public void dispose() {
 		this.lineOut.stop();
 		this.synth.stop();

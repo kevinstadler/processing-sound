@@ -11,16 +11,22 @@ import com.jsyn.unitgen.UnitFilter;
  */
 class JSynDelay extends UnitFilter {
 
-	private Circuit reverbCircuit;
+	private Circuit feedbackCircuit;
 
 	private InterpolatingDelay delay = new InterpolatingDelay();
 	private MultiplyAdd feedback = new MultiplyAdd();
 	
 	public JSynDelay() {
 		super();
-		this.reverbCircuit = new Circuit();
-		this.reverbCircuit.add(this.delay);
-		this.reverbCircuit.add(this.feedback);
+		this.feedbackCircuit = new Circuit();
+		this.feedbackCircuit.add(this.delay);
+		this.feedbackCircuit.add(this.feedback);
+
+		// put the feedback multiplier unit before the delay -- this way
+		// the original signal is not played back immediately, but playback
+		// will be delayed for the length of the delay time
+		// TODO could add 'mix' parameter which allows direct passthrough of
+		// the original signal?
 		this.input = this.feedback.inputC;
 		this.feedback.inputA.set(0.0);
 
@@ -31,12 +37,11 @@ class JSynDelay extends UnitFilter {
 
 	@Override
     public void setSynthesisEngine(SynthesisEngine synthesisEngine) {
-    	super.setSynthesisEngine(synthesisEngine);
-    	this.reverbCircuit.setSynthesisEngine(synthesisEngine);
+		this.feedbackCircuit.setSynthesisEngine(synthesisEngine);
     }
 
 	public void generate(int start, int limit) {
-		this.reverbCircuit.generate(start, limit);
+		// not called
 	}
 
 	protected void setDelayTime(float delayTime) {
