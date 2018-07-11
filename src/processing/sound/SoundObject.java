@@ -6,15 +6,19 @@ import com.jsyn.unitgen.UnitFilter;
 import processing.core.PApplet;
 
 /**
- * Convenience class with a Pan and an Add
+ * Convenience superclass for all sound sources. Subclasses need to assign the
+ * 'amplitude' port, and also initiate a JSynCircuit (which effects can be
+ * plugged into) with an appropriate JSynProcessor if they want to support
+ * pan/add.
  */
 abstract class SoundObject {
 
-	// subclasses need to initialise this circuit and set the corresponding amplitude port
+	// subclasses need to initialise this circuit and set the corresponding
+	// amplitude port
 	protected JSynCircuit circuit;
 	protected UnitInputPort amplitude;
 
-	protected float amp = 1;
+	protected float amp = 1.0f;
 	private boolean isPlaying = false;
 
 	protected SoundObject(PApplet parent) {
@@ -22,16 +26,17 @@ abstract class SoundObject {
 	}
 
 	private void setAmplitude() {
-//		this.amplitude.disconnectAll();
 		this.amplitude.set(this.amp);
 	}
 
 	/**
 	 * Offset the output of this generator by given value
+	 *
 	 * @webref sound
-	 * @param add A value for offsetting the audio signal.
+	 * @param add
+	 *            A value for offsetting the audio signal.
 	 **/
-	public final void add(float add) {
+	public void add(float add) {
 		if (this.circuit.processor == null) {
 			Engine.printError("stereo sound sources do not support adding");
 		} else {
@@ -40,10 +45,12 @@ abstract class SoundObject {
 	}
 
 	/**
-	 * Changes the amplitude/volume of this sound.
+	 * Change the amplitude/volume of this sound.
+	 *
 	 * @webref sound
-	 * @param amp A float value between 0.0 (complete silence) and 1.0 (full volume)
-	 * controlling the amplitude/volume of this sound.
+	 * @param amp
+	 *            A float value between 0.0 (complete silence) and 1.0 (full volume)
+	 *            controlling the amplitude/volume of this sound.
 	 **/
 	public void amp(float amp) {
 		if (Engine.checkAmp(amp)) {
@@ -56,8 +63,10 @@ abstract class SoundObject {
 
 	/**
 	 * Check if this sound object is currently playing.
+	 *
 	 * @webref sound
-	 * @return `true` if this sound object is currently playing, `false` if it is not.
+	 * @return `true` if this sound object is currently playing, `false` if it is
+	 *         not.
 	 */
 	public boolean isPlaying() {
 		return this.isPlaying;
@@ -65,8 +74,11 @@ abstract class SoundObject {
 
 	/**
 	 * Move the sound in a stereo panorama.
+	 *
 	 * @webref sound
-	 * @param pos The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).
+	 * @param pos
+	 *            The panoramic position of this sound unit as a float from -1.0
+	 *            (left) to 1.0 (right).
 	 **/
 	public final void pan(float pos) {
 		if (this.circuit.processor == null) {
@@ -78,6 +90,7 @@ abstract class SoundObject {
 
 	/**
 	 * Start the generator
+	 *
 	 * @webref sound
 	 **/
 	public void play() {
@@ -90,6 +103,7 @@ abstract class SoundObject {
 
 	/**
 	 * Stop the generator
+	 *
 	 * @webref sound
 	 **/
 	public void stop() {
@@ -111,7 +125,7 @@ abstract class SoundObject {
 		this.circuit.setEffect(effect);
 	}
 
-	protected void removeEffect (Effect<? extends UnitFilter> effect) {
+	protected void removeEffect(Effect<? extends UnitFilter> effect) {
 		if (this.circuit.effect != effect) {
 			// possibly a previous effect that's being stopped here, ignore call
 			Engine.printError("this effect is not currently processing any signals.");
