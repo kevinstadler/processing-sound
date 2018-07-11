@@ -51,7 +51,7 @@ abstract class Effect<EffectType extends UnitFilter> {
 	}
 
 	/**
-	 * 	Stops the Filter.
+	 * 	Stop the effect.
 	 */
 	public void stop() {
 		if (this.inputs.isEmpty()) {

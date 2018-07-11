@@ -117,18 +117,18 @@ public class SoundFile extends SoundObject {
 	}
 
 	/**
-	 * Returns the number of channels in the soundfile.
+	 * Returns the number of channels in the sound file.
 	 * @webref sound
-	 * @return Returns the number of channels in the soundfile as an int.
+	 * @return Returns the number of channels in the sound file (1 for mono, 2 for stereo)
 	 **/
 	public int channels() {
 		return this.sample.getChannelsPerFrame();
 	}
 
 	/**
-	 * Cues the playhead to a fixed position in the soundfile. Note that the time parameter supports only integer values. 
+	 * Cues the playhead to a fixed position in the soundfile.
 	 * @webref sound
-	 * @param time Position to start from as integer seconds.
+	 * @param time Position to start from in seconds.
 	 **/
 	// methCla-based library only supported int here!
 	public void cue(float time) {
@@ -147,7 +147,7 @@ public class SoundFile extends SoundObject {
 	/**
 	 * Returns the number of frames/samples of the sound file.
 	 * @webref sound
-	 * @return Returns the number of samples of the soundfile as an int.
+	 * @return Returns the number of samples of the sound file
 	 **/
 	public int frames() {
 		return this.sample.getNumFrames();

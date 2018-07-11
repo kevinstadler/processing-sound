@@ -17,7 +17,7 @@ public class BandPass extends Effect<FilterBandPass> {
 
 	@Override
 	protected FilterBandPass newInstance() {
-		return new com.jsyn.unitgen.FilterBandPass();
+		return new FilterBandPass();
 	}
 
 	/**

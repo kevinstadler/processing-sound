@@ -17,13 +17,13 @@ public class HighPass extends Effect<FilterHighPass> {
 
 	@Override
 	protected FilterHighPass newInstance() {
-		return new com.jsyn.unitgen.FilterHighPass();
+		return new FilterHighPass();
 	}
 
 	/**
 	 * Set the cut off frequency for the filter
 	 * @webref sound
-	 * @param freq The frequency value as a float
+	 * @param freq the cutoff frequency in Hertz
 	 */
 	public void freq(float freq) {
 		this.left.frequency.set(freq);
