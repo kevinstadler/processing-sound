@@ -2,20 +2,24 @@ package processing.sound;
 
 import com.jsyn.engine.SynthesisEngine;
 import com.jsyn.unitgen.Circuit;
-import com.jsyn.unitgen.FilterAllPass;
 import com.jsyn.unitgen.MixerMono;
 import com.jsyn.unitgen.PassThrough;
 import com.jsyn.unitgen.UnitFilter;
 
 /**
  * A JSyn implementation of the classic Freeverb design.
+ * @seealso https://ccrma.stanford.edu/~jos/pasp/Freeverb.html
  */
 public class JSynReverb extends UnitFilter {
 
 	private Circuit reverbCircuit;
 
-	private int[] Ns = new int[] {1557, 1617, 1491, 1422, 1277, 1356, 1188, 1116};
-	private JSynLBCF[] lbcfs = new JSynLBCF[Ns.length];
+	// see https://ccrma.stanford.edu/~jos/pasp/Freeverb.html
+	private static int[] Ns = new int[] { 1557, 1617, 1491, 1422, 1277, 1356, 1188, 1116 };
+	private JSynLBCF[] lbcfs = new JSynLBCF[JSynReverb.Ns.length];
+
+	private static int[] As = new int[] { 225, 556, 441, 341 };
+
 	private MixerMono mixer;
 
 	public JSynReverb() {
@@ -24,17 +28,23 @@ public class JSynReverb extends UnitFilter {
 		this.reverbCircuit.add(in);
 		this.input = in.input;
 
-		FilterAllPass ap = new FilterAllPass();
-		this.reverbCircuit.add(ap);
-		ap.gain.set(1.0 / Ns.length);
-		
-		for (int i = 0; i < Ns.length; i++) {
-			this.lbcfs[i] = new JSynLBCF(0.84, 0.2, Ns[i]);
+		JSynAllPass first = new JSynAllPass(0.5, JSynReverb.As[0]);
+		this.reverbCircuit.add(first);
+		JSynAllPass ap = first;
+		for (int i = 1; i < JSynReverb.As.length; i++) {
+			JSynAllPass next = new JSynAllPass(0.5, JSynReverb.As[i]);
+			ap.output.connect(next.input);
+			ap = next;
+			this.reverbCircuit.add(ap);
+		}
+
+		for (int i = 0; i < JSynReverb.Ns.length; i++) {
+			this.lbcfs[i] = new JSynLBCF(0.84, 0.2, JSynReverb.Ns[i]);
 			this.reverbCircuit.add(this.lbcfs[i]);
 			this.lbcfs[i].input.connect(in.output);
 
-			// inputs get added automatically
-			this.lbcfs[i].output.connect(ap.input);
+			// multiple connected inputs to first AllPass are summed automatically
+			this.lbcfs[i].output.connect(first.input);
 		}
 
 		this.mixer = new MixerMono(2);
@@ -47,9 +57,9 @@ public class JSynReverb extends UnitFilter {
 	}
 
 	@Override
-    public void setSynthesisEngine(SynthesisEngine synthesisEngine) {
-    	this.reverbCircuit.setSynthesisEngine(synthesisEngine);
-    }
+	public void setSynthesisEngine(SynthesisEngine synthesisEngine) {
+		this.reverbCircuit.setSynthesisEngine(synthesisEngine);
+	}
 
 	@Override
 	public void generate(int start, int limit) {
