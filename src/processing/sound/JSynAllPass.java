@@ -7,7 +7,7 @@ import com.jsyn.unitgen.Delay;
 import com.jsyn.unitgen.MultiplyAdd;
 
 // https://ccrma.stanford.edu/~jos/pasp/Allpass_Two_Combs.html
-// y = b0*x + x(-N) - b0* y(-N)
+// y = b0*x + x(-N) - b0*y(-N)
 class JSynAllPass extends Circuit {
 
 	protected UnitInputPort input;
@@ -22,7 +22,7 @@ class JSynAllPass extends Circuit {
 		delay.allocate(N);
 		this.add(delay);
 		delay.input.connect(pre.output);
-		pre.inputA.set(g);
+		pre.inputA.set(-g);
 		pre.inputB.connect(delay.output);
 
 		MultiplyAdd post = new MultiplyAdd();
