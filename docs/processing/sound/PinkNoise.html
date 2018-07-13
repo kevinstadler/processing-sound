@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -92,13 +92,13 @@ var pathtoroot = "../../";loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -140,6 +140,25 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Constructor</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#PinkNoise-processing.core.PApplet-">PinkNoise</a></span>&#8203;(processing.core.PApplet&nbsp;theParent)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -164,7 +183,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#amp-float-">amp</a></span>&#8203;(float&nbsp;amp)</code></th>
 <td class="colLast">
-<div class="block">Changes the amplitude/volume of this sound.</div>
+<div class="block">Change the amplitude/volume of this sound.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -183,12 +202,30 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#play-float-">play</a></span>&#8203;(float&nbsp;amp)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#play-float-float-">play</a></span>&#8203;(float&nbsp;amp,
+    float&nbsp;pos)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#play-float-float-float-">play</a></span>&#8203;(float&nbsp;amp,
+    float&nbsp;add,
+    float&nbsp;pos)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#play--">play</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Start the generator</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#set-float-float-float-">set</a></span>&#8203;(float&nbsp;amp,
    float&nbsp;add,
@@ -197,7 +234,7 @@ extends java.lang.Object</pre>
 <div class="block">Set multiple parameters at once.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/PinkNoise.html#stop--">stop</a></span>&#8203;()</code></th>
 <td class="colLast">
@@ -220,12 +257,59 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="PinkNoise-processing.core.PApplet-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>PinkNoise</h4>
+<pre>public&nbsp;PinkNoise&#8203;(processing.core.PApplet&nbsp;theParent)</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="play-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>play</h4>
+<pre>public&nbsp;void&nbsp;play&#8203;(float&nbsp;amp)</pre>
+</li>
+</ul>
+<a name="play-float-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>play</h4>
+<pre>public&nbsp;void&nbsp;play&#8203;(float&nbsp;amp,
+                 float&nbsp;pos)</pre>
+</li>
+</ul>
+<a name="play-float-float-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>play</h4>
+<pre>public&nbsp;void&nbsp;play&#8203;(float&nbsp;amp,
+                 float&nbsp;add,
+                 float&nbsp;pos)</pre>
+</li>
+</ul>
 <a name="set-float-float-float-">
 <!--   -->
 </a>
@@ -250,7 +334,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre>public final&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
+<pre>public&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
 <div class="block">Offset the output of this generator by given value</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -265,11 +349,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>amp</h4>
 <pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
-<div class="block">Changes the amplitude/volume of this sound.</div>
+<div class="block">Change the amplitude/volume of this sound.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
- controlling the amplitude/volume of this sound.</dd>
+            controlling the amplitude/volume of this sound.</dd>
 </dl>
 </li>
 </ul>
@@ -283,7 +367,8 @@ extends java.lang.Object</pre>
 <div class="block">Check if this sound object is currently playing.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>`true` if this sound object is currently playing, `false` if it is not.</dd>
+<dd>`true` if this sound object is currently playing, `false` if it is
+         not.</dd>
 </dl>
 </li>
 </ul>
@@ -297,7 +382,8 @@ extends java.lang.Object</pre>
 <div class="block">Move the sound in a stereo panorama.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).</dd>
+<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0
+            (left) to 1.0 (right).</dd>
 </dl>
 </li>
 </ul>
@@ -377,13 +463,13 @@ extends java.lang.Object</pre>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

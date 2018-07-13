@@ -96,16 +96,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">A</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#amp-float-">amp(float)</a></span> - Method in class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
-<dd>
-<div class="block">Not implemented yet.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#amp-float-">amp(float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="processing/sound/Amplitude.html" title="class in processing.sound"><span class="typeNameLink">Amplitude</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
+<dd>
+<div class="block">This is a volume analyzer.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Amplitude.html#Amplitude-processing.core.PApplet-">Amplitude(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/Amplitude.html" title="class in processing.sound">Amplitude</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Amplitude.html#analyze--">analyze()</a></span> - Method in class processing.sound.<a href="processing/sound/Amplitude.html" title="class in processing.sound">Amplitude</a></dt>
+<dd>
+<div class="block">Queries a value from the analyzer and returns a float between 0.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/FFT.html#analyze--">analyze()</a></span> - Method in class processing.sound.<a href="processing/sound/FFT.html" title="class in processing.sound">FFT</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/FFT.html#analyze-float:A-">analyze(float[])</a></span> - Method in class processing.sound.<a href="processing/sound/FFT.html" title="class in processing.sound">FFT</a></dt>
+<dd>
+<div class="block">Queries a value from the analyzer and returns a vector the size of the
+ pre-defined number of bands.</div>
+</dd>
+<dt><a href="processing/sound/AudioDevice.html" title="class in processing.sound"><span class="typeNameLink">AudioDevice</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
+<dd>
+<div class="block">AudioDevice allows for configuring the audio server.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/AudioDevice.html#AudioDevice-processing.core.PApplet-int-int-">AudioDevice(PApplet, int, int)</a></span> - Constructor for class processing.sound.<a href="processing/sound/AudioDevice.html" title="class in processing.sound">AudioDevice</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="processing/sound/AudioIn.html" title="class in processing.sound"><span class="typeNameLink">AudioIn</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
 <dd>
-<div class="block">AudioIn lets you grab the audio input from your soundcard.</div>
+<div class="block">AudioIn lets you grab the audio input from your sound card.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#AudioIn-processing.core.PApplet-">AudioIn(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#AudioIn-processing.core.PApplet-int-">AudioIn(PApplet, int)</a></span> - Constructor for class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -124,6 +145,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This is a brown noise generator.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="processing/sound/BrownNoise.html#BrownNoise-processing.core.PApplet-">BrownNoise(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/BrownNoise.html" title="class in processing.sound">BrownNoise</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/BandPass.html#bw-float-">bw(float)</a></span> - Method in class processing.sound.<a href="processing/sound/BandPass.html" title="class in processing.sound">BandPass</a></dt>
 <dd>
 <div class="block">Set the bandwidth for the filter.</div>
@@ -136,7 +159,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#channels--">channels()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
-<div class="block">Returns the number of channels in the soundfile.</div>
+<div class="block">Returns the number of channels in the sound file.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#cue-float-">cue(float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
@@ -148,6 +171,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">D</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="processing/sound/Reverb.html#damp-float-">damp(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Reverb.html" title="class in processing.sound">Reverb</a></dt>
+<dd>
+<div class="block">Change the damping of the reverb effect</div>
+</dd>
+<dt><a href="processing/sound/Delay.html" title="class in processing.sound"><span class="typeNameLink">Delay</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
+<dd>
+<div class="block">This is a simple delay effect.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#Delay-processing.core.PApplet-">Delay(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/Engine.html#dispose--">dispose()</a></span> - Method in class processing.sound.<a href="processing/sound/Engine.html" title="class in processing.sound">Engine</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#duration--">duration()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
@@ -174,6 +207,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">F</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#feedback-float-">feedback(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>
+<div class="block">Change the feedback of the delay effect.</div>
+</dd>
+<dt><a href="processing/sound/FFT.html" title="class in processing.sound"><span class="typeNameLink">FFT</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
+<dd>
+<div class="block">This is a Fast Fourier Transform (FFT) analyzer.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/FFT.html#FFT-processing.core.PApplet-">FFT(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/FFT.html" title="class in processing.sound">FFT</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/FFT.html#FFT-processing.core.PApplet-int-">FFT(PApplet, int)</a></span> - Constructor for class processing.sound.<a href="processing/sound/FFT.html" title="class in processing.sound">FFT</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#frames--">frames()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
 <div class="block">Returns the number of frames/samples of the sound file.</div>
@@ -256,6 +301,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="processing/sound/Engine.html#pause--">pause()</a></span> - Method in class processing.sound.<a href="processing/sound/Engine.html" title="class in processing.sound">Engine</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#pause--">pause()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>
+<div class="block">Stop the playback of the file, but cue it to the current position so that
+ the next call to play() will continue playing where it left off.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#percent--">percent()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
 <div class="block">Get current sound file playback position in percent.</div>
@@ -264,14 +314,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This is a pink noise generator.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="processing/sound/PinkNoise.html#PinkNoise-processing.core.PApplet-">PinkNoise(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/PinkNoise.html" title="class in processing.sound">PinkNoise</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#play--">play()</a></span> - Method in class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
 <dd>
-<div class="block">Start the Input Stream and route it to the Audio Hardware Output</div>
+<div class="block">Start capturing the input stream and route it to the audio output</div>
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play--">play()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
 <div class="block">Starts the playback of a soundfile.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play-float-">play(float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play-float-float-">play(float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play-float-float-float-">play(float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play-float-float-float-float-">play(float, float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#play-float-float-float-float-float-">play(float, float, float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/Env.html#play-processing.sound.SoundObject-float-float-float-float-">play(SoundObject, float, float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Env.html" title="class in processing.sound">Env</a></dt>
 <dd>
 <div class="block">Triggers the envelope</div>
@@ -279,6 +341,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#position--">position()</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
 <div class="block">Get current sound file playback position in seconds.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/BandPass.html#process-processing.sound.SoundObject-float-">process(SoundObject, float)</a></span> - Method in class processing.sound.<a href="processing/sound/BandPass.html" title="class in processing.sound">BandPass</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#process-processing.sound.SoundObject-float-">process(SoundObject, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/HighPass.html#process-processing.sound.SoundObject-float-">process(SoundObject, float)</a></span> - Method in class processing.sound.<a href="processing/sound/HighPass.html" title="class in processing.sound">HighPass</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/LowPass.html#process-processing.sound.SoundObject-float-">process(SoundObject, float)</a></span> - Method in class processing.sound.<a href="processing/sound/LowPass.html" title="class in processing.sound">LowPass</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/BandPass.html#process-processing.sound.SoundObject-float-float-">process(SoundObject, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/BandPass.html" title="class in processing.sound">BandPass</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#process-processing.sound.SoundObject-float-float-">process(SoundObject, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>
+<div class="block">Start the delay effect</div>
 </dd>
 <dt><a href="processing/sound/package-summary.html">processing.sound</a> - package processing.sound</dt>
 <dd>&nbsp;</dd>
@@ -300,6 +376,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/Engine.html#resume--">resume()</a></span> - Method in class processing.sound.<a href="processing/sound/Engine.html" title="class in processing.sound">Engine</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="processing/sound/Reverb.html" title="class in processing.sound"><span class="typeNameLink">Reverb</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
+<dd>
+<div class="block">This is a simple reverb effect.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Reverb.html#Reverb-processing.core.PApplet-">Reverb(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/Reverb.html" title="class in processing.sound">Reverb</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Reverb.html#room-float-">room(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Reverb.html" title="class in processing.sound">Reverb</a></dt>
+<dd>
+<div class="block">Change the room size of the reverb effect.</div>
+</dd>
 </dl>
 <a name="I:S">
 <!--   -->
@@ -320,16 +406,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Sets frequency and bandwidth of the filter with one method.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#set-float-float-">set(float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>
+<div class="block">Set delay time and feedback values at once</div>
+</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#set-float-float-float-">set(float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
 <dd>
 <div class="block">Sets amplitude, add and pan position with one method.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/Reverb.html#set-float-float-float-">set(float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Reverb.html" title="class in processing.sound">Reverb</a></dt>
+<dd>
+<div class="block">Set multiple parameters at once</div>
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#set-float-float-float-float-">set(float, float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>
 <div class="block">Set multiple parameters at once</div>
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/Pulse.html#set-float-float-float-float-float-">set(float, float, float, float, float)</a></span> - Method in class processing.sound.<a href="processing/sound/Pulse.html" title="class in processing.sound">Pulse</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Set multiple parameters at once</div>
+</dd>
 <dt><a href="processing/sound/SinOsc.html" title="class in processing.sound"><span class="typeNameLink">SinOsc</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
 <dd>
 <div class="block">This is a simple Sine Wave Oscillator</div>
@@ -342,6 +438,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/SoundFile.html#SoundFile-processing.core.PApplet-java.lang.String-">SoundFile(PApplet, String)</a></span> - Constructor for class processing.sound.<a href="processing/sound/SoundFile.html" title="class in processing.sound">SoundFile</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="processing/sound/FFT.html#spectrum">spectrum</a></span> - Variable in class processing.sound.<a href="processing/sound/FFT.html" title="class in processing.sound">FFT</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="processing/sound/SqrOsc.html" title="class in processing.sound"><span class="typeNameLink">SqrOsc</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
 <dd>
 <div class="block">This is a simple Square Wave Oscillator</div>
@@ -350,7 +448,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#start--">start()</a></span> - Method in class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
 <dd>
-<div class="block">Start the input stream without routing it to the audio hardware output.</div>
+<div class="block">Start the input stream without routing it to the audio output.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="processing/sound/AudioIn.html#start-float-">start(float)</a></span> - Method in class processing.sound.<a href="processing/sound/AudioIn.html" title="class in processing.sound">AudioIn</a></dt>
 <dd>&nbsp;</dd>
@@ -368,6 +466,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">T</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="processing/sound/Delay.html#time-float-">time(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Delay.html" title="class in processing.sound">Delay</a></dt>
+<dd>
+<div class="block">Changes the delay time of the effect.</div>
+</dd>
 <dt><a href="processing/sound/TriOsc.html" title="class in processing.sound"><span class="typeNameLink">TriOsc</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
 <dd>
 <div class="block">This is a simple Triangle Wave Oscillator</div>
@@ -380,6 +482,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">W</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="processing/sound/Reverb.html#wet-float-">wet(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Reverb.html" title="class in processing.sound">Reverb</a></dt>
+<dd>
+<div class="block">Change the dry/wet ratio of the delay effect</div>
+</dd>
 <dt><a href="processing/sound/WhiteNoise.html" title="class in processing.sound"><span class="typeNameLink">WhiteNoise</span></a> - Class in <a href="processing/sound/package-summary.html">processing.sound</a></dt>
 <dd>
 <div class="block">This is a White Noise Generator.</div>
@@ -387,7 +493,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="processing/sound/WhiteNoise.html#WhiteNoise-processing.core.PApplet-">WhiteNoise(PApplet)</a></span> - Constructor for class processing.sound.<a href="processing/sound/WhiteNoise.html" title="class in processing.sound">WhiteNoise</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="processing/sound/Pulse.html#width-float-">width(float)</a></span> - Method in class processing.sound.<a href="processing/sound/Pulse.html" title="class in processing.sound">Pulse</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Set the pulse width of the oscillator.</div>
+</dd>
 </dl>
 <a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;</div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->

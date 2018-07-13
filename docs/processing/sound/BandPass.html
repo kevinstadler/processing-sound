@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -188,12 +188,25 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/BandPass.html#process-processing.sound.SoundObject-float-">process</a></span>&#8203;(processing.sound.SoundObject&nbsp;input,
+       float&nbsp;freq)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/BandPass.html#process-processing.sound.SoundObject-float-float-">process</a></span>&#8203;(processing.sound.SoundObject&nbsp;input,
+       float&nbsp;freq,
+       float&nbsp;bw)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/BandPass.html#process-processing.sound.SoundObject-">process</a></span>&#8203;(processing.sound.SoundObject&nbsp;input)</code></th>
 <td class="colLast">
 <div class="block">Start the Filter</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/BandPass.html#set-float-float-">set</a></span>&#8203;(float&nbsp;freq,
    float&nbsp;bw)</code></th>
@@ -201,11 +214,11 @@ extends java.lang.Object</pre>
 <div class="block">Sets frequency and bandwidth of the filter with one method.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/BandPass.html#stop--">stop</a></span>&#8203;()</code></th>
 <td class="colLast">
-<div class="block">Stops the Filter.</div>
+<div class="block">Stop the effect.</div>
 </td>
 </tr>
 </table>
@@ -247,19 +260,17 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="set-float-float-">
+<a name="bw-float-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>set</h4>
-<pre>public&nbsp;void&nbsp;set&#8203;(float&nbsp;freq,
-                float&nbsp;bw)</pre>
-<div class="block">Sets frequency and bandwidth of the filter with one method.</div>
+<h4>bw</h4>
+<pre>public&nbsp;void&nbsp;bw&#8203;(float&nbsp;bw)</pre>
+<div class="block">Set the bandwidth for the filter.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>freq</code> - Set the frequency</dd>
-<dd><code>bw</code> - Set the bandwidth</dd>
+<dd><code>freq</code> - Bandwidth in Hz</dd>
 </dl>
 </li>
 </ul>
@@ -277,17 +288,40 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="bw-float-">
+<a name="process-processing.sound.SoundObject-float-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>bw</h4>
-<pre>public&nbsp;void&nbsp;bw&#8203;(float&nbsp;bw)</pre>
-<div class="block">Set the bandwidth for the filter.</div>
+<h4>process</h4>
+<pre>public&nbsp;void&nbsp;process&#8203;(processing.sound.SoundObject&nbsp;input,
+                    float&nbsp;freq)</pre>
+</li>
+</ul>
+<a name="process-processing.sound.SoundObject-float-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>process</h4>
+<pre>public&nbsp;void&nbsp;process&#8203;(processing.sound.SoundObject&nbsp;input,
+                    float&nbsp;freq,
+                    float&nbsp;bw)</pre>
+</li>
+</ul>
+<a name="set-float-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>set</h4>
+<pre>public&nbsp;void&nbsp;set&#8203;(float&nbsp;freq,
+                float&nbsp;bw)</pre>
+<div class="block">Sets frequency and bandwidth of the filter with one method.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>freq</code> - Bandwidth in Hz</dd>
+<dd><code>freq</code> - Set the frequency</dd>
+<dd><code>bw</code> - Set the bandwidth</dd>
 </dl>
 </li>
 </ul>
@@ -312,7 +346,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>stop</h4>
 <pre>public&nbsp;void&nbsp;stop&#8203;()</pre>
-<div class="block">Stops the Filter.</div>
+<div class="block">Stop the effect.</div>
 </li>
 </ul>
 </li>

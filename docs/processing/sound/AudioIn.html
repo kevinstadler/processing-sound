@@ -56,7 +56,7 @@ var pathtoroot = "../../";loadScripts(document, 'script');</script>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li>Prev&nbsp;Class</li>
+<li><a href="../../processing/sound/AudioDevice.html" title="class in processing.sound"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../processing/sound/BandPass.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -133,7 +133,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <br>
 <pre>public class <span class="typeNameLabel">AudioIn</span>
 extends java.lang.Object</pre>
-<div class="block">AudioIn lets you grab the audio input from your soundcard.</div>
+<div class="block">AudioIn lets you grab the audio input from your sound card.</div>
 </li>
 </ul>
 </div>
@@ -153,6 +153,10 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioIn.html#AudioIn-processing.core.PApplet-">AudioIn</a></span>&#8203;(processing.core.PApplet&nbsp;parent)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioIn.html#AudioIn-processing.core.PApplet-int-">AudioIn</a></span>&#8203;(processing.core.PApplet&nbsp;parent,
        int&nbsp;in)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -184,7 +188,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioIn.html#amp-float-">amp</a></span>&#8203;(float&nbsp;amp)</code></th>
 <td class="colLast">
-<div class="block">Not implemented yet.</div>
+<div class="block">Change the amplitude/volume of this sound.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -205,7 +209,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioIn.html#play--">play</a></span>&#8203;()</code></th>
 <td class="colLast">
-<div class="block">Start the Input Stream and route it to the Audio Hardware Output</div>
+<div class="block">Start capturing the input stream and route it to the audio output</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -221,7 +225,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioIn.html#start--">start</a></span>&#8203;()</code></th>
 <td class="colLast">
-<div class="block">Start the input stream without routing it to the audio hardware output.</div>
+<div class="block">Start the input stream without routing it to the audio output.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -271,6 +275,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a name="AudioIn-processing.core.PApplet-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>AudioIn</h4>
+<pre>public&nbsp;AudioIn&#8203;(processing.core.PApplet&nbsp;parent)</pre>
+</li>
+</ul>
 <a name="AudioIn-processing.core.PApplet-int-">
 <!--   -->
 </a>
@@ -289,21 +302,6 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="amp-float-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>amp</h4>
-<pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
-<div class="block">Not implemented yet.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
- controlling the amplitude/volume of this sound.</dd>
-</dl>
-</li>
-</ul>
 <a name="play--">
 <!--   -->
 </a>
@@ -311,7 +309,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>play</h4>
 <pre>public&nbsp;void&nbsp;play&#8203;()</pre>
-<div class="block">Start the Input Stream and route it to the Audio Hardware Output</div>
+<div class="block">Start capturing the input stream and route it to the audio output</div>
 </li>
 </ul>
 <a name="start--">
@@ -321,7 +319,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>start</h4>
 <pre>public&nbsp;void&nbsp;start&#8203;()</pre>
-<div class="block">Start the input stream without routing it to the audio hardware output.</div>
+<div class="block">Start the input stream without routing it to the audio output. This is useful
+ if you only want to perform audio analysis based on the microphone input.</div>
 </li>
 </ul>
 <a name="start-float-">
@@ -379,11 +378,26 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre>public final&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
+<pre>public&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
 <div class="block">Offset the output of this generator by given value</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>add</code> - A value for offsetting the audio signal.</dd>
+</dl>
+</li>
+</ul>
+<a name="amp-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>amp</h4>
+<pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
+<div class="block">Change the amplitude/volume of this sound.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
+            controlling the amplitude/volume of this sound.</dd>
 </dl>
 </li>
 </ul>
@@ -397,7 +411,8 @@ extends java.lang.Object</pre>
 <div class="block">Check if this sound object is currently playing.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>`true` if this sound object is currently playing, `false` if it is not.</dd>
+<dd>`true` if this sound object is currently playing, `false` if it is
+         not.</dd>
 </dl>
 </li>
 </ul>
@@ -411,7 +426,8 @@ extends java.lang.Object</pre>
 <div class="block">Move the sound in a stereo panorama.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).</dd>
+<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0
+            (left) to 1.0 (right).</dd>
 </dl>
 </li>
 </ul>
@@ -451,7 +467,7 @@ extends java.lang.Object</pre>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li>Prev&nbsp;Class</li>
+<li><a href="../../processing/sound/AudioDevice.html" title="class in processing.sound"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../processing/sound/BandPass.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">

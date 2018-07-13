@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -188,9 +188,15 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/LowPass.html#process-processing.sound.SoundObject-float-">process</a></span>&#8203;(processing.sound.SoundObject&nbsp;input,
+       float&nbsp;freq)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/LowPass.html#stop--">stop</a></span>&#8203;()</code></th>
 <td class="colLast">
-<div class="block">Stops the Filter.</div>
+<div class="block">Stop the effect.</div>
 </td>
 </tr>
 </table>
@@ -242,8 +248,18 @@ extends java.lang.Object</pre>
 <div class="block">Set the cut off frequency for the filter</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>freq</code> - The frequency value as a float</dd>
+<dd><code>freq</code> - the cutoff frequency in Hertz</dd>
 </dl>
+</li>
+</ul>
+<a name="process-processing.sound.SoundObject-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>process</h4>
+<pre>public&nbsp;void&nbsp;process&#8203;(processing.sound.SoundObject&nbsp;input,
+                    float&nbsp;freq)</pre>
 </li>
 </ul>
 <a name="process-processing.sound.SoundObject-">
@@ -267,7 +283,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>stop</h4>
 <pre>public&nbsp;void&nbsp;stop&#8203;()</pre>
-<div class="block">Stops the Filter.</div>
+<div class="block">Stop the effect.</div>
 </li>
 </ul>
 </li>

@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -57,7 +57,7 @@ var pathtoroot = "../../";loadScripts(document, 'script');</script>
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../processing/sound/PinkNoise.html" title="class in processing.sound"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../processing/sound/SawOsc.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../processing/sound/Reverb.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?processing/sound/Pulse.html" target="_top">Frames</a></li>
@@ -183,14 +183,14 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#amp-float-">amp</a></span>&#8203;(float&nbsp;amp)</code></th>
 <td class="colLast">
-<div class="block">Changes the amplitude/volume of this sound.</div>
+<div class="block">Change the amplitude/volume of this sound.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#freq-float-">freq</a></span>&#8203;(float&nbsp;freq)</code></th>
 <td class="colLast">
-<div class="block">Set the freuquency of the oscillator in Hz.</div>
+<div class="block">Set the frequency of the oscillator in Hz.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -229,6 +229,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#play-float-float-float-float-">play</a></span>&#8203;(float&nbsp;freq,
+    float&nbsp;amp,
+    float&nbsp;add,
+    float&nbsp;pos)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#set-float-float-float-float-">set</a></span>&#8203;(float&nbsp;freq,
    float&nbsp;amp,
    float&nbsp;add,
@@ -237,26 +245,30 @@ extends java.lang.Object</pre>
 <div class="block">Set multiple parameters at once</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#set-float-float-float-float-float-">set</a></span>&#8203;(float&nbsp;freq,
    float&nbsp;width,
    float&nbsp;amp,
    float&nbsp;add,
    float&nbsp;pos)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set multiple parameters at once</div>
+</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#stop--">stop</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Stop the generator</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#width-float-">width</a></span>&#8203;(float&nbsp;width)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set the pulse width of the oscillator.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -304,6 +316,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>width</h4>
 <pre>public&nbsp;void&nbsp;width&#8203;(float&nbsp;width)</pre>
+<div class="block">Set the pulse width of the oscillator.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>width</code> - The relative pulse width of the oscillator as a float value
+            between 0.0 and 1.0 (exclusive)</dd>
+</dl>
 </li>
 </ul>
 <a name="set-float-float-float-float-float-">
@@ -317,6 +335,16 @@ extends java.lang.Object</pre>
                 float&nbsp;amp,
                 float&nbsp;add,
                 float&nbsp;pos)</pre>
+<div class="block">Set multiple parameters at once</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>freq</code> - The frequency value of the oscillator in Hz.</dd>
+<dd><code>width</code> - The pulse width of the oscillator as a value between 0.0 and 1.0.</dd>
+<dd><code>amp</code> - The amplitude of the oscillator as a value between 0.0 and 1.0.</dd>
+<dd><code>add</code> - A value for modulating other audio signals.</dd>
+<dd><code>pos</code> - The panoramic position of the oscillator as a float from -1.0 to
+            1.0.</dd>
+</dl>
 </li>
 </ul>
 <a name="freq-float-">
@@ -326,7 +354,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>freq</h4>
 <pre>public&nbsp;void&nbsp;freq&#8203;(float&nbsp;freq)</pre>
-<div class="block">Set the freuquency of the oscillator in Hz.</div>
+<div class="block">Set the frequency of the oscillator in Hz.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>freq</code> - A floating point value of the oscillator in Hz.</dd>
@@ -364,6 +392,18 @@ extends java.lang.Object</pre>
                  float&nbsp;add)</pre>
 </li>
 </ul>
+<a name="play-float-float-float-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>play</h4>
+<pre>public&nbsp;void&nbsp;play&#8203;(float&nbsp;freq,
+                 float&nbsp;amp,
+                 float&nbsp;add,
+                 float&nbsp;pos)</pre>
+</li>
+</ul>
 <a name="set-float-float-float-float-">
 <!--   -->
 </a>
@@ -390,7 +430,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre>public final&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
+<pre>public&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
 <div class="block">Offset the output of this generator by given value</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -405,11 +445,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>amp</h4>
 <pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
-<div class="block">Changes the amplitude/volume of this sound.</div>
+<div class="block">Change the amplitude/volume of this sound.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
- controlling the amplitude/volume of this sound.</dd>
+            controlling the amplitude/volume of this sound.</dd>
 </dl>
 </li>
 </ul>
@@ -423,7 +463,8 @@ extends java.lang.Object</pre>
 <div class="block">Check if this sound object is currently playing.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>`true` if this sound object is currently playing, `false` if it is not.</dd>
+<dd>`true` if this sound object is currently playing, `false` if it is
+         not.</dd>
 </dl>
 </li>
 </ul>
@@ -437,7 +478,8 @@ extends java.lang.Object</pre>
 <div class="block">Move the sound in a stereo panorama.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0 (left) to 1.0 (right).</dd>
+<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0
+            (left) to 1.0 (right).</dd>
 </dl>
 </li>
 </ul>
@@ -478,7 +520,7 @@ extends java.lang.Object</pre>
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../processing/sound/PinkNoise.html" title="class in processing.sound"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../processing/sound/SawOsc.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../processing/sound/Reverb.html" title="class in processing.sound"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../index.html?processing/sound/Pulse.html" target="_top">Frames</a></li>
