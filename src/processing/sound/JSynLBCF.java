@@ -32,7 +32,7 @@ class JSynLBCF extends Circuit {
 		this.delay.allocate(N);
 
 		this.input = in.input;
-		in.output.connect(this.mixer.inputC);
+//		in.output.connect(this.mixer.inputC);
 		in.output.connect(this.delay.input);
 		this.delay.output.connect(this.filter.input);
 		this.filter.output.connect(this.mixer.inputB);
@@ -41,11 +41,10 @@ class JSynLBCF extends Circuit {
 
 	// see https://ccrma.stanford.edu/~jos/fp/One_Pole.html
 	protected void setD(double d) {
-		this.filter.a0.set(1 - d);
-		this.filter.b1.set(-d);
+		this.filter.a0.setValue(1 - d);
+		this.filter.b1.setValue(-d);
 	}
 
-	// roomsize, see https://ccrma.stanford.edu/~jos/pasp/Lowpass_Feedback_Comb_Filter.html
 	protected void setF(double f) {
 		this.mixer.inputA.set(f);
 	}

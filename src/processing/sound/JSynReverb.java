@@ -49,7 +49,7 @@ public class JSynReverb extends UnitFilter {
 
 		this.mixer = new MixerMono(2);
 		this.mixer.amplitude.set(1.0);
-		this.setWet(0.5);
+		this.setWet(0.5f);
 
 		in.output.connect(0, this.mixer.input, 0);
 		ap.output.connect(0, this.mixer.input, 1);
@@ -66,22 +66,21 @@ public class JSynReverb extends UnitFilter {
 		// not called
 	}
 
-	protected void setDamp(double damp) {
-		// TODO check parameter
+	protected void setDamp(float damp) {
+		// damp = initialdamp * 0.4
 		for (JSynLBCF lbcf : this.lbcfs) {
-			lbcf.setD(damp);
+			lbcf.setD(damp * 0.4);
 		}
 	}
 
-	protected void setRoom(double room) {
-		// TODO check parameter
+	protected void setRoom(float room) {
+		// roomsize = initialroom * 0.28 + 0.7
 		for (JSynLBCF lbcf : this.lbcfs) {
-			lbcf.setF(room);
+			lbcf.setF(room * 0.28 + 0.7);
 		}
 	}
 
-	protected void setWet(double wet) {
-		// TODO check parameter
+	protected void setWet(float wet) {
 		this.mixer.gain.set(0, 1 - wet);
 		this.mixer.gain.set(1, wet);
 	}
