@@ -136,6 +136,14 @@ public class Engine {
 		return true;
 	}
 
+	protected static boolean checkRange(float value, String name) {
+		if (value < 0 || value > 1) {
+			Engine.printError(name + " parameter has to be between 0 and 1 (inclusive)");
+			return false;
+		}
+		return true;
+	}
+
 	protected static void printWarning(String message) {
 		PApplet.println("Sound library warning: " + message);
 	}

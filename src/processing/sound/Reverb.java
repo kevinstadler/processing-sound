@@ -23,16 +23,17 @@ public class Reverb extends Effect<JSynReverb> {
 	
 //	public void process(SoundObject input, float room, float damp, float wet) {
 	/**
-	 * Change the dampening of the reverb effect
+	 * Change the damping of the reverb effect
 	 * 
 	 * @webref sound
 	 * @param damp
-	 *            A float value controlling the dampening factor of the reverb
+	 *            A float value controlling the damping factor of the reverb
 	 **/
 	public void damp(float damp) {
-		// TODO check parameter value
-		this.left.setDamp(damp);
-		this.right.setDamp(damp);
+		if (Engine.checkRange(damp, "damp")) {
+			this.left.setDamp(damp);
+			this.right.setDamp(damp);
+		}
 	}
 
 	/**
@@ -43,9 +44,10 @@ public class Reverb extends Effect<JSynReverb> {
 	 *            A float value controlling the room size of the effect.
 	 **/
 	public void room(float room) {
-		// TODO check parameter value
-		this.left.setRoom(room);
-		this.right.setRoom(room);
+		if (Engine.checkRange(room, "room")) {
+			this.left.setRoom(room);
+			this.right.setRoom(room);
+		}
 	}
 
 	/**
@@ -53,9 +55,9 @@ public class Reverb extends Effect<JSynReverb> {
 	 * 
 	 * @webref sound
 	 * @param room
-	 *            A value controlling the room size of the effet
+	 *            A value controlling the room size of the effect
 	 * @param damp
-	 *            A value controlling the dampening factor of the reverb
+	 *            A value controlling the damping factor of the reverb
 	 * @param wet
 	 *            A value controlling the wet/dry ratio of the reverb.
 	 **/
@@ -74,8 +76,9 @@ public class Reverb extends Effect<JSynReverb> {
 	 *            document
 	 **/
 	public void wet(float wet) {
-		// TODO check parameter value
-		this.left.setWet(wet);
-		this.right.setWet(wet);
+		if (Engine.checkRange(wet, "wet")) {
+			this.left.setWet(wet);
+			this.right.setWet(wet);
+		}
 	}
 }
