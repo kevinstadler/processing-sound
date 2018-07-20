@@ -94,11 +94,14 @@ abstract class SoundObject {
 	 * @webref sound
 	 **/
 	public void play() {
-		Engine.getEngine().add(this.circuit);
-		Engine.getEngine().play(this.circuit);
-		this.setAmplitude();
-		this.isPlaying = true;
-		// TODO rewire effect if one was set previously (before stopping)?
+		// TODO print info message if it's already playing?
+		if (!this.isPlaying) {
+			Engine.getEngine().add(this.circuit);
+			Engine.getEngine().play(this.circuit);
+			this.setAmplitude();
+			this.isPlaying = true;
+			// TODO rewire effect if one was set previously (before stopping)?
+		}
 	}
 
 	/**
