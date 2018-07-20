@@ -16,7 +16,7 @@ abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundOb
 	}
 
 	/**
-	 * Set the freuquency of the oscillator in Hz.
+	 * Set the frequency of the oscillator in Hz.
 	 * @webref sound
 	 * @param freq A floating point value of the oscillator in Hz.
 	 **/
