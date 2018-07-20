@@ -10,7 +10,7 @@ import com.jsyn.unitgen.UnitFilter;
  * A JSyn implementation of the classic Freeverb design.
  * @seealso https://ccrma.stanford.edu/~jos/pasp/Freeverb.html
  */
-public class JSynReverb extends UnitFilter {
+class JSynReverb extends UnitFilter {
 
 	private Circuit reverbCircuit;
 

@@ -10,9 +10,54 @@ import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
-// class needs to be public for registered callback methods to be callable
-public class Engine {
+class Engine {
 
+	private static Engine singleton;
+
+	private AudioDeviceManager audioManager;
+	protected Synthesizer synth;
+	private LineOut lineOut;
+
+	private int sampleRate = 44100;
+	private int numInputs;
+	private int numOutputs;
+
+	private Engine(PApplet parent) {
+		try {
+			Class.forName("javax.sound.sampled.AudioSystem");
+			this.audioManager = AudioDeviceFactory.createAudioDeviceManager();
+		} catch (ClassNotFoundException e) {
+			this.audioManager = new JSynAndroidAudioDeviceManager();
+		}
+		this.synth = JSyn.createSynthesizer(this.audioManager);
+
+		int numDevices = audioManager.getDeviceCount();
+		for (int i = 0; i < numDevices; i++) {
+			String deviceName = audioManager.getDeviceName(i);
+			int maxInputs = audioManager.getMaxInputChannels(i);
+			int maxOutputs = audioManager.getMaxOutputChannels(i);
+			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
+			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
+			if (isDefaultInput) {
+				this.numInputs = maxInputs;
+			}
+			if (isDefaultOutput) {
+				// could try to grab more output channels if we wanted to?
+				this.numOutputs = Math.min(maxOutputs, 2);
+			}
+			System.out.println("#" + i + " : " + deviceName);
+			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
+			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
+		}
+
+		this.lineOut = new LineOut(); // stereo lineout by default
+		this.synth.add(lineOut);
+		this.lineOut.start();
+
+		this.startSynth(44100);
+	}
+	// TODO adopt parameters
+	
 	protected void startSynth(int sampleRate) {
 		if (this.synth.isRunning()) {
 			this.synth.stop();
@@ -25,21 +70,15 @@ public class Engine {
 		return this.synth.getFrameRate();
 	}
 
-	public void dispose() {
-		this.lineOut.stop();
-		this.synth.stop();
-	}
-
-	public void pause() {
-		// TODO android only
-	}
-
-	public void resume() {
-		// TODO android only
-	}
-
 	protected static Engine getEngine() {
-		return AudioDevice.getEngine(null);
+		return Engine.getEngine(null);
+	}
+
+	protected static Engine getEngine(PApplet parent) {
+		if (Engine.singleton == null) {
+			Engine.singleton = new Engine(parent);
+		}
+		return Engine.singleton;
 	}
 
 	protected void add(UnitGenerator generator) {
