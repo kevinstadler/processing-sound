@@ -33,6 +33,8 @@ public class AudioIn extends SoundObject {
 		this.multiplier = new Multiply();
 		this.multiplier.inputA.connect(this.input.output);
 		this.amplitude = this.multiplier.inputB;
+		// set default amplitude
+		this.multiplier.inputB.set(1.0);
 
 		this.circuit = new JSynCircuit(this.multiplier.output);
 		this.circuit.add(this.input);
