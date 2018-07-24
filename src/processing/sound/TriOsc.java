@@ -5,7 +5,7 @@ import com.jsyn.unitgen.TriangleOscillator;
 import processing.core.PApplet;
 
 /**
- * This is a simple Triangle Wave Oscillator 
+ * This is a simple triangle (or "saw") wave oscillator
  * @webref sound
  * @param parent PApplet: typically use "this"
  **/

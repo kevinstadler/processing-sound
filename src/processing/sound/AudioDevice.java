@@ -18,11 +18,9 @@ import processing.core.PApplet;
 public class AudioDevice {
 
 	public AudioDevice(PApplet theParent, int sampleRate, int bufferSize) {
-		Engine.printWarning("the AudioDevice class is not used anymore, please have a look at the functions of the new ProcessingSound class instead.");
-		ProcessingSound.sampleRate(sampleRate);
-		// bufferSize was necessary for original library's FFT to work
+		Engine.printWarning("the AudioDevice class is not used anymore, please have a look at the functions of the new Engine class instead.");
+		Engine e = new Engine(theParent);
+		e.sampleRate(sampleRate);
+		// bufferSize is ignored - the parameter was necessary for the original library's FFT to work
 	}
-
-	// TODO original library had other public methods which were however not
-	// documented
 }
