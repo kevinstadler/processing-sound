@@ -30,7 +30,7 @@ void setup() {
     
     // patch the input to the volume analyzer
     loudness.input(input);
-}      
+}
 
 
 void draw() {
@@ -48,4 +48,3 @@ void draw() {
     // We draw a circle whose size is coupled to the audio analysis
     ellipse(width/2, height/2, size, size);
 }
-
