@@ -43,11 +43,6 @@ public class Engine {
 		}
 
 		// create and start the synthesizer, and set this object as the singleton.
-		theParent.registerMethod("dispose", this);
-		// Android only
-		theParent.registerMethod("pause", this);
-		theParent.registerMethod("resume", this);
-
 		this.synth = JSyn.createSynthesizer(Engine.getAudioManager());
 		this.inputDevice = Engine.audioManager.getDefaultInputDeviceID();
 		this.outputDevice = Engine.audioManager.getDefaultOutputDeviceID();
@@ -57,9 +52,13 @@ public class Engine {
 		this.lineOut.start();
 
 		this.startSynth();
-
-		// store singleton
 		Engine.singleton = this;
+
+		// register Processing library callback methods
+		theParent.registerMethod("dispose", this);
+		// Android only
+		theParent.registerMethod("pause", this);
+		theParent.registerMethod("resume", this);
 	}
 
 	/**
@@ -81,7 +80,7 @@ public class Engine {
 			int maxOutputs = audioManager.getMaxOutputChannels(i);
 			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
 			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
-			System.out.println("#" + i + " : " + deviceName);
+			System.out.println("deviceId" + i + ": " + deviceName);
 			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
 			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
 		}
@@ -110,15 +109,44 @@ public class Engine {
 		Engine.singleton.startSynth();
 	}
 
-	
+	/**
+	 * Choose the device (sound card) which should be used for grabbing audio
+	 * input using AudioIn.
+	 * 
+	 * Note that this setting affects the choice of sound card, which is not
+	 * necessarily the same as the number of the input channel. If your sound
+	 * card has more than one input channel, you can specify which channel to
+	 * use in the constructor of the AudioIn class.
+	 * @param deviceId the device id obtained from list()
+	 * @seealso list()
+	 * @webref sound
+	 */
 	public void inputDevice(int deviceId) {
 		Engine.singleton.inputDevice = deviceId;
 		Engine.singleton.startSynth();
 	}
 
+	/**
+	 * Choose the device (sound card) which the Sound library's audio output
+	 * should be sent to. The output device should support stereo output (2 channels).
+	 * @param deviceId the device id obtained from list()
+	 * @seealso list()
+	 * @webref sound
+	 */
 	public void outputDevice(int deviceId) {
 		Engine.singleton.outputDevice = deviceId;
 		Engine.singleton.startSynth();
+	}
+
+	/**
+	 * Set the overall output volume of the Processing sound library.
+	 * @param volume
+	 * @webref sound
+	 */
+	public void volume(float volume) {
+		if (Engine.checkRange(volume, "volume")) {
+			// TODO add master JSynCircuit before lineOut to control global volume/pan
+		}
 	}
 
 	protected int getSampleRate() {
@@ -189,16 +217,25 @@ public class Engine {
 		PApplet.println("Sound library error: " + message);
 	}
 
+	/**
+	 * Internal function for Processing library callbacks. Do not invoke.
+	 */
 	public void dispose() {
 		this.lineOut.stop();
 		this.synth.stop();
 	}
 
+	/**
+	 * Internal function for Processing library callbacks (android only). Do not invoke.
+	 */
 	public void pause() {
-		// TODO android only
+		// TODO
 	}
 
+	/**
+	 * Internal function for Processing library callbacks (android only). Do not invoke.
+	 */
 	public void resume() {
-		// TODO android only
+		// TODO
 	}
 }
