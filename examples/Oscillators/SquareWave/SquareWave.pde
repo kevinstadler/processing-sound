@@ -19,12 +19,16 @@ void setup() {
 }
 
 void draw() {
-  // map mouseY from 0.0 to 1.0 for amplitude
-  sqr.amp(map(mouseY, 0, height, 1.0, 0.0));
+  // Map mouseY from 1.0 to 0.0 for amplitude (mouseY is 0 at the
+  // top of the sketch, so the higher the mouse position, the louder)
+  float amplitude = map(mouseY, 0, height, 1.0, 0.0);
+  sqr.amp(amplitude);
 
-  // map mouseX from 20Hz to 1000Hz for frequency  
-  sqr.freq(map(mouseX, 0, width, 80.0, 200.0));
+  // Map mouseX from 20Hz to 1000Hz for frequency
+  float frequency = map(mouseX, 0, width, 20.0, 1000.0);
+  sqr.freq(frequency);
 
-  // map mouseX from -1.0 to 1.0 for left to right 
-  sqr.pan(map(mouseX, 0, width, -1.0, 1.0));
+  // Map mouseX from -1.0 to 1.0 for panning the audio to the left or right
+  float panning = map(mouseX, 0, width, -1.0, 1.0);
+  sqr.pan(panning);
 }

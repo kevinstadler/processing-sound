@@ -28,7 +28,7 @@ void draw() {
   float frequency = map(mouseX, 0, width, 80.0, 1000.0);
   sine.freq(frequency);
 
-  // Map mouseX from -1.0 to 1.0 for left to right 
+  // Map mouseX from -1.0 to 1.0 for panning the audio to the left or right
   float panning = map(mouseX, 0, width, -1.0, 1.0);
   sine.pan(panning);
 }
