@@ -112,20 +112,25 @@ abstract class SoundObject {
 	public void stop() {
 		this.isPlaying = false;
 		this.amplitude.set(0);
-		Engine.getEngine().stop(this.circuit);
-		Engine.getEngine().remove(this.circuit);
-		this.removeEffect(this.circuit.effect);
-	}
-
-	protected void setEffect(Effect<? extends UnitFilter> effect) {
-		// TODO check if same effect is set a second time
 		if (this.circuit.effect != null) {
 			this.removeEffect(this.circuit.effect);
 		}
+		Engine.getEngine().stop(this.circuit);
+		Engine.getEngine().remove(this.circuit);
+	}
 
-		Engine.getEngine().add(effect.left);
-		Engine.getEngine().add(effect.right);
-		this.circuit.setEffect(effect);
+	protected void setEffect(Effect<? extends UnitFilter> effect) {
+		if (this.circuit.effect == effect) {
+			Engine.printWarning("this effect is already processing the given sound source");
+		} else {
+			if (this.circuit.effect != null) {
+				this.removeEffect(this.circuit.effect);
+			}
+
+			Engine.getEngine().add(effect.left);
+			Engine.getEngine().add(effect.right);
+			this.circuit.setEffect(effect);
+		}
 	}
 
 	protected void removeEffect(Effect<? extends UnitFilter> effect) {

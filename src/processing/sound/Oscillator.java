@@ -4,7 +4,7 @@ import com.jsyn.unitgen.UnitOscillator;
 
 import processing.core.PApplet;
 
-abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
+public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 
 	protected JSynOscillator oscillator;
 

@@ -43,12 +43,14 @@ class JSynCircuit extends Circuit implements UnitSource {
 	}
 
 	protected void removeEffect() {
-		this.wireBypass();
-		this.effect.left.output.disconnect(this.output.inputA);
-		this.effect.right.output.disconnect(this.output.inputB);
-		this.preEffect.disconnect(0, this.effect.left.input, 0);
-		this.preEffect.disconnect(1, this.effect.right.input, 0);
-		this.effect = null;
+		if (this.effect != null) {
+			this.wireBypass();
+			this.effect.left.output.disconnect(this.output.inputA);
+			this.effect.right.output.disconnect(this.output.inputB);
+			this.preEffect.disconnect(0, this.effect.left.input, 0);
+			this.preEffect.disconnect(1, this.effect.right.input, 0);
+			this.effect = null;
+		}
 	}
 
 	protected void setEffect(Effect<? extends UnitFilter> effect) {
