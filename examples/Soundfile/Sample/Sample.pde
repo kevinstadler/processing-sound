@@ -1,5 +1,6 @@
 /**
- * This is a sound file player.
+ * This is a simple sound file player. Use the mouse position to control playback
+ * speed, amplitude and stereo panning.
  */
 
 import processing.sound.*;
