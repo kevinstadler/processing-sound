@@ -4,7 +4,10 @@
 
 import processing.sound.*;
 
+// All oscillators are instances of the Oscillator superclass.
 Oscillator oscs[] = new Oscillator[4];
+
+// Store information on which of the oscillators is currently playing.
 int current = 0;
 
 FFT fft;
@@ -30,21 +33,25 @@ void setup() {
 }
 
 void draw() {
-  // Map mouseX from 20Hz to 2000Hz for frequency  
-  float frequency = map(mouseX, 0, width, 20.0, 2000.0);
+  // Map mouseX from 20Hz to 22000Hz for frequency  
+  float frequency = map(mouseX, 0, width, 20.0, 22000.0);
 
   // Only play one of the four oscillators, based on mouseY
   int nextOscillator = floor(map(mouseY, 0, height, 0, 4));
 
   if (nextOscillator != current) {
     oscs[current].stop();
-
-    fft.input(oscs[nextOscillator]);
-    oscs[nextOscillator].play();
     current = nextOscillator;
-  }
 
-  oscs[current].freq(frequency);
+    // Switch FFT analysis over to the newly selected oscillator.
+    fft.input(oscs[current]);
+    // Play (but don't make it too loud)
+    oscs[current].play(frequency, 0.3);
+
+  } else {
+    // Still on the same oscillator, update frequency.
+    oscs[current].freq(frequency);
+  }
 
   // Draw frequency spectrum.
   background(125, 255, 125);
@@ -58,4 +65,10 @@ void draw() {
   for (int i = 0; i < fftBands; i++) {
     rect( i*r_width, height, r_width, -fft.spectrum[i]*height);
   }
+
+  // Display the name of the oscillator class.
+  textSize(32);
+  fill(0);
+  float verticalPosition = map(current, -1, oscs.length, 0, height);
+  text(oscs[current].getClass().getSimpleName(), 0, verticalPosition);
 }
