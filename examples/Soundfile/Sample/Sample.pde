@@ -29,7 +29,7 @@ void draw() {
   // 2 is twice the speed and will sound an octave higher, 0.5 is half the speed and
   // will make the file sound one ocative lower.
   float playbackSpeed = map(mouseX, 0, width, 0.25, 4.0);
-  soundfile.rate();
+  soundfile.rate(playbackSpeed);
 
   // Map mouseY from 0.2 to 1.0 for amplitude
   float amplitude = map(mouseY, 0, width, 0.2, 1.0);

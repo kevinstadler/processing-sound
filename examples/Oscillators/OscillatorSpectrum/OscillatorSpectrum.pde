@@ -5,7 +5,7 @@
 import processing.sound.*;
 
 // All oscillators are instances of the Oscillator superclass.
-Oscillator oscs[] = new Oscillator[4];
+Oscillator oscs[] = new Oscillator[5];
 
 // Store information on which of the oscillators is currently playing.
 int current = 0;
@@ -20,11 +20,12 @@ void setup() {
   // create the oscillators
   oscs[0] = new SinOsc(this);
   oscs[1] = new TriOsc(this);
-  oscs[2] = new SqrOsc(this);
+  oscs[2] = new SawOsc(this);
+  oscs[3] = new SqrOsc(this);
 
   Pulse pulse = new Pulse(this);
-  pulse.width(0.5);
-  oscs[3] = pulse;
+  pulse.width(0.1);
+  oscs[4] = pulse;
 
   fft = new FFT(this, 512);
 
@@ -37,7 +38,7 @@ void draw() {
   float frequency = map(mouseX, 0, width, 20.0, 22000.0);
 
   // Only play one of the four oscillators, based on mouseY
-  int nextOscillator = floor(map(mouseY, 0, height, 0, 4));
+  int nextOscillator = floor(map(mouseY, 0, height, 0, oscs.length));
 
   if (nextOscillator != current) {
     oscs[current].stop();
