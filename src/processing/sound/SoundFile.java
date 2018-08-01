@@ -361,4 +361,35 @@ public class SoundFile extends SoundObject {
 			Engine.printWarning("sound file is not currently playing");
 		}
 	}
+
+	/**
+	 * Get the current sample data and write it into the given array. The array
+	 * has to be able to store as many floats as there are frames in this sample
+	 * (or twice as many if this is a stereo sample).
+	 * @param data the target array to write the sample data to
+	 * @webref sound
+	 */
+	public void read(float[] data) {
+		this.sample.read(data);
+	}
+
+	public void read(int startFrame, float[] data, int startIndex, int numFrames) {
+		this.sample.read(startFrame, data, startIndex, numFrames);
+	}
+
+	/**
+	 * Overwrite the sample with the data from the given array. The array can
+	 * contain up to as many floats as there are frames in this sample
+	 * (or twice as many if this is a stereo sample).
+	 * @param data the array from which the sample data should be taken
+	 * @webref sound
+	 */
+	public void write(float[] data) {
+		this.sample.write(data);
+	}
+
+	public void write(int startFrame, float[] data, int startIndex, int numFrames) {
+		this.sample.write(startFrame, data, startIndex, numFrames);
+	}
+
 }
