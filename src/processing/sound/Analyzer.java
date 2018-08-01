@@ -23,13 +23,14 @@ abstract class Analyzer {
 			Engine.printWarning("This input was already connected to the analyzer");
 		} else {
 			if (this.input != null) {
-				// TODO disconnect unit from analyzer
-
 				if (!this.input.isPlaying()) {
 					// unit was only analyzed but not playing out loud - remove from synth
 					Engine.getEngine().remove(this.input.circuit);
 				}
+
+				this.removeInput();
 			}
+
 			this.input = input;
 			if (!this.input.isPlaying()) {
 				Engine.getEngine().add(input.circuit);
@@ -38,6 +39,9 @@ abstract class Analyzer {
 			this.setInput(input.circuit.output.output);
 		}
 	}
+
+	// remove the current input
+	protected abstract void removeInput();
 
 	// connect sound source in subclass AND add analyser unit to Engine
 	protected abstract void setInput(UnitOutputPort input);

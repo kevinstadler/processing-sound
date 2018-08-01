@@ -23,6 +23,11 @@ public class Amplitude extends Analyzer {
 		this.follower.halfLife.set(0.1);
 	}
 
+	protected void removeInput() {
+		this.follower.input.disconnectAll();
+		this.input = null;
+	}
+
 	protected void setInput(UnitOutputPort input) {
 		Engine.getEngine().add(this.follower);
 		this.follower.start();

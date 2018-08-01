@@ -43,6 +43,11 @@ public class FFT extends Analyzer {
 		}
 	}
 
+	protected void removeInput() {
+		this.fft.input.disconnectAll();
+		this.input = null;
+	}
+
 	protected void setInput(UnitOutputPort input) {
 		// superclass makes sure that input unit is actually playing, just connect it
 		Engine.getEngine().add(this.fft);
