@@ -10,11 +10,11 @@ import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
-public class Engine {
-
-	private static Engine singleton;
+class Engine {
 
 	private static AudioDeviceManager audioManager;
+	private static Engine singleton;
+
 	protected Synthesizer synth;
 	private LineOut lineOut;
 
@@ -24,19 +24,18 @@ public class Engine {
 	private int inputDevice;
 	private int outputDevice;
 
-	private static AudioDeviceManager getAudioManager() {
-		if (Engine.audioManager == null) {
-			try {
-				Class.forName("javax.sound.sampled.AudioSystem");
-				Engine.audioManager = AudioDeviceFactory.createAudioDeviceManager();
-			} catch (ClassNotFoundException e) {
-				Engine.audioManager = new JSynAndroidAudioDeviceManager();
-			}
+	protected static Engine getEngine(PApplet parent) {
+		if (Engine.singleton == null) {
+			Engine.singleton = new Engine(parent);
 		}
-		return Engine.audioManager;
+		return Engine.singleton;
 	}
 
-	public Engine(PApplet theParent) {
+	protected static Engine getEngine() {
+		return Engine.singleton;
+	}
+
+	private Engine(PApplet theParent) {
 		// only call initalisation steps if not already initialised
 		if (Engine.singleton != null) {
 			return;
@@ -44,8 +43,8 @@ public class Engine {
 
 		// create and start the synthesizer, and set this object as the singleton.
 		this.synth = JSyn.createSynthesizer(Engine.getAudioManager());
-		this.inputDevice = Engine.audioManager.getDefaultInputDeviceID();
-		this.outputDevice = Engine.audioManager.getDefaultOutputDeviceID();
+		this.inputDevice = Engine.getAudioManager().getDefaultInputDeviceID();
+		this.outputDevice = Engine.getAudioManager().getDefaultOutputDeviceID();
 
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
@@ -55,36 +54,11 @@ public class Engine {
 		Engine.singleton = this;
 
 		// register Processing library callback methods
-		theParent.registerMethod("dispose", this);
+		Object callback = new Callback();
+		theParent.registerMethod("dispose", callback);
 		// Android only
-		theParent.registerMethod("pause", this);
-		theParent.registerMethod("resume", this);
-	}
-
-	/**
-	 * Print and return information on available audio devices and their number of
-	 * input/output channels.
-	 * 
-	 * @return an array giving the names of all audio devices available on this
-	 *         computer
-	 * @webref sound
-	 */
-	public static String[] list() {
-		AudioDeviceManager audioManager = Engine.getAudioManager();
-		int numDevices = audioManager.getDeviceCount();
-		String[] devices = new String[numDevices];
-		for (int i = 0; i < numDevices; i++) {
-			String deviceName = audioManager.getDeviceName(i);
-			devices[i] = audioManager.getDeviceName(i);
-			int maxInputs = audioManager.getMaxInputChannels(i);
-			int maxOutputs = audioManager.getMaxOutputChannels(i);
-			boolean isDefaultInput = (i == audioManager.getDefaultInputDeviceID());
-			boolean isDefaultOutput = (i == audioManager.getDefaultOutputDeviceID());
-			System.out.println("deviceId" + i + ": " + deviceName);
-			System.out.println("  max inputs : " + maxInputs + (isDefaultInput ? "   (default)" : ""));
-			System.out.println("  max outputs: " + maxOutputs + (isDefaultOutput ? "   (default)" : ""));
-		}
-		return devices;
+		theParent.registerMethod("pause", callback);
+		theParent.registerMethod("resume", callback);
 	}
 
 	protected void startSynth() {
@@ -99,41 +73,29 @@ public class Engine {
 				this.outputDevice, Engine.getAudioManager().getMaxOutputChannels(this.outputDevice));
 	}
 
-	/**
-	 * Set the internal sample rate of the synthesis engine.
-	 * @param sampleRate the sample rate to be used by the synthesis engine (default 44100)
-	 * @webref sound
-	 */
-	public void sampleRate(int sampleRate) {
+	protected static AudioDeviceManager getAudioManager() {
+		if (Engine.audioManager == null) {
+			try {
+				Class.forName("javax.sound.sampled.AudioSystem");
+				Engine.audioManager = AudioDeviceFactory.createAudioDeviceManager();
+			} catch (ClassNotFoundException e) {
+				Engine.audioManager = new JSynAndroidAudioDeviceManager();
+			}
+		}
+		return Engine.audioManager;
+	}
+
+	protected void setSampleRate(int sampleRate) {
 		Engine.singleton.sampleRate = sampleRate;
 		Engine.singleton.startSynth();
 	}
 
-	/**
-	 * Choose the device (sound card) which should be used for grabbing audio
-	 * input using AudioIn.
-	 * 
-	 * Note that this setting affects the choice of sound card, which is not
-	 * necessarily the same as the number of the input channel. If your sound
-	 * card has more than one input channel, you can specify which channel to
-	 * use in the constructor of the AudioIn class.
-	 * @param deviceId the device id obtained from list()
-	 * @seealso list()
-	 * @webref sound
-	 */
-	public void inputDevice(int deviceId) {
+	protected void selectInputDevice(int deviceId) {
 		Engine.singleton.inputDevice = deviceId;
 		Engine.singleton.startSynth();
 	}
 
-	/**
-	 * Choose the device (sound card) which the Sound library's audio output
-	 * should be sent to. The output device should support stereo output (2 channels).
-	 * @param deviceId the device id obtained from list()
-	 * @seealso list()
-	 * @webref sound
-	 */
-	public void outputDevice(int deviceId) {
+	protected void selectOutputDevice(int deviceId) {
 		Engine.singleton.outputDevice = deviceId;
 		Engine.singleton.startSynth();
 	}
@@ -151,17 +113,6 @@ public class Engine {
 
 	protected int getSampleRate() {
 		return this.synth.getFrameRate();
-	}
-
-	protected static Engine getEngine() {
-		return Engine.getEngine(null);
-	}
-
-	protected static Engine getEngine(PApplet parent) {
-		if (Engine.singleton == null) {
-			Engine.singleton = new Engine(parent);
-		}
-		return Engine.singleton;
 	}
 
 	protected void add(UnitGenerator generator) {
@@ -218,24 +169,20 @@ public class Engine {
 	}
 
 	/**
-	 * Internal function for Processing library callbacks. Do not invoke.
+	 * Internal helper class for Processing library callbacks
 	 */
-	public void dispose() {
-		this.lineOut.stop();
-		this.synth.stop();
-	}
+	public class Callback {
+		public void dispose() {
+			lineOut.stop();
+			synth.stop();
+		}
 
-	/**
-	 * Internal function for Processing library callbacks (android only). Do not invoke.
-	 */
-	public void pause() {
-		// TODO
-	}
+		public void pause() {
+			// TODO
+		}
 
-	/**
-	 * Internal function for Processing library callbacks (android only). Do not invoke.
-	 */
-	public void resume() {
-		// TODO
+		public void resume() {
+			// TODO
+		}
 	}
 }
