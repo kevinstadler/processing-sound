@@ -17,18 +17,23 @@ void setup() {
   size(640, 360);
   background(255);
 
-  // create the oscillators
+  // Turn the volume down globally.
+  Sound s = new Sound(this);
+  s.volume(0.2);
+
+  // Create the oscillators and put them into an array.
   oscs[0] = new SinOsc(this);
   oscs[1] = new TriOsc(this);
   oscs[2] = new SawOsc(this);
   oscs[3] = new SqrOsc(this);
 
+  // Special treatment for the Pulse oscillator to set its pulse width.
   Pulse pulse = new Pulse(this);
   pulse.width(0.1);
   oscs[4] = pulse;
 
+  // Initialise the FFT and start playing the (default) oscillator.
   fft = new FFT(this, 512);
-
   oscs[current].play();
   fft.input(oscs[current]);
 }
@@ -53,6 +58,7 @@ void draw() {
     // Still on the same oscillator, update frequency.
     oscs[current].freq(frequency);
   }
+
 
   // Draw frequency spectrum.
   background(125, 255, 125);
