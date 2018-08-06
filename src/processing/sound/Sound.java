@@ -50,12 +50,18 @@ public class Sound {
 	}
 
 	/**
-	 * Set the internal sample rate of the synthesis engine.
+	 * Get or set the internal sample rate of the synthesis engine.
 	 * @param sampleRate the sample rate to be used by the synthesis engine (default 44100)
+	 * @return the internal sample rate used by the synthesis engine
 	 * @webref sound
 	 */
-	public void sampleRate(int sampleRate) {
+	public int sampleRate() {
+		return this.engine.getSampleRate();
+	}
+
+	public int sampleRate(int sampleRate) {
 		this.engine.setSampleRate(sampleRate);
+		return this.sampleRate();
 	}
 
 	/**
@@ -83,6 +89,15 @@ public class Sound {
 	 */
 	public void outputDevice(int deviceId) {
 		this.engine.selectOutputDevice(deviceId);
+	}
+
+	/**
+	 * Set the overall output volume of the Processing sound library.
+	 * @param volume the desired output volume, normally between 0.0 and 1.0 (default is 1.0)
+	 * @webref sound
+	 */
+	public void volume(float volume) {
+		this.engine.setVolume(volume);
 	}
 
 }

@@ -5,6 +5,7 @@ import com.jsyn.Synthesizer;
 import com.jsyn.devices.AudioDeviceFactory;
 import com.jsyn.devices.AudioDeviceManager;
 import com.jsyn.unitgen.LineOut;
+import com.jsyn.unitgen.Multiply;
 import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.UnitSource;
 
@@ -16,7 +17,11 @@ class Engine {
 	private static Engine singleton;
 
 	protected Synthesizer synth;
+	// the stereo lineout
 	private LineOut lineOut;
+	// two multipliers for controlling the global output volume
+	private Multiply leftOut;
+	private Multiply rightOut;
 
 	private int sampleRate = 44100;
 
@@ -49,6 +54,14 @@ class Engine {
 		this.lineOut = new LineOut(); // stereo lineout by default
 		this.synth.add(lineOut);
 		this.lineOut.start();
+
+		this.leftOut = new Multiply();
+		this.rightOut = new Multiply();
+		this.setVolume(1.0f);
+		this.leftOut.output.connect(0, this.lineOut.input, 0);
+		this.rightOut.output.connect(0, this.lineOut.input, 1);
+		this.synth.add(this.leftOut);
+		this.synth.add(this.rightOut);
 
 		this.startSynth();
 		Engine.singleton = this;
@@ -100,14 +113,10 @@ class Engine {
 		Engine.singleton.startSynth();
 	}
 
-	/**
-	 * Set the overall output volume of the Processing sound library.
-	 * @param volume
-	 * @webref sound
-	 */
-	public void volume(float volume) {
+	protected void setVolume(double volume) {
 		if (Engine.checkRange(volume, "volume")) {
-			// TODO add master JSynCircuit before lineOut to control global volume/pan
+			this.leftOut.inputB.set(volume);
+			this.rightOut.inputB.set(volume);
 		}
 	}
 
@@ -127,19 +136,21 @@ class Engine {
 
 	protected void play(UnitSource source) {
 		// TODO check if unit is already connected
-		source.getOutput().connect(0, this.lineOut.input, 0);
-		source.getOutput().connect(1, this.lineOut.input, 1);
+		source.getOutput().connect(0, this.leftOut.inputA, 0);
+		source.getOutput().connect(1, this.rightOut.inputA, 0);
 	}
 
 	protected void stop(UnitSource source) {
-		source.getOutput().disconnect(0, this.lineOut.input, 0);
-		source.getOutput().disconnect(1, this.lineOut.input, 1);
+		source.getOutput().disconnect(0, this.leftOut.inputA, 0);
+		source.getOutput().disconnect(1, this.rightOut.inputA, 0);
 	}
 
 	protected static boolean checkAmp(float amp) {
 		if (amp < -1 || amp > 1) {
 			Engine.printError("amplitude has to be in [-1,1]");
 			return false;
+		} else if (amp == 0.0) {
+			Engine.printWarning("an amplitude of 0 means this sound is not audible now");
 		}
 		return true;
 	}
@@ -152,7 +163,7 @@ class Engine {
 		return true;
 	}
 
-	protected static boolean checkRange(float value, String name) {
+	protected static boolean checkRange(double value, String name) {
 		if (value < 0 || value > 1) {
 			Engine.printError(name + " parameter has to be between 0 and 1 (inclusive)");
 			return false;
