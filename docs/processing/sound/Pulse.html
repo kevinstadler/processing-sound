@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var methods = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -122,10 +122,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
+<li><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">processing.sound.SoundObject</a></li>
+<li>
+<ul class="inheritance">
 <li><a href="../../processing/sound/Oscillator.html" title="class in processing.sound">processing.sound.Oscillator</a>&lt;com.jsyn.unitgen.PulseOscillator&gt;</li>
 <li>
 <ul class="inheritance">
 <li>processing.sound.Pulse</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -179,34 +184,6 @@ extends <a href="../../processing/sound/Oscillator.html" title="class in process
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#add-float-">add</a></span>&#8203;(float&nbsp;add)</code></th>
-<td class="colLast">
-<div class="block">Offset the output of this generator by given value</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#amp-float-">amp</a></span>&#8203;(float&nbsp;amp)</code></th>
-<td class="colLast">
-<div class="block">Change the amplitude/volume of this sound.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#isPlaying--">isPlaying</a></span>&#8203;()</code></th>
-<td class="colLast">
-<div class="block">Check if this sound object is currently playing.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#pan-float-">pan</a></span>&#8203;(float&nbsp;pos)</code></th>
-<td class="colLast">
-<div class="block">Move the sound in a stereo panorama.</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#set-float-float-float-float-float-">set</a></span>&#8203;(float&nbsp;freq,
    float&nbsp;width,
    float&nbsp;amp,
@@ -216,14 +193,7 @@ extends <a href="../../processing/sound/Oscillator.html" title="class in process
 <div class="block">Set multiple parameters at once</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#stop--">stop</a></span>&#8203;()</code></th>
-<td class="colLast">
-<div class="block">Stop the generator</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Pulse.html#width-float-">width</a></span>&#8203;(float&nbsp;width)</code></th>
 <td class="colLast">
@@ -244,6 +214,13 @@ extends <a href="../../processing/sound/Oscillator.html" title="class in process
 </a>
 <h3>Methods inherited from class&nbsp;processing.sound.<a href="../../processing/sound/Oscillator.html" title="class in processing.sound">Oscillator</a></h3>
 <code><a href="../../processing/sound/Oscillator.html#freq-float-">freq</a>, <a href="../../processing/sound/Oscillator.html#play--">play</a>, <a href="../../processing/sound/Oscillator.html#play-float-float-">play</a>, <a href="../../processing/sound/Oscillator.html#play-float-float-float-">play</a>, <a href="../../processing/sound/Oscillator.html#play-float-float-float-float-">play</a>, <a href="../../processing/sound/Oscillator.html#set-float-float-float-float-">set</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.processing.sound.SoundObject">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;processing.sound.<a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></h3>
+<code><a href="../../processing/sound/SoundObject.html#add-float-">add</a>, <a href="../../processing/sound/SoundObject.html#amp-float-">amp</a>, <a href="../../processing/sound/SoundObject.html#isPlaying--">isPlaying</a>, <a href="../../processing/sound/SoundObject.html#pan-float-">pan</a>, <a href="../../processing/sound/SoundObject.html#stop--">stop</a></code></li>
 </ul>
 </li>
 </ul>
@@ -294,7 +271,7 @@ extends <a href="../../processing/sound/Oscillator.html" title="class in process
 <a name="set-float-float-float-float-float-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>set</h4>
 <pre>public&nbsp;void&nbsp;set&#8203;(float&nbsp;freq,
@@ -312,75 +289,6 @@ extends <a href="../../processing/sound/Oscillator.html" title="class in process
 <dd><code>pos</code> - The panoramic position of the oscillator as a float from -1.0 to
             1.0.</dd>
 </dl>
-</li>
-</ul>
-<a name="add-float-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>add</h4>
-<pre>public&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
-<div class="block">Offset the output of this generator by given value</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>add</code> - A value for offsetting the audio signal.</dd>
-</dl>
-</li>
-</ul>
-<a name="amp-float-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>amp</h4>
-<pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
-<div class="block">Change the amplitude/volume of this sound.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
-            controlling the amplitude/volume of this sound.</dd>
-</dl>
-</li>
-</ul>
-<a name="isPlaying--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isPlaying</h4>
-<pre>public&nbsp;boolean&nbsp;isPlaying&#8203;()</pre>
-<div class="block">Check if this sound object is currently playing.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>`true` if this sound object is currently playing, `false` if it is
-         not.</dd>
-</dl>
-</li>
-</ul>
-<a name="pan-float-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>pan</h4>
-<pre>public final&nbsp;void&nbsp;pan&#8203;(float&nbsp;pos)</pre>
-<div class="block">Move the sound in a stereo panorama.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0
-            (left) to 1.0 (right).</dd>
-</dl>
-</li>
-</ul>
-<a name="stop--">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>stop</h4>
-<pre>public&nbsp;void&nbsp;stop&#8203;()</pre>
-<div class="block">Stop the generator</div>
 </li>
 </ul>
 </li>

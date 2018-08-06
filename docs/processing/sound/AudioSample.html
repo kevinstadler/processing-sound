@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -122,7 +122,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
+<li><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">processing.sound.SoundObject</a></li>
+<li>
+<ul class="inheritance">
 <li>processing.sound.AudioSample</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -136,7 +141,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">AudioSample</span>
-extends java.lang.Object</pre>
+extends <a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></pre>
 </li>
 </ul>
 </div>
@@ -195,86 +200,79 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#add-float-">add</a></span>&#8203;(float&nbsp;add)</code></th>
-<td class="colLast">
-<div class="block">Offset the output of this generator by given value</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#amp-float-">amp</a></span>&#8203;(float&nbsp;amp)</code></th>
 <td class="colLast">
 <div class="block">Change the amplitude/volume of this sound.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#channels--">channels</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Returns the number of channels in the sound file.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#cue-float-">cue</a></span>&#8203;(float&nbsp;time)</code></th>
 <td class="colLast">
 <div class="block">Cues the playhead to a fixed position in the soundfile.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#duration--">duration</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Returns the duration of the the soundfile.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#frames--">frames</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Returns the number of frames/samples of the sound file.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#isPlaying--">isPlaying</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Check whether this soundfile is currently playing.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#jump-float-">jump</a></span>&#8203;(float&nbsp;time)</code></th>
 <td class="colLast">
 <div class="block">Jump to a specific position in the file while continuing to play.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop--">loop</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Starts the playback of a soundfile to loop.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop-float-">loop</a></span>&#8203;(float&nbsp;rate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop-float-float-">loop</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;amp)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop-float-float-float-">loop</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
     float&nbsp;amp)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-">loop</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
@@ -282,7 +280,7 @@ extends java.lang.Object</pre>
     float&nbsp;add)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-float-">loop</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
@@ -291,14 +289,7 @@ extends java.lang.Object</pre>
     float&nbsp;cue)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#pan-float-">pan</a></span>&#8203;(float&nbsp;pos)</code></th>
-<td class="colLast">
-<div class="block">Move the sound in a stereo panorama.</div>
-</td>
-</tr>
-<tr id="i15" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#pause--">pause</a></span>&#8203;()</code></th>
 <td class="colLast">
@@ -306,39 +297,39 @@ extends java.lang.Object</pre>
  the next call to play() will continue playing where it left off.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#percent--">percent</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Get current sound file playback position in percent.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play--">play</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Starts the playback of a soundfile.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play-float-">play</a></span>&#8203;(float&nbsp;rate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play-float-float-">play</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;amp)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play-float-float-float-">play</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
     float&nbsp;amp)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play-float-float-float-float-">play</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
@@ -346,7 +337,7 @@ extends java.lang.Object</pre>
     float&nbsp;add)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#play-float-float-float-float-float-">play</a></span>&#8203;(float&nbsp;rate,
     float&nbsp;pos,
@@ -355,28 +346,28 @@ extends java.lang.Object</pre>
     float&nbsp;cue)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#position--">position</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Get current sound file playback position in seconds.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#rate-float-">rate</a></span>&#8203;(float&nbsp;rate)</code></th>
 <td class="colLast">
 <div class="block">Change the playback rate of the soundfile.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#read-float:A-">read</a></span>&#8203;(float[]&nbsp;data)</code></th>
 <td class="colLast">
 <div class="block">Get the current sample data and write it into the given array.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#read-int-float:A-int-int-">read</a></span>&#8203;(int&nbsp;startFrame,
     float[]&nbsp;data,
@@ -384,20 +375,20 @@ extends java.lang.Object</pre>
     int&nbsp;numFrames)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#resize-int-boolean-">resize</a></span>&#8203;(int&nbsp;frames,
       boolean&nbsp;stereo)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#sampleRate--">sampleRate</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Returns the sample rate of the soundfile.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#set-float-float-float-float-">set</a></span>&#8203;(float&nbsp;rate,
    float&nbsp;pos,
@@ -407,21 +398,21 @@ extends java.lang.Object</pre>
 <div class="block">Set multiple parameters at once</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#stop--">stop</a></span>&#8203;()</code></th>
 <td class="colLast">
 <div class="block">Stops the player</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#write-float:A-">write</a></span>&#8203;(float[]&nbsp;data)</code></th>
 <td class="colLast">
 <div class="block">Overwrite the sample with the data from the given array.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/AudioSample.html#write-int-float:A-int-int-">write</a></span>&#8203;(int&nbsp;startFrame,
      float[]&nbsp;data,
@@ -436,6 +427,13 @@ extends java.lang.Object</pre>
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.processing.sound.SoundObject">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;processing.sound.<a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></h3>
+<code><a href="../../processing/sound/SoundObject.html#add-float-">add</a>, <a href="../../processing/sound/SoundObject.html#pan-float-">pan</a></code></li>
 </ul>
 </li>
 </ul>
@@ -515,8 +513,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>amp</h4>
 <pre>public&nbsp;void&nbsp;amp&#8203;(float&nbsp;amp)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../processing/sound/SoundObject.html#amp-float-">SoundObject</a></code></span></div>
 <div class="block">Change the amplitude/volume of this sound.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/SoundObject.html#amp-float-">amp</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>amp</code> - A float value between 0.0 (complete silence) and 1.0 (full volume)
             controlling the amplitude/volume of this sound.</dd>
@@ -666,6 +667,10 @@ extends java.lang.Object</pre>
 <h4>play</h4>
 <pre>public&nbsp;void&nbsp;play&#8203;()</pre>
 <div class="block">Starts the playback of a soundfile. Only plays the soundfile once.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/SoundObject.html#play--">play</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></code></dd>
+</dl>
 </li>
 </ul>
 <a name="play-float-">
@@ -794,6 +799,10 @@ extends java.lang.Object</pre>
 <h4>stop</h4>
 <pre>public&nbsp;void&nbsp;stop&#8203;()</pre>
 <div class="block">Stops the player</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/SoundObject.html#stop--">stop</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></code></dd>
+</dl>
 </li>
 </ul>
 <a name="position--">
@@ -833,6 +842,8 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;boolean&nbsp;isPlaying&#8203;()</pre>
 <div class="block">Check whether this soundfile is currently playing.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/SoundObject.html#isPlaying--">isPlaying</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/SoundObject.html" title="class in processing.sound">SoundObject</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>`true` if the soundfile is currently playing, `false` if it is not.</dd>
 </dl>
@@ -896,42 +907,13 @@ extends java.lang.Object</pre>
 <a name="write-int-float:A-int-int-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>write</h4>
 <pre>public&nbsp;void&nbsp;write&#8203;(int&nbsp;startFrame,
                   float[]&nbsp;data,
                   int&nbsp;startIndex,
                   int&nbsp;numFrames)</pre>
-</li>
-</ul>
-<a name="add-float-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>add</h4>
-<pre>public&nbsp;void&nbsp;add&#8203;(float&nbsp;add)</pre>
-<div class="block">Offset the output of this generator by given value</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>add</code> - A value for offsetting the audio signal.</dd>
-</dl>
-</li>
-</ul>
-<a name="pan-float-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>pan</h4>
-<pre>public final&nbsp;void&nbsp;pan&#8203;(float&nbsp;pos)</pre>
-<div class="block">Move the sound in a stereo panorama.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pos</code> - The panoramic position of this sound unit as a float from -1.0
-            (left) to 1.0 (right).</dd>
-</dl>
 </li>
 </ul>
 </li>

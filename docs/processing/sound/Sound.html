@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -199,10 +199,22 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#sampleRate-int-">sampleRate</a></span>&#8203;(int&nbsp;sampleRate)</code></th>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#sampleRate--">sampleRate</a></span>&#8203;()</code></th>
 <td class="colLast">
-<div class="block">Set the internal sample rate of the synthesis engine.</div>
+<div class="block">Get or set the internal sample rate of the synthesis engine.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#sampleRate-int-">sampleRate</a></span>&#8203;(int&nbsp;sampleRate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#volume-float-">volume</a></span>&#8203;(float&nbsp;volume)</code></th>
+<td class="colLast">
+<div class="block">Set the overall output volume of the Processing sound library.</div>
 </td>
 </tr>
 </table>
@@ -260,18 +272,29 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a name="sampleRate--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sampleRate</h4>
+<pre>public&nbsp;int&nbsp;sampleRate&#8203;()</pre>
+<div class="block">Get or set the internal sample rate of the synthesis engine.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sampleRate</code> - the sample rate to be used by the synthesis engine (default 44100)</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the internal sample rate used by the synthesis engine</dd>
+</dl>
+</li>
+</ul>
 <a name="sampleRate-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>sampleRate</h4>
-<pre>public&nbsp;void&nbsp;sampleRate&#8203;(int&nbsp;sampleRate)</pre>
-<div class="block">Set the internal sample rate of the synthesis engine.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>sampleRate</code> - the sample rate to be used by the synthesis engine (default 44100)</dd>
-</dl>
+<pre>public&nbsp;int&nbsp;sampleRate&#8203;(int&nbsp;sampleRate)</pre>
 </li>
 </ul>
 <a name="inputDevice-int-">
@@ -297,7 +320,7 @@ extends java.lang.Object</pre>
 <a name="outputDevice-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>outputDevice</h4>
 <pre>public&nbsp;void&nbsp;outputDevice&#8203;(int&nbsp;deviceId)</pre>
@@ -306,6 +329,20 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>deviceId</code> - the device id obtained from list()</dd>
+</dl>
+</li>
+</ul>
+<a name="volume-float-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>volume</h4>
+<pre>public&nbsp;void&nbsp;volume&#8203;(float&nbsp;volume)</pre>
+<div class="block">Set the overall output volume of the Processing sound library.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>volume</code> - the desired output volume, normally between 0.0 and 1.0 (default is 1.0)</dd>
 </dl>
 </li>
 </ul>

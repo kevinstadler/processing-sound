@@ -11,7 +11,7 @@ import processing.core.PApplet;
  * plugged into) with an appropriate JSynProcessor if they want to support
  * pan/add.
  */
-abstract class SoundObject {
+public abstract class SoundObject {
 
 	// subclasses need to initialise this circuit and set the corresponding
 	// amplitude port
