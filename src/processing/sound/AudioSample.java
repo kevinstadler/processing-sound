@@ -19,30 +19,49 @@ public class AudioSample extends SoundObject {
 	protected int startFrame = 0;
 
 	/**
-	 * 
-	 * @param parent
-	 * @param data
-	 * @param frames
-	 * @param stereo
+	 * Allocate a new audiosample buffer with the given number of frames.
+	 * @param parent PApplet: typically use "this"
+	 * @param data 
+	 * @param frames The desired number of frames for this audiosample
+	 * @param frameRate The underlying frame rate of the sample (default: 44100)
+	 * @param stereo boolean: whether to treat the audiosample as 2-channel (stereo) or not.
 	 * @webref sound
 	 */
-	public AudioSample(PApplet parent, int frames, boolean stereo) {
-		super(parent);
-		this.sample = new FloatSample(frames, stereo ? 2 : 1);
-		this.initiatePlayer();
-	}
-
 	public AudioSample(PApplet parent, int frames) {
 		this(parent, frames, false);
 	}
 
-	public AudioSample(PApplet parent, float[] data, boolean stereo) {
-		super(parent);
-		this.sample = new FloatSample(data, stereo ? 2 : 1);
+	public AudioSample(PApplet parent, int frames, boolean stereo) {
+		this(parent, frames, false, 44100); // TODO read current framerate from Engine
 	}
+
+	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
+		super(parent);
+		this.sample = new FloatSample(frames, stereo ? 2 : 1);
+		this.sample.setFrameRate(frameRate);
+		this.initiatePlayer();
+	}
+
+	// TODO add another set of constructors: AudioSample(PApplet parent, float duration)?
+	// risk of accidental overloading through int/float, but could be interesting..
 
 	public AudioSample(PApplet parent, float[] data) {
 		this(parent, data, false);
+	}
+
+	public AudioSample(PApplet parent, float[] data, boolean stereo) {
+		this(parent, data, stereo, 44100); // TODO read current framerate from Engine
+	}
+
+	public AudioSample(PApplet parent, float[] data, int frameRate) {
+		this(parent, data, false, frameRate);
+	}
+
+	public AudioSample(PApplet parent, float[] data, boolean stereo, int frameRate) {
+		super(parent);
+		this.sample = new FloatSample(data, stereo ? 2 : 1);
+		this.sample.setFrameRate(frameRate);
+		this.initiatePlayer();
 	}
 
 	// called by subclasses who initialise their own sample object
@@ -50,7 +69,7 @@ public class AudioSample extends SoundObject {
 		super(parent);
 	}
 
-	// private constructor for cloning
+	// private constructor for cloning (see getUnusedPlayer() method below)
 	protected AudioSample(AudioSample original) {
 		super(null);
 		this.sample = original.sample;
@@ -86,50 +105,67 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Returns the number of channels in the sound file.
+	 * Returns the number of channels in the audiosample.
 	 * @webref sound
-	 * @return Returns the number of channels in the sound file (1 for mono, 2 for stereo)
+	 * @return Returns the number of channels in the audiosample (1 for mono, 2 for stereo)
 	 **/
 	public int channels() {
 		return this.sample.getChannelsPerFrame();
 	}
 
 	/**
-	 * Cues the playhead to a fixed position in the soundfile.
+	 * Cues the playhead to a fixed position in the audiosample.
 	 * @webref sound
 	 * @param time Position to start from in seconds.
 	 **/
-	// methCla-based library only supported int here!
 	public void cue(float time) {
-		this.setStartFrame(time);
+		this.setStartTime(time);
 	}
 
 	/**
-	 * Returns the duration of the the soundfile.
+	 * Cues the playhead to a fixed position in the audiosample.
 	 * @webref sound
-	 * @return Returns the duration of the file in seconds.
+	 * @param frameNumber Frame number to start playback from.
+	 **/
+	public void cueFrame(int frameNumber) {
+		this.setStartFrame(frameNumber);
+	}
+	
+	/**
+	 * Returns the duration of the audiosample in seconds.
+	 * @webref sound
+	 * @return The duration of the audiosample in seconds.
 	 **/
 	public float duration() {
 		return (float) (this.frames() / this.sample.getFrameRate());
 	}
 
 	/**
-	 * Returns the number of frames/samples of the sound file.
+	 * Returns the number of frames of the audiosample.
 	 * @webref sound
-	 * @return Returns the number of samples of the sound file
+	 * @return The number of frames of the audiosample.
+	 * @see duration()
 	 **/
 	public int frames() {
 		return this.sample.getNumFrames();
 	}
 
-	private boolean setStartFrame(float time) {
+	private void setStartFrame(int frameNumber) {
+		if (frameNumber < 0 || frameNumber >= this.frames()) {
+			Engine.printError("invalid start frame number (has to be in [0," + Integer.toString(this.frames()-1) + "]");
+		} else {
+			this.startFrame = frameNumber;
+		}
+	}
+
+	private boolean setStartTime(float time) {
 		if (time < 0) {
 			Engine.printError("absolute position can't be < 0");
 			return false;
 		}
 		int startFrame = Math.round(this.sampleRate() * time);
 		if (startFrame >= this.frames()) {
-			Engine.printError("can't cue past of end of sample (total duration of soundfile is " + this.duration() + "s)");
+			Engine.printError("can't cue past of end of sample (total duration is " + this.duration() + "s)");
 			return false;
 		}
 		this.startFrame = startFrame;
@@ -137,12 +173,12 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Jump to a specific position in the file while continuing to play.
+	 * Jump to a specific position in the audiosample while continuing to play.
 	 * @webref sound
 	 * @param time Position to jump to as a float in seconds.
 	 **/
 	public void jump(float time) {
-		if (this.setStartFrame(time)) {
+		if (this.setStartTime(time)) {
 			this.stop();
 			this.play(); // TODO what if the file wasn't playing when jump() was called?
 		}
@@ -163,7 +199,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Starts the playback of a soundfile to loop.
+	 * Starts playback which will loop at the end of the sample.
 	 * @webref sound
 	 **/	
 	public void loop() {
@@ -203,7 +239,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Starts the playback of a soundfile. Only plays the soundfile once.
+	 * Starts the playback of the audiosample. Only plays the audiosample once.
 	 * @webref sound
 	 **/
 	public void play() {
@@ -211,9 +247,10 @@ public class AudioSample extends SoundObject {
 		source.player.dataQueue.queue(source.sample,
 				source.startFrame,
 				source.frames() - source.startFrame);
-		// for improved handling by the user, return a reference to whichever
-		// sound file is the source of the newly triggered playback
-		// return source;
+		// for improved handling by the user, could return a reference to
+		// whichever audiosample object is the actual source (i.e. JSyn
+		// container) of the newly triggered playback
+		//return source;
 	}
 
 	public void play(float rate) {
@@ -242,9 +279,9 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Change the playback rate of the soundfile.
+	 * Set the playback rate of the audiosample.
 	 * @webref sound
-	 * @param rate This method changes the playback rate of the soundfile. 1 is the original speed. 0.5 is half speed and one octave down. 2 is double the speed and one octave up. 
+	 * @param rate Relative playback rate to use. 1 is the original speed. 0.5 is half speed and one octave down. 2 is double the speed and one octave up.
 	 **/
 	public void rate(float rate) {
 		if (rate <= 0) {
@@ -256,7 +293,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * 
+	 * Resizes the underlying buffer of the audiosample to the given number of frames.
 	 * @param frames
 	 * @param stereo
 	 * @webref sound
@@ -266,9 +303,9 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Returns the sample rate of the soundfile.
+	 * Returns the underlying sample rate of the audiosample.
 	 * @webref sound
-	 * @return Returns the sample rate of the soundfile as an int.
+	 * @return Returns the underlying sample rate of the audiosample as an int.
 	 **/
 	public int sampleRate() {
 		return (int) Math.round(this.sample.getFrameRate());
@@ -290,7 +327,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Stops the player
+	 * Stops the playback.
 	 * @webref sound
 	 **/
 	public void stop() {
@@ -357,6 +394,10 @@ public class AudioSample extends SoundObject {
 		this.sample.read(startFrame, data, startIndex, numFrames);
 	}
 
+	public float readFrame(int index) {
+		return (float) this.sample.readDouble(index);
+	}
+
 	/**
 	 * Overwrite the sample with the data from the given array. The array can
 	 * contain up to as many floats as there are frames in this sample
@@ -372,4 +413,7 @@ public class AudioSample extends SoundObject {
 		this.sample.write(startFrame, data, startIndex, numFrames);
 	}
 
+	public void writeFrame(int index, float value) {
+		this.sample.writeDouble(index, value);
+	}
 }
