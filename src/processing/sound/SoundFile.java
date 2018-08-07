@@ -42,6 +42,7 @@ public class SoundFile extends AudioSample {
 			// an error message and fin returns null. In this case we can just
 			// return this dysfunctional SoundFile object without initialising further
 			if (fin == null) {
+				Engine.printError("unable to find file " + path);
 				return;
 			}
 
@@ -130,6 +131,16 @@ public class SoundFile extends AudioSample {
 	}
 
 	/**
+	 * Stop the playback of the file, but cue it to the current position so that
+	 * the next call to play() will continue playing where it left off.
+	 * @see stop
+	 * @webref sound
+	 */
+	public void pause() {
+		super.pause();
+	}
+
+	/**
 	 * Starts the playback of the soundfile. Only plays the soundfile once.
 	 * @webref sound
 	 **/
@@ -148,6 +159,7 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Stops the playback.
+	 * @see pause
 	 * @webref sound
 	 **/
 	public void stop() {
