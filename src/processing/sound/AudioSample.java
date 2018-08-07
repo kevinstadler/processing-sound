@@ -8,7 +8,13 @@ import com.jsyn.unitgen.VariableRateStereoReader;
 import processing.core.PApplet;
 
 /**
+ * This class allows you low-level access to an audio buffer to create, access,
+ * manipulate and play back sound samples.
  * 
+ * If you want to pre-load your audio sample with an audio file from disk you
+ * can do so using the SoundFile subclass.
+ * 
+ * @see SoundFile
  * @webref sound
  */
 public class AudioSample extends SoundObject {

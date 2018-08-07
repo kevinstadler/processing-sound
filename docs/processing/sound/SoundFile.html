@@ -26,6 +26,12 @@
     catch(err) {
     }
 //-->
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../";loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -87,13 +93,13 @@ var pathtoroot = "../../";loadScripts(document, 'script');</script>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.processing.sound.AudioSample">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.top">
@@ -171,12 +177,84 @@ extends <a href="../../processing/sound/AudioSample.html" title="class in proces
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary" summary="Method Summary table, listing methods, and an explanation">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#cue-float-">cue</a></span>&#8203;(float&nbsp;time)</code></th>
+<td class="colLast">
+<div class="block">Cues the playhead to a fixed position in the soundfile.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>float</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#duration--">duration</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Returns the duration of the soundfile in seconds.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#frames--">frames</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Returns the number of frames of this soundfile.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#jump-float-">jump</a></span>&#8203;(float&nbsp;time)</code></th>
+<td class="colLast">
+<div class="block">Jump to a specific position in the soundfile while continuing to play.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#loop--">loop</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Starts playback which will loop at the end of the soundfile.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#pause--">pause</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Stop the playback of the file, but cue it to the current position so that
+ the next call to play() will continue playing where it left off.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#play--">play</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Starts the playback of the soundfile.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#rate-float-">rate</a></span>&#8203;(float&nbsp;rate)</code></th>
+<td class="colLast">
+<div class="block">Set the playback rate of the soundfile.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/SoundFile.html#stop--">stop</a></span>&#8203;()</code></th>
+<td class="colLast">
+<div class="block">Stops the playback.</div>
+</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.processing.sound.AudioSample">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;processing.sound.<a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></h3>
-<code><a href="../../processing/sound/AudioSample.html#amp-float-">amp</a>, <a href="../../processing/sound/AudioSample.html#channels--">channels</a>, <a href="../../processing/sound/AudioSample.html#cue-float-">cue</a>, <a href="../../processing/sound/AudioSample.html#duration--">duration</a>, <a href="../../processing/sound/AudioSample.html#frames--">frames</a>, <a href="../../processing/sound/AudioSample.html#isPlaying--">isPlaying</a>, <a href="../../processing/sound/AudioSample.html#jump-float-">jump</a>, <a href="../../processing/sound/AudioSample.html#loop--">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#pause--">pause</a>, <a href="../../processing/sound/AudioSample.html#percent--">percent</a>, <a href="../../processing/sound/AudioSample.html#play--">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#position--">position</a>, <a href="../../processing/sound/AudioSample.html#rate-float-">rate</a>, <a href="../../processing/sound/AudioSample.html#read-float:A-">read</a>, <a href="../../processing/sound/AudioSample.html#read-int-float:A-int-int-">read</a>, <a href="../../processing/sound/AudioSample.html#resize-int-boolean-">resize</a>, <a href="../../processing/sound/AudioSample.html#sampleRate--">sampleRate</a>, <a href="../../processing/sound/AudioSample.html#set-float-float-float-float-">set</a>, <a href="../../processing/sound/AudioSample.html#stop--">stop</a>, <a href="../../processing/sound/AudioSample.html#write-float:A-">write</a>, <a href="../../processing/sound/AudioSample.html#write-int-float:A-int-int-">write</a></code></li>
+<code><a href="../../processing/sound/AudioSample.html#amp-float-">amp</a>, <a href="../../processing/sound/AudioSample.html#channels--">channels</a>, <a href="../../processing/sound/AudioSample.html#cueFrame-int-">cueFrame</a>, <a href="../../processing/sound/AudioSample.html#isPlaying--">isPlaying</a>, <a href="../../processing/sound/AudioSample.html#loop-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#loop-float-float-float-float-float-">loop</a>, <a href="../../processing/sound/AudioSample.html#percent--">percent</a>, <a href="../../processing/sound/AudioSample.html#play-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#play-float-float-float-float-float-">play</a>, <a href="../../processing/sound/AudioSample.html#position--">position</a>, <a href="../../processing/sound/AudioSample.html#read-float:A-">read</a>, <a href="../../processing/sound/AudioSample.html#read-int-float:A-int-int-">read</a>, <a href="../../processing/sound/AudioSample.html#readFrame-int-">readFrame</a>, <a href="../../processing/sound/AudioSample.html#resize-int-boolean-">resize</a>, <a href="../../processing/sound/AudioSample.html#sampleRate--">sampleRate</a>, <a href="../../processing/sound/AudioSample.html#set-float-float-float-float-">set</a>, <a href="../../processing/sound/AudioSample.html#write-float:A-">write</a>, <a href="../../processing/sound/AudioSample.html#write-int-float:A-int-int-">write</a>, <a href="../../processing/sound/AudioSample.html#writeFrame-int-float-">writeFrame</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -214,6 +292,159 @@ extends <a href="../../processing/sound/AudioSample.html" title="class in proces
 <h4>SoundFile</h4>
 <pre>public&nbsp;SoundFile&#8203;(processing.core.PApplet&nbsp;parent,
                  java.lang.String&nbsp;path)</pre>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="cue-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cue</h4>
+<pre>public&nbsp;void&nbsp;cue&#8203;(float&nbsp;time)</pre>
+<div class="block">Cues the playhead to a fixed position in the soundfile.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#cue-float-">cue</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>time</code> - Position to start from in seconds.</dd>
+</dl>
+</li>
+</ul>
+<a name="duration--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>duration</h4>
+<pre>public&nbsp;float&nbsp;duration&#8203;()</pre>
+<div class="block">Returns the duration of the soundfile in seconds.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#duration--">duration</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The duration of the soundfile in seconds.</dd>
+</dl>
+</li>
+</ul>
+<a name="frames--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>frames</h4>
+<pre>public&nbsp;int&nbsp;frames&#8203;()</pre>
+<div class="block">Returns the number of frames of this soundfile.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#frames--">frames</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The number of frames of this soundfile.</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../processing/sound/SoundFile.html#duration--"><code>duration()</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="loop--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>loop</h4>
+<pre>public&nbsp;void&nbsp;loop&#8203;()</pre>
+<div class="block">Starts playback which will loop at the end of the soundfile.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#loop--">loop</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="jump-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>jump</h4>
+<pre>public&nbsp;void&nbsp;jump&#8203;(float&nbsp;time)</pre>
+<div class="block">Jump to a specific position in the soundfile while continuing to play.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#jump-float-">jump</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>time</code> - Position to jump to as a float in seconds.</dd>
+</dl>
+</li>
+</ul>
+<a name="pause--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>pause</h4>
+<pre>public&nbsp;void&nbsp;pause&#8203;()</pre>
+<div class="block">Stop the playback of the file, but cue it to the current position so that
+ the next call to play() will continue playing where it left off.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#pause--">pause</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../processing/sound/SoundFile.html#stop--"><code>stop()</code></a></dd>
+</dl>
+</li>
+</ul>
+<a name="play--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>play</h4>
+<pre>public&nbsp;void&nbsp;play&#8203;()</pre>
+<div class="block">Starts the playback of the soundfile. Only plays the soundfile once.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#play--">play</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="rate-float-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rate</h4>
+<pre>public&nbsp;void&nbsp;rate&#8203;(float&nbsp;rate)</pre>
+<div class="block">Set the playback rate of the soundfile.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#rate-float-">rate</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rate</code> - Relative playback rate to use. 1 is the original speed. 0.5 is
+            half speed and one octave down. 2 is double the speed and one
+            octave up.</dd>
+</dl>
+</li>
+</ul>
+<a name="stop--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>stop</h4>
+<pre>public&nbsp;void&nbsp;stop&#8203;()</pre>
+<div class="block">Stops the playback.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../processing/sound/AudioSample.html#stop--">stop</a></code>&nbsp;in class&nbsp;<code><a href="../../processing/sound/AudioSample.html" title="class in processing.sound">AudioSample</a></code></dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../processing/sound/SoundFile.html#pause--"><code>pause()</code></a></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -273,13 +504,13 @@ extends <a href="../../processing/sound/AudioSample.html" title="class in proces
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.processing.sound.AudioSample">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.bottom">

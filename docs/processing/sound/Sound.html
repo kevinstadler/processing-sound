@@ -133,9 +133,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <br>
 <pre>public class <span class="typeNameLabel">Sound</span>
 extends java.lang.Object</pre>
-<div class="block">The Sound class allows for configuring global properties of the sound
+<div class="block">This class can be used for configuring the Processing Sound library.
+
+ The Sound class allows for configuring global properties of the sound
  library's audio synthesis and playback, such as the output device, sample
- rate or global output volume.</div>
+ rate or global output volume.
+
+ Information on available input and output devices can be obtained by calling
+ Sound.list()</div>
 </li>
 </ul>
 </div>
@@ -156,6 +161,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#Sound-processing.core.PApplet-">Sound</a></span>&#8203;(processing.core.PApplet&nbsp;parent)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="../../processing/sound/Sound.html#Sound-processing.core.PApplet-int-int-int-float-">Sound</a></span>&#8203;(processing.core.PApplet&nbsp;parent,
+     int&nbsp;sampleRate,
+     int&nbsp;outputDevice,
+     int&nbsp;inputDevice,
+     float&nbsp;volume)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -242,10 +255,23 @@ extends java.lang.Object</pre>
 <a name="Sound-processing.core.PApplet-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>Sound</h4>
 <pre>public&nbsp;Sound&#8203;(processing.core.PApplet&nbsp;parent)</pre>
+</li>
+</ul>
+<a name="Sound-processing.core.PApplet-int-int-int-float-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Sound</h4>
+<pre>public&nbsp;Sound&#8203;(processing.core.PApplet&nbsp;parent,
+             int&nbsp;sampleRate,
+             int&nbsp;outputDevice,
+             int&nbsp;inputDevice,
+             float&nbsp;volume)</pre>
 </li>
 </ul>
 </li>
