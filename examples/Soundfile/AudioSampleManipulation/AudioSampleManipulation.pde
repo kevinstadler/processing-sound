@@ -1,8 +1,8 @@
 /**
  * Allocate a new audio sample and manually fill it with a sine wave that gets
  * scrambled every time the mouse is pressed. As the order of data points is scrambled
- * more and more, the original sine wave signal becomes less and less clear until it is
- * completely washed out by noise artefacts.
+ * more and more, the original sine wave signal becomes less and less audible until it
+ * is completely washed out by noise artefacts.
  */
 
 import processing.sound.*;
@@ -33,7 +33,7 @@ void draw() {
 }
 
 void mousePressed() {
-  // Every time draw() is called, swap two of the sample frames around.
+  // Every time the mouse is pressed, swap two of the sample frames around.
   int i = int(random(0, sample.frames()));
   int j = int(random(0, sample.frames()));
 
