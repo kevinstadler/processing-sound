@@ -5,14 +5,18 @@ import com.jsyn.devices.AudioDeviceManager;
 import processing.core.PApplet;
 
 /**
+ * This class can be used for configuring the Processing Sound library.
+ *
  * The Sound class allows for configuring global properties of the sound
  * library's audio synthesis and playback, such as the output device, sample
  * rate or global output volume.
- * @webref sound
+ *
+ * Information on available input and output devices can be obtained by calling
+ * Sound.list()
  * @param parent
  *            PApplet: typically use "this"
- * @param sampleRate
- *            Sets the sample rate (default 44100).
+ * @param sampleRate the sample rate to be used by the synthesis engine (default 44100)
+ * @webref sound
  */
 public class Sound {
 
@@ -21,6 +25,14 @@ public class Sound {
 
 	public Sound(PApplet parent) {
 		this.engine = Engine.getEngine(parent);
+	}
+
+	public Sound(PApplet parent, int sampleRate, int outputDevice, int inputDevice, float volume) {
+		this(parent);
+		this.sampleRate(sampleRate);
+		this.inputDevice(inputDevice);
+		this.outputDevice(outputDevice);
+		this.volume(volume);
 	}
 
 	/**
@@ -58,7 +70,6 @@ public class Sound {
 	public int sampleRate() {
 		return this.engine.getSampleRate();
 	}
-
 	public int sampleRate(int sampleRate) {
 		this.engine.setSampleRate(sampleRate);
 		return this.sampleRate();
