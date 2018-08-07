@@ -67,12 +67,91 @@ public class SoundFile extends AudioSample {
 					}
 				} catch (IOException ee) {
 					Engine.printError("unable to decode sound file " + path);
-					// TODO do what?
+					// return dysfunctional SoundFile object
+					return;
 				}
 			}
 			SoundFile.SAMPLECACHE.put(path, this.sample);
 		}
 		this.initiatePlayer();
+	}
+
+	// Below are just duplicated methods from the AudioSample superclass which
+	// are required for the reference to build the corresponding pages.
+
+	/**
+	 * Cues the playhead to a fixed position in the soundfile.
+	 * @webref sound
+	 * @param time Position to start from in seconds.
+	 **/
+	public void cue(float time) {
+		super.cue(time);
+	}
+
+	/**
+	 * Returns the duration of the soundfile in seconds.
+	 * @webref sound
+	 * @return The duration of the soundfile in seconds.
+	 **/
+	public float duration() {
+		return super.duration();
+	}
+
+	/**
+	 * Returns the number of frames of this soundfile.
+	 * @webref sound
+	 * @return The number of frames of this soundfile.
+	 * @see duration()
+	 **/
+	public int frames() {
+		return super.frames();
+	}
+
+	/**
+	 * Starts playback which will loop at the end of the soundfile.
+	 * @webref sound
+	 **/	
+	public void loop() {
+		super.loop();
+	}
+	// TODO also need to duplicate other superclass signatures to be included in online reference?
+	// e.g.:
+//	public void loop(float rate, float pos, float amp, float add, float cue) {
+//		super.loop(rate, pos, amp, add, cue);
+//	}
+
+	/**
+	 * Jump to a specific position in the soundfile while continuing to play.
+	 * @webref sound
+	 * @param time Position to jump to as a float in seconds.
+	 **/
+	public void jump(float time) {
+		super.jump(time);
+	}
+
+	/**
+	 * Starts the playback of the soundfile. Only plays the soundfile once.
+	 * @webref sound
+	 **/
+	public void play() {
+		super.play();
+	}
+	// TODO also need to duplicate other superclass signatures to be included in online reference?
+
+	/**
+	 * Set the playback rate of the soundfile.
+	 * @webref sound
+	 **/
+	public void rate(float rate) {
+		super.rate(rate);
+	}
+
+	/**
+	 * Stops the playback.
+	 * @webref sound
+	 **/
+	public void stop() {
+		super.stop();
 	}
 
 }
