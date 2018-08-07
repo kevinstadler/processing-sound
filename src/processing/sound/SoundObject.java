@@ -137,11 +137,11 @@ public abstract class SoundObject {
 		if (this.circuit.effect != effect) {
 			// possibly a previous effect that's being stopped here, ignore call
 			Engine.printError("this effect is not currently processing any signals.");
-			return;
-		}
 
-		this.circuit.removeEffect();
-		Engine.getEngine().remove(effect.left);
-		Engine.getEngine().remove(effect.right);
+		} else {
+			this.circuit.removeEffect();
+			Engine.getEngine().remove(effect.left);
+			Engine.getEngine().remove(effect.right);
+		}
 	}
 }
