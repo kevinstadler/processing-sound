@@ -29,7 +29,7 @@ void setup() {
 
   // Special treatment for the Pulse oscillator to set its pulse width.
   Pulse pulse = new Pulse(this);
-  pulse.width(0.1);
+  pulse.width(0.05);
   oscs[4] = pulse;
 
   // Initialise the FFT and start playing the (default) oscillator.
@@ -39,9 +39,6 @@ void setup() {
 }
 
 void draw() {
-  // Map mouseX from 20Hz to 22000Hz for frequency  
-  float frequency = map(mouseX, 0, width, 20.0, 22000.0);
-
   // Only play one of the four oscillators, based on mouseY
   int nextOscillator = floor(map(mouseY, 0, height, 0, oscs.length));
 
@@ -51,13 +48,14 @@ void draw() {
 
     // Switch FFT analysis over to the newly selected oscillator.
     fft.input(oscs[current]);
-    // Play (but don't make it too loud)
-    oscs[current].play(frequency, 0.3);
-
-  } else {
-    // Still on the same oscillator, update frequency.
-    oscs[current].freq(frequency);
+    // Play
+    oscs[current].play();
   }
+
+  // Map mouseX from 20Hz to 22000Hz for frequency.
+  float frequency = map(mouseX, 0, width, 20.0, 22000.0);
+  // Update oscillator frequency.
+  oscs[current].freq(frequency);
 
 
   // Draw frequency spectrum.
