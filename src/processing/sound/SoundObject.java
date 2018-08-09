@@ -6,16 +6,19 @@ import com.jsyn.unitgen.UnitFilter;
 import processing.core.PApplet;
 
 /**
- * Convenience superclass for all sound sources. Subclasses need to assign the
- * 'amplitude' port, and also initiate a JSynCircuit (which effects can be
- * plugged into) with an appropriate JSynProcessor if they want to support
- * pan/add.
+ * For advanced users: common superclass of all sound sources (oscillators,
+ * noise, audio samples and even AudioIn).
  */
+// Subclasses need to assign the 'amplitude' port, and also initiate a
+// JSynCircuit (which effects can be plugged into) with an appropriate
+// JSynProcessor if they want to support pan/add.
 public abstract class SoundObject {
 
-	// subclasses need to initialise this circuit and set the corresponding
-	// amplitude port
+	// subclasses need to initialise this circuit
 	protected JSynCircuit circuit;
+
+	// all subclasses need to set this amplitude port -- either to the amplitude
+	// port of the circuit, or directly to an amplitude port of their sound unit
 	protected UnitInputPort amplitude;
 
 	protected float amp = 1.0f;

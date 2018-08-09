@@ -4,6 +4,10 @@ import com.jsyn.unitgen.UnitOscillator;
 
 import processing.core.PApplet;
 
+/**
+ * For advanced users: common superclass of all oscillator sound sources
+ * @author kevin
+ */
 public abstract class Oscillator<JSynOscillator extends UnitOscillator> extends SoundObject {
 
 	protected JSynOscillator oscillator;

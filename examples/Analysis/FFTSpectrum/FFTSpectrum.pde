@@ -36,15 +36,14 @@ public void setup() {
   // Calculate the width of the rects depending on how many bands we have
   barWidth = width/float(bands);
 
-  //Load and play a soundfile and loop it. This has to be called 
-  // before the FFT is created.
+  // Load and play a soundfile and loop it.
   sample = new SoundFile(this, "beat.aiff");
   sample.loop();
 
-  // Create and patch the FFT analyzer
+  // Create the FFT analyzer and connect the playing soundfile to it.
   fft = new FFT(this, bands);
   fft.input(sample);
-}      
+}
 
 public void draw() {
   // Set background color, noStroke and fill color

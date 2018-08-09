@@ -14,7 +14,8 @@ import processing.core.PApplet;
  *            PApplet: typically use "this"
  * @param bands
  *            Number of frequency bands for the FFT as an integer, default: 512.
- *            This parameter needs to be a power of 2 (e.g. 16, 32, 64, 128, ...).
+ *            This parameter needs to be a power of 2 (e.g. 16, 32, 64, 128,
+ *            ...).
  **/
 public class FFT extends Analyzer {
 
@@ -51,17 +52,31 @@ public class FFT extends Analyzer {
 		this.fft.start();
 	}
 
-	public void analyze() {
-		this.analyze(this.spectrum);
+	/**
+	 * Calculates the current frequency spectrum from the input source, writes it
+	 * into this FFT's `spectrum` array, and returns it.
+	 *
+	 * @return the current frequency spectrum of the input source. The array has as
+	 *         many elements as this FFT analyzer's number of frequency bands
+	 */
+	public float[] analyze() {
+		return this.analyze(this.spectrum);
 	}
 
 	/**
-	 * Queries a value from the analyzer and returns a vector the size of the
-	 * pre-defined number of bands.
-	 * 
+	 * Calculates the current frequency spectrum from the input source, writes it
+	 * into the given array, and returns it.
+	 *
+	 * @param value
+	 *            an array with as many elements as this FFT analyzer's number of
+	 *            frequency bands
 	 * @webref sound
 	 **/
-	public void analyze(float[] value) {
+	public float[] analyze(float[] value) {
+		if (this.input == null) {
+			Engine.printWarning("this FFT has no sound source connected to it, nothing to analyze");
+		}
 		this.fft.calculateMagnitudes(value);
+		return value;
 	}
 }
