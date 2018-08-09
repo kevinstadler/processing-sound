@@ -15,27 +15,27 @@ void setup() {
   // Load a soundfile
   soundfile = new SoundFile(this, "vibraphon.aiff");
 
-  // Create the dlay Effect
+  // Create the delay effect
   delay = new Delay(this);
 
   // Play the file in a loop
   soundfile.loop();
 
-  // Connect the soundfile to the delay unit
-  delay.process(soundfile, 5);
+  // Connect the soundfile to the delay unit, which is initiated with a
+  // five second "tape"
+  delay.process(soundfile, 5.0);
 }
 
 void draw() { 
+  // Map mouseX from -1.0 to 1.0 for left to right panning
+  float position = map(mouseX, 0, width, -1.0, 1.0);
+  soundfile.pan(position);
 
-  // Map mouseY from 0.2 to 1.0 for amplitude  
-  soundfile.amp(map(mouseY, 0, height, 0.2, 1.0)); 
+  // Map mouseX from 0 to 0.8 for the amount of delay feedback
+  float fb = map(mouseX, 0, width, 0.0, 0.8);
+  delay.feedback(fb);
 
-  // Map mouseY from -1.0 to 1.0 for left to right 
-  soundfile.pan(map(mouseY, 0, height, -1.0, 1.0));  
-
-  // Map mouseY from 0.001 to 2.0 seconds for the delaytime 
-  delay.time(map(mouseY, 0, height, 0.001, 2.0));
-
-  // Map mouseX from 0 to 0.8 for the delay feedback 
-  delay.feedback(map(mouseX, 0, width, 0.0, 0.8));
+  // Map mouseY from 0.001 to 2.0 seconds for the length of the delay
+  float delayTime = map(mouseY, 0, height, 0.001, 2.0);
+  delay.time(delayTime);
 }

@@ -26,7 +26,7 @@ void draw() {
   lowPass.freq(cutoff);
 
   // Draw a circle indicating the position + width of the frequencies passed through
-  background(255);
+  background(125, 255, 125);
   noStroke();
   fill(255, 0, 150);
   ellipse(0, height, 2*mouseX, 2*mouseX);

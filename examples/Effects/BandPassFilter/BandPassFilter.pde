@@ -33,7 +33,7 @@ void draw() {
 
   // Draw a circle indicating the position + width of the frequency window
   // that is allowed to pass through
-  background(255);
+  background(125, 255, 125);
   noStroke();
   fill(255, 0, 150);
   ellipse(mouseX, height, 2*(height - mouseY), 2*(height - mouseY));
