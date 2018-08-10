@@ -7,9 +7,13 @@ import processing.core.PApplet;
 /**
  * This is a simple Square Wave Oscillator 
  * @webref sound
- * @param parent typically use "this"
  **/
 public class SqrOsc extends Oscillator<SquareOscillator> {
+
+	/**
+	 * @webref sound
+	 * @param parent typically use "this"
+	 */
 	public SqrOsc(PApplet parent) {
 		super(parent, new SquareOscillator());
 	}

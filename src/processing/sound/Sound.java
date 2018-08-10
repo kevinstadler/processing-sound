@@ -13,6 +13,7 @@ import processing.core.PApplet;
  *
  * Information on available input and output devices can be obtained by calling
  * Sound.list()
+ * @webref sound
  */
 public class Sound {
 

@@ -7,9 +7,13 @@ import processing.core.PApplet;
 /**
  * This is a simple Saw Wave Oscillator 
  * @webref sound
- * @param parent typically use "this"
  **/
 public class SawOsc extends Oscillator<SawtoothOscillator> {
+
+	/**
+	 * @webref sound
+	 * @param parent typically use "this"
+	 */
 	public SawOsc(PApplet parent) {
 		super(parent, new SawtoothOscillator());
 	}

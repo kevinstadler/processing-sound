@@ -35,10 +35,14 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Allocate a new audiosample buffer with the given number of frames.
 	 *
-	 * @param parent typically use "this"
-	 * @param frames The desired number of frames for this audiosample
-	 * @param frameRate The underlying frame rate of the sample (default: 44100)
-	 * @param stereo whether to treat the audiosample as 2-channel (stereo) or not.
+	 * @param parent
+	 *            typically use "this"
+	 * @param frames
+	 *            The desired number of frames for this audiosample
+	 * @param frameRate
+	 *            The underlying frame rate of the sample (default: 44100)
+	 * @param stereo
+	 *            whether to treat the audiosample as 2-channel (stereo) or not.
 	 * @webref sound
 	 */
 	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
@@ -53,8 +57,10 @@ public class AudioSample extends SoundObject {
 	// risk of accidental overloading through int/float, but could be interesting..
 
 	/**
-	 * @param data an array of float values to be used as this audiosample's sound data.
-	 * The audiosample will consequently have as many frames as the length of the given array.
+	 * @param data
+	 *            an array of float values to be used as this audiosample's sound
+	 *            data. The audiosample will consequently have as many frames as the
+	 *            length of the given array.
 	 * @webref sound
 	 */
 	public AudioSample(PApplet parent, float[] data) {
@@ -439,10 +445,6 @@ public class AudioSample extends SoundObject {
 	 * Get the current sample data and write it into the given array. The array has
 	 * to be able to store as many floats as there are frames in this sample (or
 	 * twice as many if this is a stereo sample).
-	 * 
-	 * @param data
-	 *            the target array to write the sample data to
-	 * @webref sound
 	 */
 	public void read(float[] data) {
 		if (data.length != this.frames()) {
@@ -453,6 +455,22 @@ public class AudioSample extends SoundObject {
 		this.sample.read(data);
 	}
 
+	/**
+	 * Read some frames of this audio sample into the given array.
+	 *
+	 * @param data
+	 *            the target array that the read data is written to
+	 * @param startFrame
+	 *            the number of the first frame of the audiosample that should be
+	 *            read
+	 * @param startIndex
+	 *            the position in the array where the first read frame should be
+	 *            written to (typically 0)
+	 * @param numFrames
+	 *            the number of frames that should be read (can't be greater than
+	 *            data.length - startIndex)
+	 * @webref sound
+	 */
 	public void read(int startFrame, float[] data, int startIndex, int numFrames) {
 		if (this.checkStartFrame(startFrame)) {
 			if (startFrame + numFrames < this.frames()) {
@@ -466,6 +484,10 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
+	/**
+	 * @param index the index of the single frame of the audiosample that should be read and returned as a float
+	 * @return the value of the audio sample at the given frame
+	 */
 	public float read(int index) {
 		// TODO catch exception and print understandable error message
 		return (float) this.sample.readDouble(index);

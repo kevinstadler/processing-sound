@@ -7,9 +7,13 @@ import processing.core.PApplet;
 /**
  * This is a simple triangle (or "saw") wave oscillator
  * @webref sound
- * @param parent typically use "this"
  **/
 public class TriOsc extends Oscillator<TriangleOscillator> {
+
+	/**
+	 * @webref sound
+	 * @param parent typically use "this"
+	 */
 	public TriOsc(PApplet parent) {
 		super(parent, new TriangleOscillator());
 	}

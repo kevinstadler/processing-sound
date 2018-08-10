@@ -6,13 +6,14 @@ import processing.core.PApplet;
 
 /**
  * This is a simple Pulse oscillator.
- * 
  * @webref sound
- * @param parent
- *            PApplet: typically use "this"
  **/
 public class Pulse extends Oscillator<PulseOscillator> {
 
+	/**
+	 * @webref sound
+	 * @param parent typically use "this"
+	 */
 	public Pulse(PApplet parent) {
 		super(parent, new PulseOscillator());
 	}

@@ -7,9 +7,13 @@ import processing.core.PApplet;
 /**
  * This is a simple Sine Wave Oscillator 
  * @webref sound
- * @param parent typically use "this"
  **/
 public class SinOsc extends Oscillator<SineOscillator> {
+
+	/**
+	 * @webref sound
+	 * @param parent typically use "this"
+	 */
 	public SinOsc(PApplet parent) {
 		super(parent, new SineOscillator());
 	}
