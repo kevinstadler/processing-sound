@@ -7,11 +7,11 @@ import processing.core.PApplet;
 /**
  * This is a simple triangle (or "saw") wave oscillator
  * @webref sound
- * @param parent PApplet: typically use "this"
+ * @param parent typically use "this"
  **/
 public class TriOsc extends Oscillator<TriangleOscillator> {
-	public TriOsc(PApplet theParent) {
-		super(theParent, new TriangleOscillator());
+	public TriOsc(PApplet parent) {
+		super(parent, new TriangleOscillator());
 	}
 
 	// Below are just duplicated methods from superclasses which are required
@@ -33,7 +33,7 @@ public class TriOsc extends Oscillator<TriangleOscillator> {
 	 * Starts the oscillator
 	 * @param freq The frequency value of the oscillator in Hz.
 	 * @param amp The amplitude of the oscillator as a value between 0.0 and 1.0.
-	 * @param add A value for modulating other audio signals.
+	 * @param add Offset the output of the oscillator by given value
 	 * @param pos The panoramic position of the oscillator as a float from -1.0 to 1.0.
 	 * @webref sound
 	 **/
@@ -46,7 +46,7 @@ public class TriOsc extends Oscillator<TriangleOscillator> {
 	 * @webref sound
 	 * @param freq The frequency value of the oscillator in Hz.
 	 * @param amp The amplitude of the oscillator as a value between 0.0 and 1.0.
-	 * @param add A value for modulating other audio signals.
+	 * @param add Offset the output of the oscillator by given value
 	 * @param pos The panoramic position of the oscillator as a float from -1.0 to 1.0.
 	 **/
 	public void set(float freq, float amp, float add, float pos) {
@@ -78,8 +78,7 @@ public class TriOsc extends Oscillator<TriangleOscillator> {
 	 * Offset the output of this generator by given value
 	 *
 	 * @webref sound
-	 * @param add
-	 *            A value for offsetting the audio signal.
+	 * @param add Offset the output of the oscillator by given value
 	 **/
 	public void add(float add) {
 		super.add(add);

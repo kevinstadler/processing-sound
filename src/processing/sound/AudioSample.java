@@ -36,10 +36,9 @@ public class AudioSample extends SoundObject {
 	 * Allocate a new audiosample buffer with the given number of frames.
 	 *
 	 * @param parent typically use "this"
-	 * @param data FIXME this parameter is not showing up in the web documentation because it is not actually present in the constructor that this JavaDoc is for
 	 * @param frames The desired number of frames for this audiosample
 	 * @param frameRate The underlying frame rate of the sample (default: 44100)
-	 * @param stereo boolean: whether to treat the audiosample as 2-channel (stereo) or not.
+	 * @param stereo whether to treat the audiosample as 2-channel (stereo) or not.
 	 * @webref sound
 	 */
 	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
@@ -53,6 +52,11 @@ public class AudioSample extends SoundObject {
 	// duration)?
 	// risk of accidental overloading through int/float, but could be interesting..
 
+	/**
+	 * @param data an array of float values to be used as this audiosample's sound data.
+	 * The audiosample will consequently have as many frames as the length of the given array.
+	 * @webref sound
+	 */
 	public AudioSample(PApplet parent, float[] data) {
 		this(parent, data, false);
 	}
