@@ -83,7 +83,7 @@ public abstract class SoundObject {
 	 *            The panoramic position of this sound unit as a float from -1.0
 	 *            (left) to 1.0 (right).
 	 **/
-	public final void pan(float pos) {
+	public void pan(float pos) {
 		if (this.circuit.processor == null) {
 			Engine.printError("stereo sound sources do not support panning");
 		} else if (Engine.checkPan(pos)) {
@@ -143,8 +143,6 @@ public abstract class SoundObject {
 
 		} else {
 			this.circuit.removeEffect();
-			Engine.getEngine().remove(effect.left);
-			Engine.getEngine().remove(effect.right);
 		}
 	}
 }

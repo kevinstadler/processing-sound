@@ -10,21 +10,27 @@ import com.jsyn.unitgen.UnitFilter;
 import processing.core.PApplet;
 
 /**
- * A helper class for applying the same effect (with the same parameters) on two channels.
- * @param <EffectType>
+ * For advanced users: common superclass of all effect types
  */
-abstract class Effect<EffectType extends UnitFilter> {
+// helper class for applying the same effect (with the same parameters) on two channels.
+// a basic design question is what to do if the same effect is applied to several different
+// input sources -- do we consider them all to feed into the same effect
+// unit(s), or should we instantiate new units every time process() is called?
+// presently all input sources get connected to the same two left/right effect
+// units, where their input signals are automatically added together. calling
+// stop() on the effect also disconnects all input sources before removing the
+// effect from the synthesis.
+public abstract class Effect<EffectType extends UnitFilter> {
 
+	// store references to all input sources
 	protected Set<SoundObject> inputs = new HashSet<SoundObject>();
 
-	// FIXME what do we do if the same effect is applied to several different
-	// input sources -- do we consider them all to feed into the same effect
-	// unit(s), or should we instantiate new units every time process() is called?
 	protected EffectType left;
 	protected EffectType right;
 	protected UnitOutputPort output;
 
-	Effect(PApplet parent) {
+	// invoked by subclasses
+	protected Effect(PApplet parent) {
 		Engine.getEngine(parent);
 		this.left = this.newInstance();
 		this.right = this.newInstance();
@@ -35,6 +41,14 @@ abstract class Effect<EffectType extends UnitFilter> {
 	}
 
 	protected abstract EffectType newInstance();
+
+	/**
+	 * Get information on whether this effect is currently active.
+	 * @return true if this effect is currently processing at least one sound source
+	 */
+	public boolean isProcessing() {
+		return ! this.inputs.isEmpty();
+	}
 
 	/**
 	* Start the Filter
@@ -61,6 +75,8 @@ abstract class Effect<EffectType extends UnitFilter> {
 				o.removeEffect(this);
 			}
 			this.inputs.clear();
+			Engine.getEngine().remove(this.left);
+			Engine.getEngine().remove(this.right);
 		}
 	}
 }

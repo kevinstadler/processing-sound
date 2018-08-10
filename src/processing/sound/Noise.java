@@ -5,7 +5,10 @@ import com.jsyn.unitgen.UnitSource;
 
 import processing.core.PApplet;
 
-abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
+/**
+ * For advanced users: common superclass of all noise generators
+ */
+public abstract class Noise<JSynNoise extends UnitGenerator> extends SoundObject {
 
 	protected JSynNoise noise;
 

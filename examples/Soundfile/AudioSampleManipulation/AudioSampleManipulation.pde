@@ -38,9 +38,9 @@ void mousePressed() {
   int j = int(random(0, sample.frames()));
 
   // Read a frame each from their respective positions
-  float onevalue = sample.readFrame(i);
-  float othervalue = sample.readFrame(j);
+  float onevalue = sample.read(i);
+  float othervalue = sample.read(j);
   // and write them back the other way around
-  sample.writeFrame(i, othervalue);
-  sample.writeFrame(j, onevalue);
+  sample.write(i, othervalue);
+  sample.write(j, onevalue);
 }

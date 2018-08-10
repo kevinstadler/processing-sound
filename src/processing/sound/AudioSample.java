@@ -24,21 +24,6 @@ public class AudioSample extends SoundObject {
 
 	protected int startFrame = 0;
 
-	/**
-	 * Allocate a new audiosample buffer with the given number of frames.
-	 *
-	 * @param parent
-	 *            PApplet: typically use "this"
-	 * @param data
-	 * @param frames
-	 *            The desired number of frames for this audiosample
-	 * @param frameRate
-	 *            The underlying frame rate of the sample (default: 44100)
-	 * @param stereo
-	 *            boolean: whether to treat the audiosample as 2-channel (stereo) or
-	 *            not.
-	 * @webref sound
-	 */
 	public AudioSample(PApplet parent, int frames) {
 		this(parent, frames, false);
 	}
@@ -47,6 +32,16 @@ public class AudioSample extends SoundObject {
 		this(parent, frames, false, 44100); // read current framerate from Engine instead?
 	}
 
+	/**
+	 * Allocate a new audiosample buffer with the given number of frames.
+	 *
+	 * @param parent typically use "this"
+	 * @param data FIXME this parameter is not showing up in the web documentation because it is not actually present in the constructor that this JavaDoc is for
+	 * @param frames The desired number of frames for this audiosample
+	 * @param frameRate The underlying frame rate of the sample (default: 44100)
+	 * @param stereo boolean: whether to treat the audiosample as 2-channel (stereo) or not.
+	 * @webref sound
+	 */
 	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
 		super(parent);
 		this.sample = new FloatSample(frames, stereo ? 2 : 1);
@@ -467,7 +462,7 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
-	public float readFrame(int index) {
+	public float read(int index) {
 		// TODO catch exception and print understandable error message
 		return (float) this.sample.readDouble(index);
 	}
@@ -503,7 +498,7 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
-	public void writeFrame(int index, float value) {
+	public void write(int index, float value) {
 		if (this.checkStartFrame(startFrame)) {
 			this.sample.writeDouble(index, value);
 		}
