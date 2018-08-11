@@ -12,8 +12,8 @@ public class WhiteNoise extends Noise<com.jsyn.unitgen.WhiteNoise> {
 	 * @param parent typically use "this"	
 	 * @webref sound
 	 */
-	public WhiteNoise(PApplet theParent) {
-		super(theParent, new com.jsyn.unitgen.WhiteNoise());
+	public WhiteNoise(PApplet parent) {
+		super(parent, new com.jsyn.unitgen.WhiteNoise());
 		this.amplitude = this.noise.amplitude;
 	}
 
