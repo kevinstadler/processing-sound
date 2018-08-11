@@ -445,6 +445,8 @@ public class AudioSample extends SoundObject {
 	 * Get the current sample data and write it into the given array. The array has
 	 * to be able to store as many floats as there are frames in this sample (or
 	 * twice as many if this is a stereo sample).
+	 * @param data
+	 *            the target array that the read data is written to
 	 */
 	public void read(float[] data) {
 		if (data.length != this.frames()) {
@@ -458,8 +460,6 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Read some frames of this audio sample into the given array.
 	 *
-	 * @param data
-	 *            the target array that the read data is written to
 	 * @param startFrame
 	 *            the number of the first frame of the audiosample that should be
 	 *            read
@@ -524,6 +524,10 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
+	/**
+	 * @param index
+	 * @param value
+	 */
 	public void write(int index, float value) {
 		if (this.checkStartFrame(startFrame)) {
 			this.sample.writeDouble(index, value);
