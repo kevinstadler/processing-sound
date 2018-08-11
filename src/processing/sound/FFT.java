@@ -10,12 +10,6 @@ import processing.core.PApplet;
  * method.
  * 
  * @webref sound
- * @param parent
- *            PApplet: typically use "this"
- * @param bands
- *            Number of frequency bands for the FFT as an integer, default: 512.
- *            This parameter needs to be a power of 2 (e.g. 16, 32, 64, 128,
- *            ...).
  **/
 public class FFT extends Analyzer {
 
@@ -27,7 +21,15 @@ public class FFT extends Analyzer {
 		this(parent, 512);
 	}
 
-	// this is really the number of bins, NOT the fftSize
+	/**
+	 * @param parent
+	 *            typically use "this"
+	 * @param bands
+	 *            Number of frequency bands for the FFT as an integer, default: 512.
+	 *            This parameter needs to be a power of 2 (e.g. 16, 32, 64, 128,
+	 *            ...).
+	 * @webref sound
+	 */
 	public FFT(PApplet parent, int bands) {
 		super(parent);
 		if (bands < 0 || Integer.bitCount(bands) != 1) {
@@ -78,5 +80,20 @@ public class FFT extends Analyzer {
 		}
 		this.fft.calculateMagnitudes(value);
 		return value;
+	}
+
+	// Below are just duplicated methods from superclasses which are required
+	// for the online reference to build the corresponding pages.
+
+	/**
+	 * Define the audio input for the analyzer.
+	 * 
+	 * @param input
+	 *            the input sound source. Can be an oscillator, noise generator,
+	 *            SoundFile or AudioIn.
+	 * @webref sound
+	 **/
+	public void input(SoundObject input) {
+		super.input(input);
 	}
 }

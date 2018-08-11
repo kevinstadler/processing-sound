@@ -10,13 +10,15 @@ import processing.core.PApplet;
  * amplitude of each audio block and returns that value.
  * 
  * @webref sound
- * @param parent
- *            PApplet: typically use "this"
  */
 public class Amplitude extends Analyzer {
 
 	private PeakFollower follower;
 
+	/**
+	 * @param parent typically use "this"
+	 * @webref sound
+	 */
 	public Amplitude(PApplet parent) {
 		super(parent);
 		this.follower = new PeakFollower();
@@ -43,5 +45,21 @@ public class Amplitude extends Analyzer {
 	public float analyze() {
 		// TODO check if input exists, print warning if not
 		return (float) this.follower.current.getValue();
+	}
+
+
+	// Below are just duplicated methods from superclasses which are required
+	// for the online reference to build the corresponding pages.
+
+	/**
+	 * Define the audio input for the analyzer.
+	 * 
+	 * @param input
+	 *            the input sound source. Can be an oscillator, noise generator,
+	 *            SoundFile or AudioIn.
+	 * @webref sound
+	 **/
+	public void input(SoundObject input) {
+		super.input(input);
 	}
 }

@@ -15,7 +15,6 @@ abstract class Analyzer {
 	/**
 	 * Define the audio input for the analyzer.
 	 * 
-	 * @webref sound
 	 * @param input The input sound source
 	 **/
 	public void input(SoundObject input) {
