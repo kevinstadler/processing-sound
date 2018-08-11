@@ -116,6 +116,14 @@ public class AudioSample extends SoundObject {
 		super.play(); // doesn't actually start playback, just adds the (silent) units
 	}
 
+	/**
+	 * Change the amplitude/volume of this audiosample.
+	 *
+	 * @param amp
+	 *            A float value between 0.0 (complete silence) and 1.0 (full volume)
+	 *            controlling the amplitude/volume of this sound.
+	 * @webref sound
+	 **/
 	public void amp(float amp) {
 		if (Engine.checkAmp(amp)) {
 			this.player.amplitude.set(amp);
@@ -125,9 +133,9 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Returns the number of channels in the audiosample.
 	 * 
-	 * @webref sound
 	 * @return Returns the number of channels in the audiosample (1 for mono, 2 for
 	 *         stereo)
+	 * @webref sound
 	 **/
 	public int channels() {
 		return this.sample.getChannelsPerFrame();
@@ -136,9 +144,10 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Cues the playhead to a fixed position in the audiosample.
 	 * 
-	 * @webref sound
 	 * @param time
-	 *            Position to start from in seconds.
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds.
+	 * @webref sound
 	 **/
 	public void cue(float time) {
 		this.setStartTime(time);
@@ -214,7 +223,7 @@ public class AudioSample extends SoundObject {
 	// library triggered a second (concurrent) playback. with JSyn, every data
 	// reader can only do one playback at a time, so if the present player
 	// is busy we need to create a new one with the exact same settings and
-	// trigger it instead
+	// trigger it instead (see JSyn's VoiceAllocator class)
 	protected AudioSample getUnusedPlayer() {
 		// TODO could implement a more intelligent player allocation pool method here to
 		// limit the total number of playback voices
@@ -227,11 +236,6 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
-	/**
-	 * Starts playback which will loop at the end of the sample.
-	 * 
-	 * @webref sound
-	 **/
 	public void loop() {
 		AudioSample source = this.getUnusedPlayer();
 		source.player.dataQueue.queueLoop(source.sample, source.startFrame, source.frames() - source.startFrame);
@@ -261,16 +265,31 @@ public class AudioSample extends SoundObject {
 		this.loop(rate, pos, amp);
 	}
 
+	/**
+	 * Starts playback which will loop at the end of the sample.
+	 * 
+	 * @param rate
+	 *            relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono audiosamples!
+	 * @param amp
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param add
+	 *            offset the output of the generator by the given value
+	 * @param cue
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds.
+	 * @webref sound
+	 */
 	public void loop(float rate, float pos, float amp, float add, float cue) {
 		this.cue(cue);
 		this.loop(rate, pos, amp, add);
 	}
 
-	/**
-	 * Starts the playback of the audiosample. Only plays the audiosample once.
-	 * 
-	 * @webref sound
-	 **/
 	public void play() {
 		AudioSample source = this.getUnusedPlayer();
 		source.player.dataQueue.queue(source.sample, source.startFrame, source.frames() - source.startFrame);
@@ -300,6 +319,27 @@ public class AudioSample extends SoundObject {
 		this.play(rate, pos, amp);
 	}
 
+	/**
+	 * Starts the playback of the audiosample from the cued position. Only plays to
+	 * the end of the audiosample once.
+	 * 
+	 * @param rate
+	 *            relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono audiosamples!
+	 * @param amp
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param add
+	 *            offset the output of the generator by the given value
+	 * @param cue
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds.
+	 * @webref sound
+	 **/
 	public void play(float rate, float pos, float amp, float add, float cue) {
 		this.cue(cue);
 		this.play(rate, pos, amp, add);
@@ -346,17 +386,33 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
+	 * Move the sound in a stereo panorama. Only works for mono audiosamples!
+	 *
+	 * @webref sound
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right).
+	 **/
+	public void pan(float pos) {
+		super.pan(pos);
+	}
+
+	/**
 	 * Set multiple parameters at once
 	 * 
 	 * @webref sound
 	 * @param rate
-	 *            The playback rate of the original file.
+	 *            Relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
 	 * @param pos
-	 *            The panoramic position of the player as a float from -1.0 to 1.0.
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right).
 	 * @param amp
-	 *            The amplitude of the player as a value between 0.0 and 1.0.
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
 	 * @param add
-	 *            A value for modulating other audio signals.
+	 *            offset the output of the generator by the given value
 	 **/
 	public void set(float rate, float pos, float amp, float add) {
 		this.rate(rate);
@@ -445,6 +501,7 @@ public class AudioSample extends SoundObject {
 	 * Get the current sample data and write it into the given array. The array has
 	 * to be able to store as many floats as there are frames in this sample (or
 	 * twice as many if this is a stereo sample).
+	 * 
 	 * @param data
 	 *            the target array that the read data is written to
 	 */
@@ -485,7 +542,9 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * @param index the index of the single frame of the audiosample that should be read and returned as a float
+	 * @param index
+	 *            the index of the single frame of the audiosample that should be
+	 *            read and returned as a float
 	 * @return the value of the audio sample at the given frame
 	 */
 	public float read(int index) {

@@ -17,19 +17,20 @@ import processing.core.PApplet;
  * This is a Soundfile player which allows to play back and manipulate sound files.
  * Supported formats are: WAV, AIF/AIFF, and MP3.
  * @webref sound
- * @param parent PApplet: typically use "this"
- * @param path Filename of the sound file to be loaded
  **/
 public class SoundFile extends AudioSample {
-
-	// array of UnitVoices each with a VariableRateStereoReader in
-	//	private static VoiceAllocator PLAYERS = new VoiceAllocator(null);
 
 	private static Map<String,FloatSample> SAMPLECACHE = new HashMap<String,FloatSample>();
 
 	// the original library only printed an error if the file wasn't found,
 	// but then later threw a NullPointerException when trying to play() the file.
-	// this implementation will already throw an Exception upon failing to load.
+	// it might be a better idea to throw an exception to the user in some cases,
+	// e.g. when the file can't be found?
+	/**
+	 * @param parent typically use "this"
+	 * @param path filename of the sound file to be loaded
+	 * @webref sound
+	 */
 	public SoundFile(PApplet parent, String path) {
 		super(parent);
 
@@ -82,8 +83,9 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Cues the playhead to a fixed position in the soundfile.
+	 * @param time
+	 *            position in the soundfile that the next playback or loop should start from, in seconds.
 	 * @webref sound
-	 * @param time Position to start from in seconds.
 	 **/
 	public void cue(float time) {
 		super.cue(time);
@@ -115,16 +117,51 @@ public class SoundFile extends AudioSample {
 	public void loop() {
 		super.loop();
 	}
-	// TODO also need to duplicate other superclass signatures to be included in online reference?
-	// e.g.:
-//	public void loop(float rate, float pos, float amp, float add, float cue) {
-//		super.loop(rate, pos, amp, add, cue);
-//	}
+
+	public void loop(float rate) {
+		super.loop(rate);
+	}
+
+	public void loop(float rate, float amp) {
+		super.loop(rate, amp);
+	}
+
+	public void loop(float rate, float pos, float amp) {
+		super.loop(rate, pos, amp);
+	}
+
+	public void loop(float rate, float pos, float amp, float add) {
+		super.loop(rate, pos, amp, add);
+	}
+
+	/**
+	 * Starts playback which will loop at the end of the sample.
+	 * 
+	 * @param rate
+	 *            relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono soundfiles!
+	 * @param amp
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param add
+	 *            offset the output of the generator by the given value
+	 * @param cue
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds.
+	 * @webref sound
+	 */
+	public void loop(float rate, float pos, float amp, float add, float cue) {
+		super.loop(rate, pos, amp, add, cue);
+	}
 
 	/**
 	 * Jump to a specific position in the soundfile while continuing to play.
 	 * @webref sound
-	 * @param time Position to jump to as a float in seconds.
+	 * @param time position to jump to, in seconds.
 	 **/
 	public void jump(float time) {
 		super.jump(time);
@@ -140,14 +177,84 @@ public class SoundFile extends AudioSample {
 		super.pause();
 	}
 
-	/**
-	 * Starts the playback of the soundfile. Only plays the soundfile once.
-	 * @webref sound
-	 **/
 	public void play() {
 		super.play();
 	}
-	// TODO also need to duplicate other superclass signatures to be included in online reference?
+
+	public void play(float rate) {
+		super.play(rate);
+	}
+
+	public void play(float rate, float amp) {
+		super.play(rate, amp);
+	}
+
+	public void play(float rate, float pos, float amp) {
+		super.play(rate, pos, amp);
+	}
+
+	public void play(float rate, float pos, float amp, float add) {
+		super.play(rate, pos, amp, add);
+	}
+
+	/**
+	 * Starts the playback of the soundfile from the cued position. Only plays to
+	 * the end of the audiosample once.
+	 * 
+	 * @param rate
+	 *            relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono soundfiles!
+	 * @param amp
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param add
+	 *            offset the output of the generator by the given value
+	 * @param cue
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds.
+	 * @webref sound
+	 **/
+	public void play(float rate, float pos, float amp, float add, float cue) {
+		super.play(rate, pos, amp, add, cue);
+	}
+
+	/**
+	 * Change the amplitude/volume of this audiosample.
+	 *
+	 * @param amp
+	 *            A float value between 0.0 (complete silence) and 1.0 (full volume)
+	 *            controlling the amplitude/volume of this sound.
+	 * @webref sound
+	 **/
+	public void amp(float amp) {
+		super.amp(amp);
+	}
+
+	/**
+	 * Returns the number of channels of the soundfile.
+	 * 
+	 * @return Returns the number of channels of the soundfile (1 for mono, 2 for
+	 *         stereo)
+	 * @webref sound
+	 **/
+	public int channels() {
+		return super.channels();
+	}
+
+	/**
+	 * Move the sound in a stereo panorama. Only works for mono soundfiles!
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right).
+	 * @webref sound
+	 **/
+	public void pan(float pos) {
+		super.pan(pos);
+	}
 
 	/**
 	 * Set the playback rate of the soundfile.
@@ -159,6 +266,7 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Stops the playback.
+	 * 
 	 * @see pause
 	 * @webref sound
 	 **/

@@ -5,14 +5,16 @@ import com.jsyn.unitgen.SineOscillator;
 import processing.core.PApplet;
 
 /**
- * This is a simple Sine Wave Oscillator 
+ * This is a simple Sine Wave Oscillator
+ *
  * @webref sound
  **/
 public class SinOsc extends Oscillator<SineOscillator> {
 
 	/**
 	 * @webref sound
-	 * @param parent typically use "this"
+	 * @param parent
+	 *            typically use "this"
 	 */
 	public SinOsc(PApplet parent) {
 		super(parent, new SineOscillator());
@@ -35,10 +37,16 @@ public class SinOsc extends Oscillator<SineOscillator> {
 
 	/**
 	 * Starts the oscillator
-	 * @param freq The frequency value of the oscillator in Hz.
-	 * @param amp The amplitude of the oscillator as a value between 0.0 and 1.0.
-	 * @param add Offset the output of the oscillator by given value
-	 * @param pos The panoramic position of the oscillator as a float from -1.0 to 1.0.
+	 *
+	 * @param freq
+	 *            The frequency value of the oscillator in Hz.
+	 * @param amp
+	 *            The amplitude of the oscillator as a value between 0.0 and 1.0.
+	 * @param add
+	 *            Offset the output of the oscillator by given value
+	 * @param pos
+	 *            The panoramic position of the oscillator as a float from -1.0 to
+	 *            1.0.
 	 * @webref sound
 	 **/
 	public void play(float freq, float amp, float add, float pos) {
@@ -47,20 +55,28 @@ public class SinOsc extends Oscillator<SineOscillator> {
 
 	/**
 	 * Set multiple parameters at once
+	 *
 	 * @webref sound
-	 * @param freq The frequency value of the oscillator in Hz.
-	 * @param amp The amplitude of the oscillator as a value between 0.0 and 1.0.
-	 * @param add Offset the output of the oscillator by given value
-	 * @param pos The panoramic position of the oscillator as a float from -1.0 to 1.0.
+	 * @param freq
+	 *            The frequency value of the oscillator in Hz.
+	 * @param amp
+	 *            The amplitude of the oscillator as a value between 0.0 and 1.0.
+	 * @param add
+	 *            Offset the output of the oscillator by given value
+	 * @param pos
+	 *            The panoramic position of the oscillator as a float from -1.0 to
+	 *            1.0.
 	 **/
 	public void set(float freq, float amp, float add, float pos) {
 		super.set(freq, amp, add, pos);
 	}
-	
+
 	/**
 	 * Set the frequency of the oscillator in Hz.
+	 *
 	 * @webref sound
-	 * @param freq A floating point value of the oscillator in Hz.
+	 * @param freq
+	 *            A floating point value of the oscillator in Hz.
 	 **/
 	public void freq(float freq) {
 		super.freq(freq);
@@ -82,7 +98,8 @@ public class SinOsc extends Oscillator<SineOscillator> {
 	 * Offset the output of this generator by given value
 	 *
 	 * @webref sound
-	 * @param add Offset the output of the oscillator by given value
+	 * @param add
+	 *            Offset the output of the oscillator by given value
 	 **/
 	public void add(float add) {
 		super.add(add);
@@ -93,8 +110,8 @@ public class SinOsc extends Oscillator<SineOscillator> {
 	 *
 	 * @webref sound
 	 * @param pos
-	 *            The panoramic position of this sound unit as a float from -1.0
-	 *            (left) to 1.0 (right).
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right).
 	 **/
 	public void pan(float pos) {
 		super.pan(pos);

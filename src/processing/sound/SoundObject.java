@@ -50,10 +50,10 @@ public abstract class SoundObject {
 	/**
 	 * Change the amplitude/volume of this sound.
 	 *
-	 * @webref sound
 	 * @param amp
 	 *            A float value between 0.0 (complete silence) and 1.0 (full volume)
 	 *            controlling the amplitude/volume of this sound.
+	 * @webref sound
 	 **/
 	public void amp(float amp) {
 		if (Engine.checkAmp(amp)) {
