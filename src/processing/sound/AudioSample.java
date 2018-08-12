@@ -29,7 +29,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	public AudioSample(PApplet parent, int frames, boolean stereo) {
-		this(parent, frames, false, 44100); // read current framerate from Engine instead?
+		this(parent, frames, stereo, 44100); // read current framerate from Engine instead?
 	}
 
 	/**
@@ -133,8 +133,7 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Returns the number of channels in the audiosample.
 	 * 
-	 * @return Returns the number of channels in the audiosample (1 for mono, 2 for
-	 *         stereo)
+	 * @return the number of channels in the audiosample (1 for mono, 2 for stereo)
 	 * @webref sound
 	 **/
 	public int channels() {
@@ -501,8 +500,7 @@ public class AudioSample extends SoundObject {
 	 * Get the current sample data and write it into the given array.
 	 *
 	 * Get the current sample data and write it into the given array. The array has
-	 * to be able to store as many floats as there are frames in this sample (or
-	 * twice as many if this is a stereo sample).
+	 * to be able to store as many floats as there are frames in this sample.
 	 *
 	 * @param data
 	 *            the target array that the read data is written to
@@ -520,7 +518,7 @@ public class AudioSample extends SoundObject {
 	 * Read some frames of this audio sample into an array.
 	 *
 	 * @param startFrame
-	 *            the number of the first frame of the audiosample that should be
+	 *            the index of the first frame of the audiosample that should be
 	 *            read
 	 * @param startIndex
 	 *            the position in the array where the first read frame should be
@@ -556,12 +554,10 @@ public class AudioSample extends SoundObject {
 
 	/**
 	 * Overwrite the sample with the data from the given array. The array can
-	 * contain up to as many floats as there are frames in this sample (or twice as
-	 * many if this is a stereo sample).
+	 * contain up to as many floats as there are frames in this sample.
 	 * 
 	 * @param data
 	 *            the array from which the sample data should be taken
-	 * @webref sound
 	 */
 	public void write(float[] data) {
 		if (data.length != this.frames()) {
@@ -571,6 +567,20 @@ public class AudioSample extends SoundObject {
 		this.sample.write(data);
 	}
 
+	/**
+	 * Write some frames of this audio sample.
+	 *
+	 * @param startFrame
+	 *            the index of the first frame of the audiosample that should be
+	 *            written to
+	 * @param startIndex
+	 *            the position in the array that the first value to write should be
+	 *            taken from (typically 0)
+	 * @param numFrames
+	 *            the number of frames that should be written (can't be greater than
+	 *            data.length - startIndex)
+	 * @webref sound
+	 */
 	public void write(int startFrame, float[] data, int startIndex, int numFrames) {
 		if (this.checkStartFrame(startFrame)) {
 			if (startFrame + numFrames < this.frames()) {
@@ -587,7 +597,10 @@ public class AudioSample extends SoundObject {
 
 	/**
 	 * @param index
+	 *            the index of the single frame of the audiosample that should be
+	 *            set to the given value
 	 * @param value
+	 *            the float value that the given audio frame should be set to
 	 */
 	public void write(int index, float value) {
 		if (this.checkStartFrame(startFrame)) {
