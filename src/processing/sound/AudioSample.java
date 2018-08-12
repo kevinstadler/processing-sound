@@ -498,10 +498,12 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
+	 * Get the current sample data and write it into the given array.
+	 *
 	 * Get the current sample data and write it into the given array. The array has
 	 * to be able to store as many floats as there are frames in this sample (or
 	 * twice as many if this is a stereo sample).
-	 * 
+	 *
 	 * @param data
 	 *            the target array that the read data is written to
 	 */
@@ -515,7 +517,7 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Read some frames of this audio sample into the given array.
+	 * Read some frames of this audio sample into an array.
 	 *
 	 * @param startFrame
 	 *            the number of the first frame of the audiosample that should be
