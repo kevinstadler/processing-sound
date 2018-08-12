@@ -434,13 +434,13 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Get current sound file playback position in seconds.
 	 * 
-	 * @return The current position of the sound file playback in seconds (TODO
-	 *         seconds at which sample rate?)
+	 * @return The current position of the sound file playback in seconds
 	 * @webref sound
 	 */
 	public float position() {
-		// progress in sample seconds or current-rate-playback seconds??
-		return this.player.dataQueue.getFrameCount() / (float) this.sampleRate();
+		// TODO progress in sample seconds or current-rate-playback seconds??
+		// TODO might have to offset getFrameCount by this.startFrame?
+		return (this.player.dataQueue.getFrameCount() % this.frames()) / (float) this.sampleRate();
 	}
 
 	/**
@@ -451,7 +451,8 @@ public class AudioSample extends SoundObject {
 	 * @webref sound
 	 */
 	public float percent() {
-		return 100f * this.player.dataQueue.getFrameCount() / (float) this.frames();
+		// TODO might have to offset getFrameCount by this.startFrame?
+		return 100f * (this.player.dataQueue.getFrameCount() % this.frames()) / (float) this.frames();
 	}
 
 	/**
@@ -466,14 +467,14 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Stop the playback of the file, but cue it to the current position so that the
-	 * next call to play() will continue playing where it left off.
+	 * Stop the playback of the sample, but cue it to the current position. The next
+	 * call to play() will continue playing where it left off.
 	 * 
 	 * @webref sound
 	 */
 	public void pause() {
 		if (this.isPlaying()) {
-			this.startFrame = (int) this.player.dataQueue.getFrameCount();
+			this.startFrame = (int) this.player.dataQueue.getFrameCount() % this.frames();
 			this.stop();
 		} else {
 			Engine.printWarning("audio sample is not currently playing");
