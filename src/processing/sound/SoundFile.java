@@ -14,21 +14,24 @@ import processing.core.PApplet;
 
 // calls to amp(), pan() etc affect both the LAST initiated and still running sample, AND all subsequently started ones
 /**
- * This is a Soundfile player which allows to play back and manipulate sound files.
- * Supported formats are: WAV, AIF/AIFF, and MP3.
+ * This is a Soundfile player which allows to play back and manipulate sound
+ * files. Supported formats are: WAV, AIF/AIFF, and MP3.
+ * 
  * @webref sound
  **/
 public class SoundFile extends AudioSample {
 
-	private static Map<String,FloatSample> SAMPLECACHE = new HashMap<String,FloatSample>();
+	private static Map<String, FloatSample> SAMPLECACHE = new HashMap<String, FloatSample>();
 
 	// the original library only printed an error if the file wasn't found,
 	// but then later threw a NullPointerException when trying to play() the file.
 	// it might be a better idea to throw an exception to the user in some cases,
 	// e.g. when the file can't be found?
 	/**
-	 * @param parent typically use "this"
-	 * @param path filename of the sound file to be loaded
+	 * @param parent
+	 *            typically use "this"
+	 * @param path
+	 *            filename of the sound file to be loaded
 	 * @webref sound
 	 */
 	public SoundFile(PApplet parent, String path) {
@@ -83,8 +86,10 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Cues the playhead to a fixed position in the soundfile.
+	 * 
 	 * @param time
-	 *            position in the soundfile that the next playback or loop should start from, in seconds.
+	 *            position in the soundfile that the next playback should start
+	 *            from, in seconds.
 	 * @webref sound
 	 **/
 	public void cue(float time) {
@@ -93,6 +98,7 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Returns the duration of the soundfile in seconds.
+	 * 
 	 * @webref sound
 	 * @return The duration of the soundfile in seconds.
 	 **/
@@ -102,6 +108,7 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Returns the number of frames of this soundfile.
+	 * 
 	 * @webref sound
 	 * @return The number of frames of this soundfile.
 	 * @see duration()
@@ -110,10 +117,6 @@ public class SoundFile extends AudioSample {
 		return super.frames();
 	}
 
-	/**
-	 * Starts playback which will loop at the end of the soundfile.
-	 * @webref sound
-	 **/	
 	public void loop() {
 		super.loop();
 	}
@@ -130,12 +133,8 @@ public class SoundFile extends AudioSample {
 		super.loop(rate, pos, amp);
 	}
 
-	public void loop(float rate, float pos, float amp, float add) {
-		super.loop(rate, pos, amp, add);
-	}
-
 	/**
-	 * Starts playback which will loop at the end of the sample.
+	 * Starts playback which will loop at the end of the soundfile.
 	 * 
 	 * @param rate
 	 *            relative playback rate to use. 1 is the original speed. 0.5 is
@@ -149,27 +148,37 @@ public class SoundFile extends AudioSample {
 	 *            0.0 (complete silence) to 1.0 (full volume)
 	 * @param add
 	 *            offset the output of the generator by the given value
-	 * @param cue
-	 *            position in the audiosample that the next playback or loop should
-	 *            start from, in seconds.
 	 * @webref sound
 	 */
-	public void loop(float rate, float pos, float amp, float add, float cue) {
-		super.loop(rate, pos, amp, add, cue);
+	public void loop(float rate, float pos, float amp, float add) {
+		super.loop(rate, pos, amp, add);
 	}
 
 	/**
+	 * FIXME see comment in AudioSample class
+	 * 
+	 * @param cue
+	 *            position in the audiosample that the next playback or loop should
+	 *            start from, in seconds. public void loop(float rate, float pos,
+	 *            float amp, float add, float cue) { super.loop(rate, pos, amp, add,
+	 *            cue); }
+	 */
+
+	/**
 	 * Jump to a specific position in the soundfile while continuing to play.
+	 * 
 	 * @webref sound
-	 * @param time position to jump to, in seconds.
+	 * @param time
+	 *            position to jump to, in seconds.
 	 **/
 	public void jump(float time) {
 		super.jump(time);
 	}
 
 	/**
-	 * Stop the playback of the file, but cue it to the current position so that
-	 * the next call to play() will continue playing where it left off.
+	 * Stop the playback of the file, but cue it to the current position so that the
+	 * next call to play() will continue playing where it left off.
+	 * 
 	 * @see stop
 	 * @webref sound
 	 */
@@ -247,6 +256,7 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Move the sound in a stereo panorama. Only works for mono soundfiles!
+	 * 
 	 * @param pos
 	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
 	 *            (right).
@@ -258,6 +268,11 @@ public class SoundFile extends AudioSample {
 
 	/**
 	 * Set the playback rate of the soundfile.
+	 * 
+	 * @param rate
+	 *            Relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
 	 * @webref sound
 	 **/
 	public void rate(float rate) {

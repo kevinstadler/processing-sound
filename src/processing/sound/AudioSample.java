@@ -38,11 +38,11 @@ public class AudioSample extends SoundObject {
 	 * @param parent
 	 *            typically use "this"
 	 * @param frames
-	 *            The desired number of frames for this audiosample
+	 *            the desired number of frames for this audiosample
 	 * @param frameRate
-	 *            The underlying frame rate of the sample (default: 44100)
+	 *            the underlying frame rate of the sample (default: 44100)
 	 * @param stereo
-	 *            whether to treat the audiosample as 2-channel (stereo) or not.
+	 *            whether to treat the audiosample as 2-channel (stereo) or not (default: false)
 	 * @webref sound
 	 */
 	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
@@ -144,8 +144,8 @@ public class AudioSample extends SoundObject {
 	 * Cues the playhead to a fixed position in the audiosample.
 	 * 
 	 * @param time
-	 *            position in the audiosample that the next playback or loop should
-	 *            start from, in seconds.
+	 *            position in the audiosample that the next playback should start
+	 *            from, in seconds.
 	 * @webref sound
 	 **/
 	public void cue(float time) {
@@ -157,7 +157,7 @@ public class AudioSample extends SoundObject {
 	 * 
 	 * @webref sound
 	 * @param frameNumber
-	 *            Frame number to start playback from.
+	 *            frame number to start playback from.
 	 **/
 	public void cueFrame(int frameNumber) {
 		this.setStartFrame(frameNumber);
@@ -207,9 +207,11 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Jump to a specific position in the audiosample while continuing to play.
 	 * 
-	 * @webref sound
 	 * @param time
-	 *            Position to jump to as a float in seconds.
+	 *            position to jump to, in seconds.
+	 * @see cue
+	 * @see play
+	 * @webref sound
 	 **/
 	public void jump(float time) {
 		if (this.setStartTime(time)) {
@@ -237,7 +239,7 @@ public class AudioSample extends SoundObject {
 
 	public void loop() {
 		AudioSample source = this.getUnusedPlayer();
-		source.player.dataQueue.queueLoop(source.sample, source.startFrame, source.frames() - source.startFrame);
+		source.player.dataQueue.queueLoop(source.sample, 0, source.frames() - source.startFrame);
 		// for improved handling by the user, could return a reference to whichever
 		// sound file is the source of the newly triggered playback
 		// return source;
@@ -259,11 +261,6 @@ public class AudioSample extends SoundObject {
 		this.loop(rate, amp);
 	}
 
-	public void loop(float rate, float pos, float amp, float add) {
-		this.add(add);
-		this.loop(rate, pos, amp);
-	}
-
 	/**
 	 * Starts playback which will loop at the end of the sample.
 	 * 
@@ -279,15 +276,23 @@ public class AudioSample extends SoundObject {
 	 *            0.0 (complete silence) to 1.0 (full volume)
 	 * @param add
 	 *            offset the output of the generator by the given value
-	 * @param cue
-	 *            position in the audiosample that the next playback or loop should
-	 *            start from, in seconds.
 	 * @webref sound
 	 */
-	public void loop(float rate, float pos, float amp, float add, float cue) {
-		this.cue(cue);
-		this.loop(rate, pos, amp, add);
+	public void loop(float rate, float pos, float amp, float add) {
+		this.add(add);
+		this.loop(rate, pos, amp);
 	}
+
+	/*
+	 * FIXME cueing a position for loops has to be handled differently than for
+	 * simple playback, because passing a startFrame to dataQueue.queueLoop() causes
+	 * repetitions of the loop to only ever be played from that position, instead of
+	 * jumping back to the very beginning of the sample after reaching the end
+	 * 
+	 * @param cue position in the audiosample that the loop should start from, in
+	 * seconds. public void loop(float rate, float pos, float amp, float add, float
+	 * cue) { this.cue(cue); this.loop(rate, pos, amp, add); }
+	 */
 
 	public void play() {
 		AudioSample source = this.getUnusedPlayer();
@@ -347,11 +352,11 @@ public class AudioSample extends SoundObject {
 	/**
 	 * Set the playback rate of the audiosample.
 	 * 
-	 * @webref sound
 	 * @param rate
 	 *            Relative playback rate to use. 1 is the original speed. 0.5 is
 	 *            half speed and one octave down. 2 is double the speed and one
 	 *            octave up.
+	 * @webref sound
 	 **/
 	public void rate(float rate) {
 		if (rate <= 0) {
@@ -362,16 +367,24 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
+	public void resize(int frames) {
+		this.resize(frames, false);
+	}
+
 	/**
 	 * Resizes the underlying buffer of the audiosample to the given number of
 	 * frames.
 	 * 
 	 * @param frames
+	 *            the desired number of frames for this audiosample
 	 * @param stereo
+	 *            whether to treat the audiosample as 2-channel (stereo) or not (default: false)
 	 * @webref sound
 	 */
 	public void resize(int frames, boolean stereo) {
+		this.stop();
 		this.sample.allocate(frames, stereo ? 2 : 1);
+		this.initiatePlayer(); // TODO re-initiation might be redundant
 	}
 
 	/**
@@ -467,9 +480,9 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Stop the playback of the sample, but cue it to the current position. The next
-	 * call to play() will continue playing where it left off.
+	 * Stop the playback of the sample, but cue it to the current position.
 	 * 
+	 * @see cue
 	 * @webref sound
 	 */
 	public void pause() {
