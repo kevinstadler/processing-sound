@@ -25,7 +25,7 @@ public class FFT extends Analyzer {
 	 * @param parent
 	 *            typically use "this"
 	 * @param bands
-	 *            Number of frequency bands for the FFT as an integer, default: 512.
+	 *            number of frequency bands for the FFT as an integer (default 512).
 	 *            This parameter needs to be a power of 2 (e.g. 16, 32, 64, 128,
 	 *            ...).
 	 * @webref sound
@@ -66,12 +66,13 @@ public class FFT extends Analyzer {
 	}
 
 	/**
-	 * Calculates the current frequency spectrum from the input source, writes it
-	 * into the given array, and returns it.
+	 * Calculates the current frequency spectrum from the input source.
 	 *
 	 * @param value
 	 *            an array with as many elements as this FFT analyzer's number of
 	 *            frequency bands
+	 * @return The current frequency spectrum of the input source. The array has as
+	 *         many elements as this FFT analyzer's number of frequency bands.
 	 * @webref sound
 	 **/
 	public float[] analyze(float[] value) {

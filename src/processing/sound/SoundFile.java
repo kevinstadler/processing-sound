@@ -207,24 +207,24 @@ public class SoundFile extends AudioSample {
 	}
 
 	/**
-	 * Starts the playback of the soundfile from the cued position. Only plays to
-	 * the end of the audiosample once.
+	 * Starts the playback of the soundfile. Only plays to the end of the
+	 * audiosample once.
 	 * 
 	 * @param rate
 	 *            relative playback rate to use. 1 is the original speed. 0.5 is
 	 *            half speed and one octave down. 2 is double the speed and one
 	 *            octave up.
-	 * @param pos
-	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
-	 *            (right). Only works for mono soundfiles!
 	 * @param amp
 	 *            the desired playback amplitude of the audiosample as a value from
 	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono soundfiles!
+	 * @param cue
+	 *            position in the audiosample that playback should start from, in
+	 *            seconds.
 	 * @param add
 	 *            offset the output of the generator by the given value
-	 * @param cue
-	 *            position in the audiosample that the next playback or loop should
-	 *            start from, in seconds.
 	 * @webref sound
 	 **/
 	public void play(float rate, float pos, float amp, float add, float cue) {

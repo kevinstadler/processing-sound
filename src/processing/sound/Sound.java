@@ -13,6 +13,7 @@ import processing.core.PApplet;
  *
  * Information on available input and output devices can be obtained by calling
  * Sound.list()
+ * 
  * @webref sound
  */
 public class Sound {
@@ -35,9 +36,13 @@ public class Sound {
 	 *            typically use "this"
 	 * @param sampleRate
 	 *            the sample rate to be used by the synthesis engine (default 44100)
-	 * @param outputDevice the device id of the sound card that sound should be played on
-	 * @param inputDevice the device id of the sound card from which sound should be captured
-	 * @param volume the overall output volume of the library (default 1.0)
+	 * @param outputDevice
+	 *            the device id of the sound card that sound should be played on
+	 * @param inputDevice
+	 *            the device id of the sound card from which sound should be
+	 *            captured
+	 * @param volume
+	 *            the overall output volume of the library (default 1.0)
 	 * @webref sound
 	 */
 	public Sound(PApplet parent, int sampleRate, int outputDevice, int inputDevice, float volume) {
@@ -95,11 +100,6 @@ public class Sound {
 	 * Choose the device (sound card) which should be used for grabbing audio input
 	 * using AudioIn.
 	 * 
-	 * Note that this setting affects the choice of sound card, which is not
-	 * necessarily the same as the number of the input channel. If your sound card
-	 * has more than one input channel, you can specify which channel to use in the
-	 * constructor of the AudioIn class.
-	 * 
 	 * @param deviceId
 	 *            the device id obtained from Sound.list()
 	 * @seealso Sound.list()
@@ -111,7 +111,7 @@ public class Sound {
 
 	/**
 	 * Choose the device (sound card) which the Sound library's audio output should
-	 * be sent to. The output device should support stereo output (2 channels).
+	 * be sent to.
 	 * 
 	 * @param deviceId
 	 *            the device id obtained from list()

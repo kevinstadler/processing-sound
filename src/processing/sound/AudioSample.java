@@ -42,7 +42,8 @@ public class AudioSample extends SoundObject {
 	 * @param frameRate
 	 *            the underlying frame rate of the sample (default: 44100)
 	 * @param stereo
-	 *            whether to treat the audiosample as 2-channel (stereo) or not (default: false)
+	 *            whether to treat the audiosample as 2-channel (stereo) or not
+	 *            (default: false)
 	 * @webref sound
 	 */
 	public AudioSample(PApplet parent, int frames, boolean stereo, int frameRate) {
@@ -324,24 +325,24 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Starts the playback of the audiosample from the cued position. Only plays to
-	 * the end of the audiosample once.
+	 * Starts the playback of the audiosample. Only plays to the end of the
+	 * audiosample once.
 	 * 
 	 * @param rate
 	 *            relative playback rate to use. 1 is the original speed. 0.5 is
 	 *            half speed and one octave down. 2 is double the speed and one
 	 *            octave up.
-	 * @param pos
-	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
-	 *            (right). Only works for mono audiosamples!
 	 * @param amp
 	 *            the desired playback amplitude of the audiosample as a value from
 	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono audiosamples!
+	 * @param cue
+	 *            position in the audiosample that playback should start from, in
+	 *            seconds.
 	 * @param add
 	 *            offset the output of the generator by the given value
-	 * @param cue
-	 *            position in the audiosample that the next playback or loop should
-	 *            start from, in seconds.
 	 * @webref sound
 	 **/
 	public void play(float rate, float pos, float amp, float add, float cue) {
@@ -378,7 +379,8 @@ public class AudioSample extends SoundObject {
 	 * @param frames
 	 *            the desired number of frames for this audiosample
 	 * @param stereo
-	 *            whether to treat the audiosample as 2-channel (stereo) or not (default: false)
+	 *            whether to treat the audiosample as 2-channel (stereo) or not
+	 *            (default: false)
 	 * @webref sound
 	 */
 	public void resize(int frames, boolean stereo) {
