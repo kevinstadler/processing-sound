@@ -26,10 +26,6 @@ public class Sound {
 		this.engine = Engine.getEngine(parent);
 	}
 
-	public Sound(PApplet parent, int sampleRate, int outputDevice, int inputDevice) {
-		this(parent, sampleRate, outputDevice, inputDevice, 1.0f);
-	}
-
 	/**
 	 * 
 	 * @param parent
@@ -79,6 +75,10 @@ public class Sound {
 		return devices;
 	}
 
+	public int sampleRate() {
+		return this.engine.getSampleRate();
+	}
+
 	/**
 	 * Get or set the internal sample rate of the synthesis engine.
 	 * 
@@ -87,10 +87,6 @@ public class Sound {
 	 * @return the internal sample rate used by the synthesis engine
 	 * @webref sound
 	 */
-	public int sampleRate() {
-		return this.engine.getSampleRate();
-	}
-
 	public int sampleRate(int sampleRate) {
 		this.engine.setSampleRate(sampleRate);
 		return this.sampleRate();

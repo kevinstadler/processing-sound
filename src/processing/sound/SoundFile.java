@@ -85,6 +85,17 @@ public class SoundFile extends AudioSample {
 	// are required for the reference to build the corresponding pages.
 
 	/**
+	 * Returns the number of channels of the soundfile.
+	 * 
+	 * @return Returns the number of channels of the soundfile (1 for mono, 2 for
+	 *         stereo)
+	 * @webref sound
+	 **/
+	public int channels() {
+		return super.channels();
+	}
+
+	/**
 	 * Cues the playhead to a fixed position in the soundfile.
 	 * 
 	 * @param time
@@ -115,6 +126,84 @@ public class SoundFile extends AudioSample {
 	 **/
 	public int frames() {
 		return super.frames();
+	}
+
+	public void play() {
+		super.play();
+	}
+
+	public void play(float rate) {
+		super.play(rate);
+	}
+
+	public void play(float rate, float amp) {
+		super.play(rate, amp);
+	}
+
+	public void play(float rate, float pos, float amp) {
+		super.play(rate, pos, amp);
+	}
+
+	public void play(float rate, float pos, float amp, float add) {
+		super.play(rate, pos, amp, add);
+	}
+
+	/**
+	 * Starts the playback of the soundfile. Only plays to the end of the
+	 * audiosample once.
+	 * 
+	 * @param rate
+	 *            relative playback rate to use. 1 is the original speed. 0.5 is
+	 *            half speed and one octave down. 2 is double the speed and one
+	 *            octave up.
+	 * @param amp
+	 *            the desired playback amplitude of the audiosample as a value from
+	 *            0.0 (complete silence) to 1.0 (full volume)
+	 * @param pos
+	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
+	 *            (right). Only works for mono soundfiles!
+	 * @param cue
+	 *            position in the audiosample that playback should start from, in
+	 *            seconds.
+	 * @param add
+	 *            offset the output of the generator by the given value
+	 * @webref sound
+	 **/
+	public void play(float rate, float pos, float amp, float add, float cue) {
+		super.play(rate, pos, amp, add, cue);
+	}
+
+
+	/**
+	 * Jump to a specific position in the soundfile while continuing to play.
+	 * 
+	 * @webref sound
+	 * @param time
+	 *            position to jump to, in seconds.
+	 **/
+	public void jump(float time) {
+		super.jump(time);
+	}
+
+	/**
+	 * Stop the playback of the file, but cue it to the current position so that the
+	 * next call to play() will continue playing where it left off.
+	 * 
+	 * @see stop
+	 * @webref sound
+	 */
+	public void pause() {
+		super.pause();
+	}
+
+	/**
+	 * Check whether this soundfile is currently playing.
+	 * 
+	 * @return `true` if the soundfile is currently playing, `false` if it is not.
+	 * @webref sound
+	 */
+	public boolean isPlaying() {
+		return super.isPlaying();
 	}
 
 	public void loop() {
@@ -165,73 +254,6 @@ public class SoundFile extends AudioSample {
 	 */
 
 	/**
-	 * Jump to a specific position in the soundfile while continuing to play.
-	 * 
-	 * @webref sound
-	 * @param time
-	 *            position to jump to, in seconds.
-	 **/
-	public void jump(float time) {
-		super.jump(time);
-	}
-
-	/**
-	 * Stop the playback of the file, but cue it to the current position so that the
-	 * next call to play() will continue playing where it left off.
-	 * 
-	 * @see stop
-	 * @webref sound
-	 */
-	public void pause() {
-		super.pause();
-	}
-
-	public void play() {
-		super.play();
-	}
-
-	public void play(float rate) {
-		super.play(rate);
-	}
-
-	public void play(float rate, float amp) {
-		super.play(rate, amp);
-	}
-
-	public void play(float rate, float pos, float amp) {
-		super.play(rate, pos, amp);
-	}
-
-	public void play(float rate, float pos, float amp, float add) {
-		super.play(rate, pos, amp, add);
-	}
-
-	/**
-	 * Starts the playback of the soundfile. Only plays to the end of the
-	 * audiosample once.
-	 * 
-	 * @param rate
-	 *            relative playback rate to use. 1 is the original speed. 0.5 is
-	 *            half speed and one octave down. 2 is double the speed and one
-	 *            octave up.
-	 * @param amp
-	 *            the desired playback amplitude of the audiosample as a value from
-	 *            0.0 (complete silence) to 1.0 (full volume)
-	 * @param pos
-	 *            the panoramic position of this sound unit from -1.0 (left) to 1.0
-	 *            (right). Only works for mono soundfiles!
-	 * @param cue
-	 *            position in the audiosample that playback should start from, in
-	 *            seconds.
-	 * @param add
-	 *            offset the output of the generator by the given value
-	 * @webref sound
-	 **/
-	public void play(float rate, float pos, float amp, float add, float cue) {
-		super.play(rate, pos, amp, add, cue);
-	}
-
-	/**
 	 * Change the amplitude/volume of this audiosample.
 	 *
 	 * @param amp
@@ -241,17 +263,6 @@ public class SoundFile extends AudioSample {
 	 **/
 	public void amp(float amp) {
 		super.amp(amp);
-	}
-
-	/**
-	 * Returns the number of channels of the soundfile.
-	 * 
-	 * @return Returns the number of channels of the soundfile (1 for mono, 2 for
-	 *         stereo)
-	 * @webref sound
-	 **/
-	public int channels() {
-		return super.channels();
 	}
 
 	/**
