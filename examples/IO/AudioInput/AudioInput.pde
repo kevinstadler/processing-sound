@@ -37,7 +37,6 @@ void draw() {
   // Adjust the volume of the audio input based on mouse position
   float inputLevel = map(mouseY, 0, height, 1.0, 0.0);
   input.amp(inputLevel);
-  println(inputLevel);
 
   // loudness.analyze() return a value between 0 and 1. To adjust
   // the scaling and mapping of an ellipse we scale from 0 to 0.5

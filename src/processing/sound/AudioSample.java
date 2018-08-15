@@ -185,6 +185,10 @@ public class AudioSample extends SoundObject {
 		return this.sample.getNumFrames();
 	}
 
+	public void resize(int frames) {
+		this.resize(frames, false);
+	}
+
 	private void setStartFrame(int frameNumber) {
 		if (this.checkStartFrame(frameNumber)) {
 			this.startFrame = frameNumber;
@@ -368,10 +372,6 @@ public class AudioSample extends SoundObject {
 		}
 	}
 
-	public void resize(int frames) {
-		this.resize(frames, false);
-	}
-
 	/**
 	 * Resizes the underlying buffer of the audiosample to the given number of
 	 * frames.
@@ -471,9 +471,9 @@ public class AudioSample extends SoundObject {
 	}
 
 	/**
-	 * Check whether this soundfile is currently playing.
+	 * Check whether this audiosample is currently playing.
 	 * 
-	 * @return `true` if the soundfile is currently playing, `false` if it is not.
+	 * @return `true` if the audiosample is currently playing, `false` if it is not.
 	 * @webref sound
 	 */
 	public boolean isPlaying() {
